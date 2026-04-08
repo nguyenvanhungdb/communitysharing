@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "770212525023",
+    "project_id": "community-sharing-app-cf025",
+    "storage_bucket": "community-sharing-app-cf025.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770212525023:android:812b178c6a9ec545f40a6a",
+        "android_client_info": {
+          "package_name": "com.example.communitysharing"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMjdwk7zn4634_0oPavzU8MjCaRDxQjPQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

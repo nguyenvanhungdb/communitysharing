@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="categoryChip">
+
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:padding">10dp</item>
+<!--        <item name="android:background">@drawable/bg_chip</item>-->
+
+    </style>
+</resources>

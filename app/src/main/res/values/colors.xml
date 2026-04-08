@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorBackground">#E8F5F0</color>
+    <color name="colorPrimary">#1A5C45</color>
+    <color name="colorPrimaryDark">#0D2E1E</color>
+    <color name="colorAccent">#2D7A5F</color>
+    <color name="colorCardBg">#C8EBE0</color>
+    <color name="colorInputBg">#D4EEE5</color>
+    <color name="colorTextDark">#0D2E1E</color>
+    <color name="colorTextHint">#7BA898</color>
+    <color name="colorTextGray">#5A8A7A</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorButtonGreen">#1A5C45</color>
+    <color name="colorButtonLight">#B8E0D2</color>
+    <color name="colorOrange">#E07830</color>
+    <color name="colorRed">#D94040</color>
+    <color name="colorStatusGreen">#2D7A5F</color>
+</resources>
