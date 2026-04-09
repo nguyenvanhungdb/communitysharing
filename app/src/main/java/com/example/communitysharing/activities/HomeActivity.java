@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import com.example.communitysharing.R;
 import com.example.communitysharing.fragments.ChatFragment;
 import com.example.communitysharing.fragments.HomeFragment;
+import com.example.communitysharing.fragments.ProfileFragment;
 import com.example.communitysharing.fragments.ShareFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -39,7 +40,7 @@ public class HomeActivity extends AppCompatActivity {
             } else if (id == R.id.nav_chat) {
                  fragment = new ChatFragment();
             } else if (id == R.id.nav_profile) {
-                // fragment = new ProfileFragment(); // làm sau
+                 fragment = new ProfileFragment();
             }
 
             if (fragment != null) {

@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.communitysharing.R;
 import com.example.communitysharing.activities.ChatDetailActivity;
 import com.example.communitysharing.adapter.NotificationAdapter;
+import com.example.communitysharing.models.HistoryItem;
 import com.example.communitysharing.models.Notification;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -88,6 +89,42 @@ public class NotificationFragment extends Fragment {
                 );
 
                 // Đánh dấu đã đọc
+                markAsRead(notif.getNotificationId());
+                Toast.makeText(getContext(),
+                        "Request accepted!", Toast.LENGTH_SHORT).show();
+
+                // Ghi history cho MÌNH (người share)
+                String historyId1 = mDatabase.child("history")
+                        .child(myUid).push().getKey();
+                HistoryItem myHistory = new HistoryItem(
+                        notif.getItemId(),
+                        notif.getItemName(),
+                        notif.getFromUserId(),
+                        notif.getFromUserName(),
+                        "in_progress",   // Đang tiến hành
+                        "shared"         // Mình là người share
+                );
+
+                myHistory.setHistoryId(historyId1);
+                mDatabase.child("history").child(myUid)
+                        .child(historyId1).setValue(myHistory);
+
+                // Ghi history cho NGƯỜI KIA (người nhận)
+                String historyId2 = mDatabase.child("history")
+                        .child(notif.getFromUserId()).push().getKey();
+                HistoryItem theirHistory = new HistoryItem(
+                        notif.getItemId(),
+                        notif.getItemName(),
+                        myUid,
+                        mAuth.getCurrentUser().getEmail(),
+                        "in_progress",   // Đang tiến hành
+                        "received"       // Họ là người nhận
+                );
+
+                theirHistory.setHistoryId(historyId2);
+                mDatabase.child("history").child(notif.getFromUserId())
+                        .child(historyId2).setValue(theirHistory);
+
                 markAsRead(notif.getNotificationId());
                 Toast.makeText(getContext(),
                         "Request accepted!", Toast.LENGTH_SHORT).show();

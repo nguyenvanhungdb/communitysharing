@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.communitysharing.R;
+import com.example.communitysharing.activities.ItemDetailActivity;
 import com.example.communitysharing.adapter.ItemAdapter;
 import com.example.communitysharing.models.Item;
 import com.google.firebase.database.DataSnapshot;
@@ -59,9 +60,9 @@ public class HomeFragment extends Fragment {
         // Setup Adapter
         adapter = new ItemAdapter(getContext(), itemList, item -> {
             // TODO: Mở ItemDetailActivity khi click
-//             Intent intent = new Intent(getContext(), ItemDetailActivity.class);
-//             intent.putExtra("itemId", item.getItemId());
-//             startActivity(intent);
+             Intent intent = new Intent(getContext(), ItemDetailActivity.class);
+             intent.putExtra("itemId", item.getItemId());
+             startActivity(intent);
         });
         rvItems.setAdapter(adapter);
 

@@ -15,4 +15,6 @@
     <color name="colorOrange">#E07830</color>
     <color name="colorRed">#D94040</color>
     <color name="colorStatusGreen">#2D7A5F</color>
+    <color name="colorSwitchOn">#1A5C45</color>
+    <color name="colorSwitchOff">#CCCCCC</color>
 </resources>
