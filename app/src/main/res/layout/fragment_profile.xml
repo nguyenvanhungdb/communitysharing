@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/colorBackground">
 
@@ -23,7 +24,7 @@
             android:background="@drawable/bg_avatar_circle"
             android:src="@android:drawable/ic_menu_myplaces"
             android:padding="8dp"
-            android:tint="@color/colorPrimary"/>
+            app:tint="@color/colorPrimary"/>
 
         <TextView
             android:layout_width="0dp"
@@ -35,24 +36,22 @@
             android:textColor="@color/colorTextDark"
             android:layout_marginStart="10dp"/>
 
-        <!-- Settings icon -->
         <ImageView
             android:id="@+id/ivSettings"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:src="@android:drawable/ic_menu_preferences"
-            android:tint="@color/colorPrimary"
+            app:tint="@color/colorPrimary"
             android:layout_marginEnd="12dp"
             android:clickable="true"
             android:focusable="true"/>
 
-        <!-- Bell icon -->
         <ImageView
             android:id="@+id/ivNotification"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:src="@android:drawable/ic_dialog_info"
-            android:tint="@color/colorPrimary"
+            app:tint="@color/colorPrimary"
             android:clickable="true"
             android:focusable="true"/>
     </LinearLayout>
@@ -77,8 +76,8 @@
                 android:paddingTop="8dp"
                 android:paddingBottom="20dp">
 
-                <!-- Avatar -->
-                <FrameLayout
+                <!-- Avatar dùng RelativeLayout thay FrameLayout -->
+                <RelativeLayout
                     android:layout_width="100dp"
                     android:layout_height="100dp">
 
@@ -89,27 +88,28 @@
                         android:background="@drawable/bg_avatar_circle"
                         android:src="@android:drawable/ic_menu_myplaces"
                         android:padding="20dp"
-                        android:tint="@color/colorPrimary"
+                        app:tint="@color/colorPrimary"
                         android:scaleType="centerCrop"/>
 
-                    <!-- Verified badge -->
+                    <!-- Verified badge góc dưới phải -->
                     <ImageView
                         android:id="@+id/ivVerified"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="bottom|end"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
                         android:src="@android:drawable/checkbox_on_background"
-                        android:tint="@color/colorPrimary"
+                        app:tint="@color/colorPrimary"
                         android:background="@drawable/bg_card_white"
                         android:padding="2dp"/>
-                </FrameLayout>
+                </RelativeLayout>
 
                 <!-- Full Name -->
                 <TextView
                     android:id="@+id/tvFullName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="User Name"
+                    android:text="Loading..."
                     android:textSize="24sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorTextDark"
@@ -127,7 +127,7 @@
                         android:layout_width="14dp"
                         android:layout_height="14dp"
                         android:src="@android:drawable/ic_menu_mapmode"
-                        android:tint="@color/colorTextGray"/>
+                        app:tint="@color/colorTextGray"/>
 
                     <TextView
                         android:id="@+id/tvAddress"
@@ -179,9 +179,9 @@
                     android:focusable="true"/>
             </LinearLayout>
 
-            <!-- Featured item (lớn) -->
-            <FrameLayout
-                android:id="@+id/flFeaturedItem"
+            <!-- Featured item dùng RelativeLayout -->
+            <RelativeLayout
+                android:id="@+id/rlFeaturedItem"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginStart="16dp"
@@ -198,37 +198,34 @@
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"/>
 
-                <!-- Overlay tối phía dưới -->
+                <!-- Overlay tối -->
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/bg_image_overlay"/>
 
-                <!-- Badge Active Share -->
-                <TextView
-                    android:id="@+id/tvFeaturedBadge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ACTIVE SHARE"
-                    android:textSize="10sp"
-                    android:textColor="@color/colorWhite"
-                    android:textStyle="bold"
-                    android:background="@drawable/bg_featured_badge"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"
-                    android:layout_gravity="bottom|start"
-                    android:layout_margin="12dp"/>
-
-                <!-- Title + subtitle -->
+                <!-- Badge + Title ở dưới -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_gravity="bottom"
-                    android:padding="12dp"
-                    android:paddingStart="12dp">
+                    android:layout_alignParentBottom="true"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/tvFeaturedBadge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ACTIVE SHARE"
+                        android:textSize="10sp"
+                        android:textColor="@color/colorWhite"
+                        android:textStyle="bold"
+                        android:background="@drawable/bg_featured_badge"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:layout_marginBottom="4dp"/>
 
                     <TextView
                         android:id="@+id/tvFeaturedTitle"
@@ -237,27 +234,27 @@
                         android:text="Item Title"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:textColor="@color/colorWhite"
-                        android:layout_marginTop="24dp"/>
+                        android:textColor="@color/colorWhite"/>
 
                     <TextView
                         android:id="@+id/tvFeaturedSubtitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Shared with • 2 days ago"
+                        android:text="Shared with community"
                         android:textSize="12sp"
                         android:textColor="#CCFFFFFF"/>
                 </LinearLayout>
 
-                <!-- Arrow icon -->
+                <!-- Arrow icon góc dưới phải -->
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_gravity="bottom|end"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
                     android:layout_margin="12dp"
                     android:src="@android:drawable/ic_media_next"
-                    android:tint="@color/colorWhite"/>
-            </FrameLayout>
+                    app:tint="@color/colorWhite"/>
+            </RelativeLayout>
 
             <!-- Grid 2 cột items -->
             <androidx.recyclerview.widget.RecyclerView
@@ -269,19 +266,23 @@
                 android:nestedScrollingEnabled="false"
                 android:clipToPadding="false"/>
 
-            <!-- My Posts button -->
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:background="@color/colorBackground"
+                android:layout_marginTop="16dp"/>
+
+            <!-- My Posts -->
             <LinearLayout
                 android:id="@+id/btnMyPosts"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="56dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:background="@drawable/bg_card_white"
+                android:background="@color/colorWhite"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp"
                 android:clickable="true"
                 android:focusable="true">
 
@@ -289,8 +290,8 @@
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:src="@android:drawable/ic_menu_agenda"
-                    android:tint="@color/colorPrimary"
-                    android:layout_marginEnd="12dp"/>
+                    app:tint="@color/colorPrimary"
+                    android:layout_marginEnd="14dp"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -305,22 +306,26 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@android:drawable/ic_media_next"
-                    android:tint="@color/colorTextHint"/>
+                    app:tint="@color/colorTextHint"/>
             </LinearLayout>
 
-            <!-- History button -->
+            <!-- Divider line -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorInputBg"
+                android:layout_marginStart="52dp"/>
+
+            <!-- History -->
             <LinearLayout
                 android:id="@+id/btnHistory"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="56dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:background="@drawable/bg_card_white"
+                android:background="@color/colorWhite"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp"
                 android:clickable="true"
                 android:focusable="true">
 
@@ -328,8 +333,8 @@
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:src="@android:drawable/ic_menu_recent_history"
-                    android:tint="@color/colorPrimary"
-                    android:layout_marginEnd="12dp"/>
+                    app:tint="@color/colorPrimary"
+                    android:layout_marginEnd="14dp"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -344,22 +349,26 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@android:drawable/ic_media_next"
-                    android:tint="@color/colorTextHint"/>
+                    app:tint="@color/colorTextHint"/>
             </LinearLayout>
 
-            <!-- Settings button -->
+            <!-- Divider line -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorInputBg"
+                android:layout_marginStart="52dp"/>
+
+            <!-- Settings -->
             <LinearLayout
                 android:id="@+id/btnSettings"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="56dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:background="@drawable/bg_card_white"
+                android:background="@color/colorWhite"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp"
                 android:clickable="true"
                 android:focusable="true">
 
@@ -367,8 +376,8 @@
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:src="@android:drawable/ic_menu_preferences"
-                    android:tint="@color/colorPrimary"
-                    android:layout_marginEnd="12dp"/>
+                    app:tint="@color/colorPrimary"
+                    android:layout_marginEnd="14dp"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -383,23 +392,27 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@android:drawable/ic_media_next"
-                    android:tint="@color/colorTextHint"/>
+                    app:tint="@color/colorTextHint"/>
             </LinearLayout>
 
-            <!-- Logout button -->
+            <!-- Divider line -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorInputBg"
+                android:layout_marginStart="52dp"/>
+
+            <!-- Logout -->
             <LinearLayout
                 android:id="@+id/btnLogout"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="56dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:background="@drawable/bg_card_white"
+                android:background="@color/colorWhite"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="32dp"
                 android:clickable="true"
                 android:focusable="true">
 
@@ -407,8 +420,8 @@
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:src="@android:drawable/ic_lock_power_off"
-                    android:tint="@color/colorRed"
-                    android:layout_marginEnd="12dp"/>
+                    app:tint="@color/colorRed"
+                    android:layout_marginEnd="14dp"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -423,7 +436,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@android:drawable/ic_media_next"
-                    android:tint="@color/colorRed"/>
+                    app:tint="@color/colorRed"/>
             </LinearLayout>
 
         </LinearLayout>

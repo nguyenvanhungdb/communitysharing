@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/colorBackground">
 
@@ -21,7 +22,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@android:drawable/ic_media_previous"
-            android:tint="@color/colorPrimary"
+            app:tint="@color/colorPrimary"
             android:padding="8dp"
             android:clickable="true"
             android:focusable="true"/>
@@ -32,7 +33,7 @@
             android:background="@drawable/bg_avatar_circle"
             android:src="@android:drawable/ic_menu_myplaces"
             android:padding="7dp"
-            android:tint="@color/colorPrimary"
+            app:tint="@color/colorPrimary"
             android:layout_marginEnd="10dp"/>
 
         <TextView
@@ -49,7 +50,7 @@
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:src="@android:drawable/ic_menu_search"
-            android:tint="@color/colorPrimary"
+            app:tint="@color/colorPrimary"
             android:clickable="true"
             android:focusable="true"/>
     </LinearLayout>
@@ -118,7 +119,7 @@
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:src="@android:drawable/ic_lock_idle_lock"
-                        android:tint="@color/colorPrimary"
+                        app:tint="@color/colorPrimary"
                         android:layout_marginEnd="14dp"/>
 
                     <LinearLayout
@@ -147,7 +148,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@android:drawable/ic_media_next"
-                        android:tint="@color/colorTextHint"/>
+                        app:tint="@color/colorTextHint"/>
                 </LinearLayout>
 
                 <!-- Divider -->
@@ -173,7 +174,7 @@
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:src="@android:drawable/ic_dialog_email"
-                        android:tint="@color/colorPrimary"
+                        app:tint="@color/colorPrimary"
                         android:layout_marginEnd="14dp"/>
 
                     <LinearLayout
@@ -203,7 +204,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@android:drawable/ic_media_next"
-                        android:tint="@color/colorTextHint"/>
+                        app:tint="@color/colorTextHint"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -241,7 +242,7 @@
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:src="@android:drawable/ic_menu_compass"
-                        android:tint="@color/colorPrimary"
+                        app:tint="@color/colorPrimary"
                         android:layout_marginEnd="14dp"/>
 
                     <LinearLayout
@@ -271,7 +272,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@android:drawable/arrow_down_float"
-                        android:tint="@color/colorTextHint"/>
+                        app:tint="@color/colorTextHint"/>
                 </LinearLayout>
 
                 <!-- Divider -->
@@ -294,7 +295,7 @@
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:src="@android:drawable/ic_menu_day"
-                        android:tint="@color/colorPrimary"
+                        app:tint="@color/colorPrimary"
                         android:layout_marginEnd="14dp"/>
 
                     <LinearLayout
@@ -360,7 +361,7 @@
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:src="@android:drawable/ic_dialog_info"
-                        android:tint="@color/colorPrimary"
+                        app:tint="@color/colorPrimary"
                         android:layout_marginEnd="14dp"/>
 
                     <LinearLayout
@@ -414,7 +415,7 @@
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:src="@android:drawable/ic_dialog_email"
-                        android:tint="@color/colorPrimary"
+                        app:tint="@color/colorPrimary"
                         android:layout_marginEnd="14dp"/>
 
                     <LinearLayout
@@ -492,7 +493,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@android:drawable/ic_lock_power_off"
-                    android:tint="@color/colorWhite"
+                    app:tint="@color/colorWhite"
                     android:layout_marginEnd="8dp"/>
 
                 <TextView

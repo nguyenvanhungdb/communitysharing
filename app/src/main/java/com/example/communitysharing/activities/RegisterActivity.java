@@ -170,13 +170,13 @@ public class RegisterActivity extends AppCompatActivity {
                                                 Toast.LENGTH_SHORT).show();
 
                                         // Chuyển sang HomeActivity (màn hình chính)
-//                                        Intent intent = new Intent(
-//                                                RegisterActivity.this,
-//                                                HomeActivity.class);
-//                                        // Xóa back stack để không quay lại Register
-//                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-//                                                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                                        startActivity(intent);
+                                        Intent intent = new Intent(
+                                                RegisterActivity.this,
+                                                HomeActivity.class);
+                                        // Xóa back stack để không quay lại Register
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                                                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(intent);
                                     } else {
                                         showError("Failed to save user data. Try again.");
                                         btnRegister.setEnabled(true);

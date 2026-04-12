@@ -330,26 +330,90 @@
                 </LinearLayout>
 
                 <!-- Location -->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:layout_marginBottom="16dp">-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="16dp"-->
+<!--                        android:layout_height="16dp"-->
+<!--                        android:src="@android:drawable/ic_menu_mapmode"-->
+<!--                        app:tint="@color/colorPrimary"/>-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tvLocation"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text=" Community • 0.8 miles away"-->
+<!--                        android:textSize="13sp"-->
+<!--                        android:textColor="@color/colorTextGray"/>-->
+<!--                </LinearLayout>-->
+
+                <!-- Location clickable → mở map -->
                 <LinearLayout
+                    android:id="@+id/llLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginBottom="16dp">
+                    android:background="@drawable/bg_card_white"
+                    android:padding="14dp"
+                    android:layout_marginBottom="16dp"
+                    android:clickable="true"
+                    android:focusable="true">
 
-                    <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:src="@android:drawable/ic_menu_mapmode"
-                        app:tint="@color/colorPrimary"/>
+                    <!-- Map preview thumbnail -->
+                    <FrameLayout
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/bg_featured_card"
+                        android:layout_marginEnd="12dp">
 
-                    <TextView
-                        android:id="@+id/tvLocation"
-                        android:layout_width="wrap_content"
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@android:drawable/ic_menu_mapmode"
+                            android:tint="@color/colorPrimary"
+                            android:padding="12dp"
+                            android:scaleType="centerInside"/>
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text=" Community • 0.8 miles away"
-                        android:textSize="13sp"
-                        android:textColor="@color/colorTextGray"/>
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pickup Location"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorTextDark"
+                            android:layout_marginBottom="2dp"/>
+
+                        <TextView
+                            android:id="@+id/tvLocation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Loading location..."
+                            android:textSize="12sp"
+                            android:textColor="@color/colorTextGray"
+                            android:maxLines="2"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tap to view on map →"
+                            android:textSize="11sp"
+                            android:textColor="@color/colorPrimary"
+                            android:textStyle="bold"
+                            android:layout_marginTop="4dp"/>
+                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>

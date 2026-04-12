@@ -10,6 +10,8 @@
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -21,12 +23,25 @@
         android:theme="@style/AppTheme"
         android:supportsRtl="true">
 
+        <!-- Google Maps API Key -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="YOUR_GOOGLE_MAPS_API_KEY"/>
+
+        <!-- Thêm MapActivity -->
+        <activity android:name=".activities.MapActivity"/>
+        <activity android:name=".activities.PickLocationActivity"/>
+
         <activity android:name=".activities.RegisterActivity"/>
         <activity android:name=".activities.ResetPasswordActivity"/>
         <activity android:name=".activities.MainActivity"/>
         <activity android:name=".activities.ChatDetailActivity"/>
         <activity android:name=".activities.HomeActivity"/>
         <activity android:name=".activities.ItemDetailActivity"/>
+
+        <activity
+            android:name=".activities.NewRequestActivity"
+            android:windowSoftInputMode="adjustResize"/>
 
 
         <provider

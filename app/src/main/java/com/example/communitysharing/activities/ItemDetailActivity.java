@@ -8,6 +8,7 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,10 +28,11 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ItemDetailActivity extends AppCompatActivity {
 
-    private ImageView ivBack, ivShare, ivFavorite, ivItemImage, ivOwnerAvatar;
+    private ImageView ivBack, ivShare, ivFavorite, ivItemImage;
     private TextView tvTitle, tvCategory, tvStatus;
     private TextView tvDescription, tvOwnerName, tvLocation;
     private TextView tvViewProfile;
+    private LinearLayout llLocation;
     private Button btnChat, btnRequestItem;
 
     private DatabaseReference mDatabase;
@@ -45,42 +47,30 @@ public class ItemDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
 
-        // Lấy itemId từ Intent
-        itemId = getIntent().getStringExtra("itemId");
-
+        itemId    = getIntent().getStringExtra("itemId");
         mAuth     = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        // Ánh xạ view
-        ivBack         = findViewById(R.id.ivBack);
-        ivShare        = findViewById(R.id.ivShare);
-        ivFavorite     = findViewById(R.id.ivFavorite);
-        ivItemImage    = findViewById(R.id.ivItemImage);
-        ivOwnerAvatar  = findViewById(R.id.ivOwnerAvatar);
-        tvTitle        = findViewById(R.id.tvTitle);
-        tvCategory     = findViewById(R.id.tvCategory);
-        tvStatus       = findViewById(R.id.tvStatus);
-        tvDescription  = findViewById(R.id.tvDescription);
-        tvOwnerName    = findViewById(R.id.tvOwnerName);
-        tvLocation     = findViewById(R.id.tvLocation);
-        tvViewProfile  = findViewById(R.id.tvViewProfile);
-        btnChat        = findViewById(R.id.btnChat);
+        // Ánh xạ
+        ivBack        = findViewById(R.id.ivBack);
+        ivShare       = findViewById(R.id.ivShare);
+        ivFavorite    = findViewById(R.id.ivFavorite);
+        ivItemImage   = findViewById(R.id.ivItemImage);
+        tvTitle       = findViewById(R.id.tvTitle);
+        tvCategory    = findViewById(R.id.tvCategory);
+        tvStatus      = findViewById(R.id.tvStatus);
+        tvDescription = findViewById(R.id.tvDescription);
+        tvOwnerName   = findViewById(R.id.tvOwnerName);
+        tvLocation    = findViewById(R.id.tvLocation);
+        llLocation    = findViewById(R.id.llLocation);
+        tvViewProfile = findViewById(R.id.tvViewProfile);
+        btnChat       = findViewById(R.id.btnChat);
         btnRequestItem = findViewById(R.id.btnRequestItem);
 
-        // Back
         ivBack.setOnClickListener(v -> finish());
-
-        // Toggle Favorite
         ivFavorite.setOnClickListener(v -> toggleFavorite());
 
-        // Load dữ liệu item từ Firebase
         loadItemDetail();
-
-        // Nút Chat
-        btnChat.setOnClickListener(v -> openChat());
-
-        // Nút Request Item
-        btnRequestItem.setOnClickListener(v -> requestItem());
     }
 
     private void loadItemDetail() {
@@ -91,38 +81,33 @@ public class ItemDetailActivity extends AppCompatActivity {
                         currentItem = snapshot.getValue(Item.class);
                         if (currentItem == null) return;
 
-                        // Null check title
+                        // Hiện data
                         String title = currentItem.getTitle() != null
                                 ? currentItem.getTitle() : "";
                         tvTitle.setText(title);
 
-                        // Null check category - đây là chỗ bị lỗi
-                        String category = currentItem.getCategory() != null
+                        String cat = currentItem.getCategory() != null
                                 ? currentItem.getCategory() : "";
-                        tvCategory.setText(category.isEmpty()
-                                ? "OTHER" : category.toUpperCase());
+                        tvCategory.setText(cat.isEmpty()
+                                ? "OTHER" : cat.toUpperCase());
 
-                        // Null check description
                         String desc = currentItem.getDescription() != null
                                 ? currentItem.getDescription() : "";
                         tvDescription.setText(desc);
 
-                        // Null check ownerName
-                        String ownerName = currentItem.getOwnerName() != null
+                        String owner = currentItem.getOwnerName() != null
                                 ? currentItem.getOwnerName() : "Unknown";
-                        tvOwnerName.setText(ownerName);
+                        tvOwnerName.setText(owner);
 
-                        // Null check address
-                        String address = currentItem.getAddress() != null
-                                ? currentItem.getAddress() : "";
-                        tvLocation.setText(" " + address);
+                        String addr = currentItem.getAddress() != null
+                                ? currentItem.getAddress() : "No address";
+                        tvLocation.setText(addr);
 
-                        // Null check status
                         String status = currentItem.getStatus() != null
                                 ? currentItem.getStatus() : "available";
                         updateStatusBadge(status);
 
-                        // Hiện ảnh từ Base64
+                        // Ảnh Base64
                         String imageUrl = currentItem.getImageUrl();
                         if (imageUrl != null && !imageUrl.isEmpty()) {
                             try {
@@ -135,26 +120,122 @@ public class ItemDetailActivity extends AppCompatActivity {
                                 ivItemImage.setImageResource(
                                         android.R.drawable.ic_menu_gallery);
                             }
-                        } else {
-                            ivItemImage.setImageResource(
-                                    android.R.drawable.ic_menu_gallery);
                         }
 
-                        // Ẩn nút nếu là item của chính mình
+                        // Click Location → mở MapActivity
+                        llLocation.setOnClickListener(v -> {
+                            if (currentItem.getLatitude() == 0
+                                    && currentItem.getLongitude() == 0) {
+                                Toast.makeText(ItemDetailActivity.this,
+                                        "No location available for this item",
+                                        Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            Intent intent = new Intent(
+                                    ItemDetailActivity.this,
+                                    MapActivity.class);
+                            intent.putExtra(MapActivity.EXTRA_ITEM_LAT,
+                                    currentItem.getLatitude());
+                            intent.putExtra(MapActivity.EXTRA_ITEM_LNG,
+                                    currentItem.getLongitude());
+                            intent.putExtra(MapActivity.EXTRA_ITEM_TITLE,
+                                    currentItem.getTitle());
+                            intent.putExtra(MapActivity.EXTRA_ITEM_ADDRESS,
+                                    currentItem.getAddress());
+                            intent.putExtra(MapActivity.EXTRA_ITEM_OWNER,
+                                    currentItem.getOwnerName());
+                            intent.putExtra(MapActivity.EXTRA_ITEM_IMAGE,
+                                    currentItem.getImageUrl());
+                            startActivity(intent);
+                        });
+
                         String myUid = mAuth.getCurrentUser().getUid();
+
+                        // Ẩn nút nếu là item của mình
                         if (currentItem.getOwnerId() != null
                                 && currentItem.getOwnerId().equals(myUid)) {
                             btnRequestItem.setVisibility(View.GONE);
                             btnChat.setVisibility(View.GONE);
+                            return;
                         }
+
+                        // Item không available → ẩn request
+                        if (!status.equals("available")) {
+                            btnRequestItem.setEnabled(false);
+                            btnRequestItem.setText("Not Available");
+                            btnRequestItem.setAlpha(0.5f);
+                        }
+
+                        // Nút CHAT → mở ChatDetailActivity trước
+                        btnChat.setOnClickListener(v -> {
+                            String convId = getChatId(myUid,
+                                    currentItem.getOwnerId());
+                            Intent intent = new Intent(
+                                    ItemDetailActivity.this,
+                                    ChatDetailActivity.class);
+                            intent.putExtra("conversationId", convId);
+                            intent.putExtra("otherUserId",
+                                    currentItem.getOwnerId());
+                            intent.putExtra("otherUserName",
+                                    currentItem.getOwnerName());
+                            // Truyền thêm itemId để hiện trong chat
+                            intent.putExtra("itemId", itemId);
+                            intent.putExtra("itemTitle",
+                                    currentItem.getTitle());
+                            startActivity(intent);
+                        });
+
+                        // Nút REQUEST ITEM → gửi yêu cầu
+                        btnRequestItem.setOnClickListener(v -> {
+                            if (!status.equals("available")) {
+                                Toast.makeText(ItemDetailActivity.this,
+                                        "This item is not available",
+                                        Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            sendBorrowRequest(myUid);
+                        });
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         Toast.makeText(ItemDetailActivity.this,
-                                "Failed to load item", Toast.LENGTH_SHORT).show();
+                                "Failed to load item",
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private void sendBorrowRequest(String myUid) {
+        // Disable nút
+        btnRequestItem.setEnabled(false);
+        btnRequestItem.setText("Sending...");
+
+        String myEmail = mAuth.getCurrentUser().getEmail();
+
+        // Gửi notification cho chủ item
+        NotificationFragment.sendNotification(
+                mDatabase,
+                currentItem.getOwnerId(),
+                "borrow_request",
+                "New Borrow Request",
+                myEmail + " wants to borrow your "
+                        + currentItem.getTitle()
+                        + ". Please check chat first.",
+                myUid,
+                itemId,
+                currentItem.getTitle()
+        );
+
+        // Cập nhật status → "requested"
+        mDatabase.child("items").child(itemId)
+                .child("status").setValue("requested");
+
+        Toast.makeText(this,
+                "Request sent! Chat with owner to confirm.",
+                Toast.LENGTH_LONG).show();
+
+        btnRequestItem.setText("Request Sent ✓");
     }
 
     private void updateStatusBadge(String status) {
@@ -164,8 +245,13 @@ public class ItemDetailActivity extends AppCompatActivity {
                 tvStatus.getBackground().setTint(
                         getResources().getColor(R.color.colorPrimary));
                 break;
+            case "requested":
+                tvStatus.setText("Requested");
+                tvStatus.getBackground().setTint(
+                        getResources().getColor(R.color.colorOrange));
+                break;
             case "borrowed":
-                tvStatus.setText("Currently Borrowed");
+                tvStatus.setText("Borrowed");
                 tvStatus.getBackground().setTint(
                         getResources().getColor(R.color.colorOrange));
                 break;
@@ -179,83 +265,15 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     private void toggleFavorite() {
         isFavorite = !isFavorite;
-        if (isFavorite) {
-            ivFavorite.setImageResource(
-                    android.R.drawable.btn_star_big_on);
-            Toast.makeText(this, "Added to favorites",
-                    Toast.LENGTH_SHORT).show();
-        } else {
-            ivFavorite.setImageResource(
-                    android.R.drawable.btn_star_big_off);
-            Toast.makeText(this, "Removed from favorites",
-                    Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void openChat() {
-        if (currentItem == null) return;
-
-        String myUid       = mAuth.getCurrentUser().getUid();
-        String ownerUid    = currentItem.getOwnerId();
-        String ownerName   = currentItem.getOwnerName();
-
-        // Tạo conversationId từ 2 uid
-        String convId = getChatId(myUid, ownerUid);
-
-        Intent intent = new Intent(this, ChatDetailActivity.class);
-        intent.putExtra("conversationId", convId);
-        intent.putExtra("otherUserId", ownerUid);
-        intent.putExtra("otherUserName", ownerName);
-        startActivity(intent);
-    }
-
-    private void requestItem() {
-        if (currentItem == null) return;
-
-        String myUid     = mAuth.getCurrentUser().getUid();
-        String myEmail   = mAuth.getCurrentUser().getEmail();
-        String ownerUid  = currentItem.getOwnerId();
-
-        // Không cho request item của chính mình
-        if (ownerUid.equals(myUid)) {
-            Toast.makeText(this, "This is your item!",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Item đã được mượn
-        if (!currentItem.getStatus().equals("available")) {
-            Toast.makeText(this, "This item is not available",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Disable nút tránh bấm nhiều lần
-        btnRequestItem.setEnabled(false);
-        btnRequestItem.setText("Requesting...");
-
-        // Gửi thông báo cho chủ item
-        NotificationFragment.sendNotification(
-                mDatabase,
-                ownerUid,                          // Gửi cho chủ item
-                "borrow_request",                  // Type
-                "New Borrow Request",              // Title
-                myEmail + " wants to borrow your "
-                        + currentItem.getTitle(),      // Message
-                myUid,                             // From
-                itemId,                            // ItemId
-                currentItem.getTitle()             // ItemName
-        );
-
+        ivFavorite.setImageResource(isFavorite
+                ? android.R.drawable.btn_star_big_on
+                : android.R.drawable.btn_star_big_off);
         Toast.makeText(this,
-                "Request sent! Waiting for approval.",
+                isFavorite ? "Added to favorites"
+                        : "Removed from favorites",
                 Toast.LENGTH_SHORT).show();
-
-        btnRequestItem.setEnabled(true);
-        btnRequestItem.setText("Request Sent ✓");
     }
 
-    // Tạo conversationId từ 2 uid
     private String getChatId(String uid1, String uid2) {
         if (uid1.compareTo(uid2) < 0) return uid1 + "_" + uid2;
         return uid2 + "_" + uid1;

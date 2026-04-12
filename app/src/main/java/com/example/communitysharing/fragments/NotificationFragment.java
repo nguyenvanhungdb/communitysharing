@@ -72,62 +72,127 @@ public class NotificationFragment extends Fragment {
         adapter = new NotificationAdapter(getContext(),
                 filteredList, new NotificationAdapter.OnNotifActionListener() {
 
-            @Override
-            public void onAccept(Notification notif) {
-                // Cập nhật trạng thái item thành "borrowed"
-                mDatabase.child("items").child(notif.getItemId())
-                        .child("status").setValue("borrowed");
+//            @Override
+//            public void onAccept(Notification notif) {
+//                // Cập nhật trạng thái item thành "borrowed"
+//                mDatabase.child("items").child(notif.getItemId())
+//                        .child("status").setValue("borrowed");
+//
+//                // Gửi thông báo lại cho người yêu cầu
+//                sendNotification(
+//                        notif.getFromUserId(),
+//                        "pickup_approved",
+//                        "Pickup Approved",
+//                        "Your request for " + notif.getItemName()
+//                                + " has been approved!",
+//                        myUid, notif.getItemId(), notif.getItemName()
+//                );
+//
+//                // Đánh dấu đã đọc
+//                markAsRead(notif.getNotificationId());
+//                Toast.makeText(getContext(),
+//                        "Request accepted!", Toast.LENGTH_SHORT).show();
+//
+//                // Ghi history cho MÌNH (người share)
+//                String historyId1 = mDatabase.child("history")
+//                        .child(myUid).push().getKey();
+//                HistoryItem myHistory = new HistoryItem(
+//                        notif.getItemId(),
+//                        notif.getItemName(),
+//                        notif.getFromUserId(),
+//                        notif.getFromUserName(),
+//                        "in_progress",   // Đang tiến hành
+//                        "shared"         // Mình là người share
+//                );
+//
+//                myHistory.setHistoryId(historyId1);
+//                mDatabase.child("history").child(myUid)
+//                        .child(historyId1).setValue(myHistory);
+//
+//                // Ghi history cho NGƯỜI KIA (người nhận)
+//                String historyId2 = mDatabase.child("history")
+//                        .child(notif.getFromUserId()).push().getKey();
+//                HistoryItem theirHistory = new HistoryItem(
+//                        notif.getItemId(),
+//                        notif.getItemName(),
+//                        myUid,
+//                        mAuth.getCurrentUser().getEmail(),
+//                        "in_progress",   // Đang tiến hành
+//                        "received"       // Họ là người nhận
+//                );
+//
+//                theirHistory.setHistoryId(historyId2);
+//                mDatabase.child("history").child(notif.getFromUserId())
+//                        .child(historyId2).setValue(theirHistory);
+//
+//                markAsRead(notif.getNotificationId());
+//                Toast.makeText(getContext(),
+//                        "Request accepted!", Toast.LENGTH_SHORT).show();
+//            }
+@Override
+public void onAccept(Notification notif) {
 
-                // Gửi thông báo lại cho người yêu cầu
-                sendNotification(
-                        notif.getFromUserId(),
-                        "pickup_approved",
-                        "Pickup Approved",
-                        "Your request for " + notif.getItemName()
-                                + " has been approved!",
-                        myUid, notif.getItemId(), notif.getItemName()
-                );
+    // 1. Đổi status item → "borrowed" → item biến mất khỏi Home
+    mDatabase.child("items")
+            .child(notif.getItemId())
+            .child("status")
+            .setValue("borrowed");
 
-                // Đánh dấu đã đọc
-                markAsRead(notif.getNotificationId());
-                Toast.makeText(getContext(),
-                        "Request accepted!", Toast.LENGTH_SHORT).show();
+    // 2. Gửi thông báo cho người yêu cầu
+    sendNotification(
+            notif.getFromUserId(),
+            "pickup_approved",
+            "Pickup Approved",
+            notif.getItemName()
+                    + " has been approved! Coordinate pickup in chat.",
+            myUid,
+            notif.getItemId(),
+            notif.getItemName()
+    );
 
-                // Ghi history cho MÌNH (người share)
-                String historyId1 = mDatabase.child("history")
+    // 3. Ghi history cho cả 2 bên
+    writeHistory(notif);
+
+    // 4. Đánh dấu notification đã đọc
+    markAsRead(notif.getNotificationId());
+
+    Toast.makeText(getContext(),
+            "Accepted! Item is now borrowed.",
+            Toast.LENGTH_SHORT).show();
+}
+
+            // Hàm ghi history
+            private void writeHistory(Notification notif) {
+                // History của mình (người share)
+                String histId1 = mDatabase.child("history")
                         .child(myUid).push().getKey();
-                HistoryItem myHistory = new HistoryItem(
-                        notif.getItemId(),
-                        notif.getItemName(),
-                        notif.getFromUserId(),
-                        notif.getFromUserName(),
-                        "in_progress",   // Đang tiến hành
-                        "shared"         // Mình là người share
-                );
-
-                myHistory.setHistoryId(historyId1);
+                HistoryItem myHistory =
+                        new HistoryItem(
+                                notif.getItemId(),
+                                notif.getItemName(),
+                                notif.getFromUserId(),
+                                notif.getFromUserName(),
+                                "in_progress",
+                                "shared");
+                myHistory.setHistoryId(histId1);
                 mDatabase.child("history").child(myUid)
-                        .child(historyId1).setValue(myHistory);
+                        .child(histId1).setValue(myHistory);
 
-                // Ghi history cho NGƯỜI KIA (người nhận)
-                String historyId2 = mDatabase.child("history")
+                // History của người nhận
+                String histId2 = mDatabase.child("history")
                         .child(notif.getFromUserId()).push().getKey();
-                HistoryItem theirHistory = new HistoryItem(
-                        notif.getItemId(),
-                        notif.getItemName(),
-                        myUid,
-                        mAuth.getCurrentUser().getEmail(),
-                        "in_progress",   // Đang tiến hành
-                        "received"       // Họ là người nhận
-                );
-
-                theirHistory.setHistoryId(historyId2);
-                mDatabase.child("history").child(notif.getFromUserId())
-                        .child(historyId2).setValue(theirHistory);
-
-                markAsRead(notif.getNotificationId());
-                Toast.makeText(getContext(),
-                        "Request accepted!", Toast.LENGTH_SHORT).show();
+                HistoryItem theirHistory =
+                        new HistoryItem(
+                                notif.getItemId(),
+                                notif.getItemName(),
+                                myUid,
+                                mAuth.getCurrentUser().getEmail(),
+                                "in_progress",
+                                "received");
+                theirHistory.setHistoryId(histId2);
+                mDatabase.child("history")
+                        .child(notif.getFromUserId())
+                        .child(histId2).setValue(theirHistory);
             }
 
             @Override

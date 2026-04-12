@@ -1,5 +1,7 @@
 package com.example.communitysharing.fragments;
 
+
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,9 +10,9 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,16 +35,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.auth.User;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileFragment extends Fragment {
 
     // Views
-    private ImageView ivAvatar, ivVerified;
+    private ImageView ivAvatar, ivSettings, ivNotification;
     private TextView tvFullName, tvAddress;
     private TextView tabShared, tabRequested;
-    private FrameLayout flFeaturedItem;
+    private RelativeLayout rlFeaturedItem;  // Dùng RelativeLayout
     private ImageView ivFeaturedImage;
     private TextView tvFeaturedTitle, tvFeaturedSubtitle, tvFeaturedBadge;
     private RecyclerView rvProfileItems;
@@ -71,25 +74,26 @@ public class ProfileFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         myUid     = mAuth.getCurrentUser().getUid();
 
-        // Ánh xạ views
-        ivAvatar         = view.findViewById(R.id.ivAvatar);
-        ivVerified       = view.findViewById(R.id.ivVerified);
-        tvFullName       = view.findViewById(R.id.tvFullName);
-        tvAddress        = view.findViewById(R.id.tvAddress);
-        tabShared        = view.findViewById(R.id.tabShared);
-        tabRequested     = view.findViewById(R.id.tabRequested);
-        flFeaturedItem   = view.findViewById(R.id.flFeaturedItem);
-        ivFeaturedImage  = view.findViewById(R.id.ivFeaturedImage);
-        tvFeaturedTitle  = view.findViewById(R.id.tvFeaturedTitle);
+        // Ánh xạ views - dùng đúng kiểu
+        ivAvatar        = view.findViewById(R.id.ivAvatar);
+        ivSettings      = view.findViewById(R.id.ivSettings);
+        ivNotification  = view.findViewById(R.id.ivNotification);
+        tvFullName      = view.findViewById(R.id.tvFullName);
+        tvAddress       = view.findViewById(R.id.tvAddress);
+        tabShared       = view.findViewById(R.id.tabShared);
+        tabRequested    = view.findViewById(R.id.tabRequested);
+        rlFeaturedItem  = view.findViewById(R.id.rlFeaturedItem);
+        ivFeaturedImage = view.findViewById(R.id.ivFeaturedImage);
+        tvFeaturedTitle    = view.findViewById(R.id.tvFeaturedTitle);
         tvFeaturedSubtitle = view.findViewById(R.id.tvFeaturedSubtitle);
-        tvFeaturedBadge  = view.findViewById(R.id.tvFeaturedBadge);
-        rvProfileItems   = view.findViewById(R.id.rvProfileItems);
-        btnMyPosts       = view.findViewById(R.id.btnMyPosts);
-        btnHistory       = view.findViewById(R.id.btnHistory);
-        btnSettings      = view.findViewById(R.id.btnSettings);
-        btnLogout        = view.findViewById(R.id.btnLogout);
+        tvFeaturedBadge    = view.findViewById(R.id.tvFeaturedBadge);
+        rvProfileItems  = view.findViewById(R.id.rvProfileItems);
+        btnMyPosts      = view.findViewById(R.id.btnMyPosts);
+        btnHistory      = view.findViewById(R.id.btnHistory);
+        btnSettings     = view.findViewById(R.id.btnSettings);
+        btnLogout       = view.findViewById(R.id.btnLogout);
 
-        // Setup RecyclerView grid 2 cột
+        // Setup RecyclerView
         rvProfileItems.setLayoutManager(
                 new GridLayoutManager(getContext(), 2));
         adapter = new ItemAdapter(getContext(), filteredItems, item -> {
@@ -100,16 +104,18 @@ public class ProfileFragment extends Fragment {
         });
         rvProfileItems.setAdapter(adapter);
 
-        // Load user info
-        loadUserInfo();
+        // Settings icon header
+        ivSettings.setOnClickListener(v -> openSettings());
+        ivNotification.setOnClickListener(v -> openNotifications());
 
-        // Load items
+        // Load data
+        loadUserInfo();
         loadItems();
 
-        // Setup tabs
+        // Tabs
         setupTabs();
 
-        // Setup buttons
+        // Buttons
         setupButtons();
 
         return view;
@@ -123,17 +129,17 @@ public class ProfileFragment extends Fragment {
                         Users user = snapshot.getValue(Users.class);
                         if (user == null) return;
 
-                        // Hiện tên
+                        // Tên
                         String name = user.getFullName() != null
                                 ? user.getFullName() : "User";
                         tvFullName.setText(name);
 
-                        // Hiện địa chỉ
+                        // Địa chỉ
                         String addr = user.getAddress() != null
-                                ? user.getAddress() : "";
+                                ? user.getAddress() : "No location set";
                         tvAddress.setText(" " + addr);
 
-                        // Hiện avatar nếu có
+                        // Avatar Base64
                         String avatarUrl = user.getAvatarUrl();
                         if (avatarUrl != null && !avatarUrl.isEmpty()) {
                             try {
@@ -155,7 +161,6 @@ public class ProfileFragment extends Fragment {
     }
 
     private void loadItems() {
-        // Load tất cả items của mình
         mDatabase.child("items")
                 .orderByChild("ownerId")
                 .equalTo(myUid)
@@ -190,43 +195,42 @@ public class ProfileFragment extends Fragment {
             }
         }
 
-        // Hiện featured item (item đầu tiên dạng card lớn)
+        // Featured item = item đầu tiên
         if (!filteredItems.isEmpty()) {
             showFeaturedItem(filteredItems.get(0));
-            // Grid chỉ hiện các item còn lại
+            rlFeaturedItem.setVisibility(View.VISIBLE);
+
+            // Grid = các item còn lại
             List<Item> gridItems = new ArrayList<>();
             if (filteredItems.size() > 1) {
                 gridItems.addAll(
                         filteredItems.subList(1, filteredItems.size()));
             }
             adapter.updateList(gridItems);
-            flFeaturedItem.setVisibility(View.VISIBLE);
         } else {
-            flFeaturedItem.setVisibility(View.GONE);
+            rlFeaturedItem.setVisibility(View.GONE);
             adapter.updateList(new ArrayList<>());
         }
     }
 
     private void showFeaturedItem(Item item) {
-        // Title
         tvFeaturedTitle.setText(
                 item.getTitle() != null ? item.getTitle() : "");
 
-        // Subtitle
         String status = item.getStatus() != null
                 ? item.getStatus() : "available";
         tvFeaturedSubtitle.setText(
-                "Shared with community • " + status);
-
-        // Badge
+                "Status: " + status);
         tvFeaturedBadge.setText(
-                status.equals("available") ? "ACTIVE SHARE" : "COMPLETED");
+                status.equals("available")
+                        ? "ACTIVE SHARE" : status.toUpperCase());
 
         // Ảnh
         String imageUrl = item.getImageUrl();
         if (imageUrl != null && !imageUrl.isEmpty()) {
             try {
-                byte[] bytes = Base64.decode(imageUrl, Base64.DEFAULT);
+                byte[] bytes = Base64.decode(
+                        imageUrl, Base64.DEFAULT);
                 Bitmap bitmap = BitmapFactory
                         .decodeByteArray(bytes, 0, bytes.length);
                 ivFeaturedImage.setImageBitmap(bitmap);
@@ -236,8 +240,8 @@ public class ProfileFragment extends Fragment {
             }
         }
 
-        // Click vào featured item
-        flFeaturedItem.setOnClickListener(v -> {
+        // Click → ItemDetailActivity
+        rlFeaturedItem.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(),
                     ItemDetailActivity.class);
             intent.putExtra("itemId", item.getItemId());
@@ -259,75 +263,77 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setActiveTab(TextView active) {
-        tabShared.setBackground(
-                getResources().getDrawable(R.drawable.bg_tab_inactive));
-        tabShared.setTextColor(
-                getResources().getColor(R.color.colorTextGray));
+        tabShared.setBackground(getResources().getDrawable(
+                R.drawable.bg_tab_inactive));
+        tabShared.setTextColor(getResources().getColor(
+                R.color.colorTextGray));
 
-        tabRequested.setBackground(
-                getResources().getDrawable(R.drawable.bg_tab_inactive));
-        tabRequested.setTextColor(
-                getResources().getColor(R.color.colorTextGray));
+        tabRequested.setBackground(getResources().getDrawable(
+                R.drawable.bg_tab_inactive));
+        tabRequested.setTextColor(getResources().getColor(
+                R.color.colorTextGray));
 
-        active.setBackground(
-                getResources().getDrawable(R.drawable.bg_tab_active));
-        active.setTextColor(
-                getResources().getColor(R.color.colorWhite));
+        active.setBackground(getResources().getDrawable(
+                R.drawable.bg_tab_active));
+        active.setTextColor(getResources().getColor(
+                R.color.colorWhite));
     }
 
     private void setupButtons() {
 
-        // My Posts
         btnMyPosts.setOnClickListener(v -> {
             getParentFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragmentContainer, new MyPostsFragment())
+                    .replace(R.id.fragmentContainer,
+                            new MyPostsFragment())
                     .addToBackStack(null)
                     .commit();
         });
 
-        // History
         btnHistory.setOnClickListener(v -> {
             getParentFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragmentContainer, new HistoryFragment())
+                    .replace(R.id.fragmentContainer,
+                            new HistoryFragment())
                     .addToBackStack(null)
                     .commit();
         });
 
-        // Settings
-        btnSettings.setOnClickListener(v -> {
-            getParentFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragmentContainer, new SettingsFragment())
-                    .addToBackStack(null)
-                    .commit();
-        });
+        btnSettings.setOnClickListener(v -> openSettings());
 
-        // Logout
         btnLogout.setOnClickListener(v -> {
-            new android.app.AlertDialog.Builder(getContext())
+            new AlertDialog.Builder(getContext())
                     .setTitle("Logout")
                     .setMessage("Are you sure you want to logout?")
                     .setPositiveButton("Logout", (dialog, which) -> {
                         mAuth.signOut();
                         Intent intent = new Intent(getContext(),
                                 LoginActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.setFlags(
+                                Intent.FLAG_ACTIVITY_NEW_TASK
+                                        | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     })
                     .setNegativeButton("Cancel", null)
                     .show();
         });
+    }
 
-        // Settings icon trên header
-//        view.findViewById(R.id.ivSettings).setOnClickListener(v -> {
-//            getParentFragmentManager()
-//                    .beginTransaction()
-//                    .replace(R.id.fragmentContainer, new SettingsFragment())
-//                    .addToBackStack(null)
-//                    .commit();
-//        });
+    private void openSettings() {
+        getParentFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContainer,
+                        new SettingsFragment())
+                .addToBackStack(null)
+                .commit();
+    }
+
+    private void openNotifications() {
+        getParentFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContainer,
+                        new NotificationFragment())
+                .addToBackStack(null)
+                .commit();
     }
 }
