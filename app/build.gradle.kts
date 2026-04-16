@@ -8,9 +8,7 @@ plugins {
 
 android {
     namespace = "com.example.communitysharing"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.communitysharing"

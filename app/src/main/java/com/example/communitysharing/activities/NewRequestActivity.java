@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
@@ -31,6 +33,9 @@ import com.example.communitysharing.models.Request;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import android.location.Geocoder;
 
 
 import java.io.ByteArrayOutputStream;
@@ -39,6 +44,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class NewRequestActivity extends AppCompatActivity {
@@ -63,6 +69,11 @@ public class NewRequestActivity extends AppCompatActivity {
     private String selectedUrgency = "medium";
     private String imageBase64     = "";
     private Uri currentPhotoUri;
+    private double requestLat = 0, requestLng = 0;
+    private String requestAddress = "";
+    private FusedLocationProviderClient locationClient;
+    private static final int PICK_MAP_CODE = 1001;
+    private TextView tvSelectedAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +95,15 @@ public class NewRequestActivity extends AppCompatActivity {
         ivReferencePhoto   = findViewById(R.id.ivReferencePhoto);
         btnPostRequest     = findViewById(R.id.btnPostRequest);
         tvError            = findViewById(R.id.tvError);
+        locationClient = LocationServices.getFusedLocationProviderClient(this);
+        tvSelectedAddress = findViewById(R.id.tvSelectedAddressRequest);
+        findViewById(R.id.btnCurrentLocRequest).setOnClickListener(v -> getDeviceLocation());
+
+        // Bắt sự kiện chọn từ bản đồ
+        findViewById(R.id.btnPickMapRequest).setOnClickListener(v -> {
+            Intent intent = new Intent(this, PickLocationActivity.class);
+            startActivityForResult(intent, PICK_MAP_CODE);
+        });
 
         // Nếu được mở từ HomeFragment với item có sẵn
         // → tự điền title
@@ -98,6 +118,33 @@ public class NewRequestActivity extends AppCompatActivity {
 
         setupClickListeners();
     }
+
+    private void getDeviceLocation() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+
+            locationClient.getLastLocation().addOnSuccessListener(location -> {
+                if (location != null) {
+                    requestLat = location.getLatitude();
+                    requestLng = location.getLongitude();
+                    // Dùng Geocoder để lấy địa chỉ chữ
+                    try {
+                        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+                        List<Address> addresses = geocoder.getFromLocation(requestLat, requestLng, 1);
+                        if (addresses != null && !addresses.isEmpty()) {
+                            requestAddress = addresses.get(0).getAddressLine(0);
+                            tvSelectedAddress.setText(requestAddress);
+                        }
+                    } catch (Exception e) {
+                        tvSelectedAddress.setText("Lat: " + requestLat + ", Lng: " + requestLng);
+                    }
+                }
+            });
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
+        }
+    }
+
 
     private void setupClickListeners() {
 
@@ -207,10 +254,9 @@ public class NewRequestActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode,
-                                    int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == REQUEST_CAMERA
                 && resultCode == RESULT_OK) {
             // Convert ảnh → Base64
@@ -220,6 +266,12 @@ public class NewRequestActivity extends AppCompatActivity {
             ivReferencePhoto.setImageURI(currentPhotoUri);
             ivReferencePhoto.setVisibility(View.VISIBLE);
             llPhotoPlaceholder.setVisibility(View.GONE);
+        }
+        if (requestCode == PICK_MAP_CODE && resultCode == RESULT_OK && data != null) {
+            requestLat = data.getDoubleExtra("lat", 0);
+            requestLng = data.getDoubleExtra("lng", 0);
+            requestAddress = data.getStringExtra("address");
+            tvSelectedAddress.setText(requestAddress);
         }
     }
 

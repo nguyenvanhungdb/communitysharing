@@ -261,19 +261,21 @@ public class ShareFragment extends Fragment {
                         geocoder.getFromLocation(lat, lng, 1);
 
                 if (addresses != null && !addresses.isEmpty()) {
-                    Address addr = addresses.get(0);
-                    StringBuilder sb = new StringBuilder();
+                    String requestAddress = addresses.get(0).getAddressLine(0);
+                    pickedAddress = requestAddress.toString();
+//                    Address addr = addresses.get(0);
+//                    StringBuilder sb = new StringBuilder();
 
-                    if (addr.getThoroughfare() != null)
-                        sb.append(addr.getThoroughfare()).append(", ");
-                    if (addr.getSubLocality() != null)
-                        sb.append(addr.getSubLocality()).append(", ");
-                    if (addr.getLocality() != null)
-                        sb.append(addr.getLocality());
-
-                    pickedAddress = sb.toString().isEmpty()
-                            ? lat + ", " + lng
-                            : sb.toString();
+//                    if (addr.getThoroughfare() != null)
+//                        sb.append(addr.getThoroughfare()).append(", ");
+//                    if (addr.getSubLocality() != null)
+//                        sb.append(addr.getSubLocality()).append(", ");
+//                    if (addr.getLocality() != null)
+//                        sb.append(addr.getLocality());
+//
+//                    pickedAddress = sb.toString().isEmpty()
+//                            ? lat + ", " + lng
+//                            : sb.toString();
                 } else {
                     // Không có địa chỉ → dùng tọa độ
                     pickedAddress = lat + ", " + lng;

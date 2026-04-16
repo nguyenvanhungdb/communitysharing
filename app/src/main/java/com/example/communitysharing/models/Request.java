@@ -10,6 +10,9 @@ public class Request {
     private String imageUrl;
     private String status;      // "open","fulfilled","cancelled"
     private long timestamp;
+    private double latitude;
+    private double longitude;
+    private String address;
 
     // Constructor rỗng BẮT BUỘC cho Firebase
     public Request() {}
@@ -25,6 +28,9 @@ public class Request {
         this.status        = "open";
         this.imageUrl      = "";
         this.timestamp     = System.currentTimeMillis();
+        this.latitude      = 0;
+        this.longitude     = 0;
+        this.address       = "";
     }
 
     // Getters
@@ -38,6 +44,7 @@ public class Request {
     public String getStatus()        { return status; }
     public long   getTimestamp()     { return timestamp; }
 
+
     // Setters
     public void setRequestId(String id)        { this.requestId = id; }
     public void setRequesterId(String id)      { this.requesterId = id; }
@@ -48,4 +55,13 @@ public class Request {
     public void setImageUrl(String url)        { this.imageUrl = url; }
     public void setStatus(String status)       { this.status = status; }
     public void setTimestamp(long t)           { this.timestamp = t; }
+    public double getLatitude() { return latitude; }
+    public void setLatitude(double latitude) { this.latitude = latitude; }
+
+    public double getLongitude() { return longitude; }
+    public void setLongitude(double longitude) { this.longitude = longitude; }
+
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
+
 }

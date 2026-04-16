@@ -243,6 +243,49 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Vị trí của bạn"
+            android:textStyle="bold"
+            android:textColor="@color/colorTextDark"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnCurrentLocRequest"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="Vị trí hiện tại"
+                android:textAllCaps="false"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_button_secondary"/>
+
+            <Button
+                android:id="@+id/btnPickMapRequest"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="Chọn trên bản đồ"
+                android:textAllCaps="false"
+                android:background="@drawable/bg_button_secondary"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvSelectedAddressRequest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chưa xác định vị trí"
+            android:textSize="13sp"
+            android:textColor="@color/colorTextGray"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="ADD A REFERENCE PHOTO"
             android:textSize="11sp"
             android:textColor="@color/colorTextGray"
