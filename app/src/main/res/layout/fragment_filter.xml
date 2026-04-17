@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:padding="16dp">
+
+    <!-- HEADER -->
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@android:drawable/ic_media_previous"
+        app:tint="@color/colorPrimary"
+        android:padding="8dp"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <!-- TITLE -->
+
+    <TextView
+        android:id="@+id/tvAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="8dp"
+        android:text="The Commons"
+        android:textColor="@color/colorTextDark"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Refine Search"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorTextDark"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/tvAppName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- SUBTITLE -->
+    <TextView
+        android:id="@+id/tvSubtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Find exactly what the community is sharing right now."
+        android:textSize="13sp"
+        android:textColor="@color/colorTextGray"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- AVAILABILITY -->
+    <TextView
+        android:id="@+id/tvAvailability"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AVAILABILITY STATUS"
+        android:textSize="10sp"
+        android:textColor="@color/colorTextGray"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/tvSubtitle"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutToggle"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tvAvailability"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/tvAvailable"
+            android:layout_width="180dp"
+            android:layout_height="43dp"
+            android:background="@drawable/bg_button_primary"
+            android:gravity="center"
+            android:text="Available"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvNeeded"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvNeeded"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Needed"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:textColor="@color/colorTextDark"
+            android:background="@drawable/bg_button_secondary"
+            app:layout_constraintStart_toEndOf="@id/tvAvailable"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- CATEGORY -->
+    <TextView
+        android:id="@+id/tvCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CATEGORIES"
+        android:textSize="10sp"
+        android:textColor="@color/colorTextGray"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/layoutToggle"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3 Selected"
+        android:textSize="10sp"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintTop_toTopOf="@id/tvCategory"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- CHIPS (ĐÃ SẮP XẾP LẠI GỌN GÀNG, ĐÚNG GRID, KHÔNG OFFSET LỆCH) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutChips"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/tvCategory"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- ROW 1 -->
+        <TextView
+            android:id="@+id/chip1"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="Garden Tools"
+            android:textSize="12sp"
+            android:background="@drawable/bg_button_primary"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"
+            android:paddingHorizontal="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <!-- ROW 2 -->
+        <TextView
+            android:id="@+id/chip2"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_marginStart="132dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_button_primary"
+            android:gravity="center"
+            android:paddingHorizontal="12dp"
+            android:text="Kitchenware"
+            android:textColor="@color/colorWhite"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/chip1"
+            app:layout_constraintTop_toTopOf="@id/chip1" />
+
+        <TextView
+            android:id="@+id/chip3"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="Books and Media"
+            android:textSize="12sp"
+            android:background="@drawable/bg_button_secondary"
+            android:textColor="@color/colorTextDark"
+            android:gravity="center"
+            android:paddingHorizontal="12dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chip1"/>
+
+        <!-- ROW 3 -->
+
+        <TextView
+            android:id="@+id/chip4"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_button_primary"
+            android:gravity="center"
+            android:paddingHorizontal="12dp"
+            android:text="Power Tools"
+            android:textColor="@color/colorWhite"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/chip3"
+            app:layout_constraintTop_toTopOf="@id/chip3" />
+
+        <TextView
+            android:id="@+id/chip5"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="Camping Gear"
+            android:textSize="12sp"
+            android:background="@drawable/bg_button_secondary"
+            android:textColor="@color/colorTextDark"
+            android:gravity="center"
+            android:paddingHorizontal="12dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chip3"/>
+
+        <!-- ROW 4 -->
+        <TextView
+            android:id="@+id/chip6"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_marginStart="132dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_button_secondary"
+            android:gravity="center"
+            android:paddingHorizontal="12dp"
+            android:text="Electronics"
+            android:textColor="@color/colorTextDark"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/chip5"
+            app:layout_constraintTop_toTopOf="@id/chip5" />
+
+        <TextView
+            android:id="@+id/chip7"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="Pet Supplies"
+            android:textSize="12sp"
+            android:background="@drawable/bg_button_secondary"
+            android:textColor="@color/colorTextDark"
+            android:gravity="center"
+            android:paddingHorizontal="12dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chip5"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- SEARCH RADIUS -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutRadius"
+        android:layout_width="380dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_featured_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutChips">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:text="SEARCH RADIUS"
+            android:textColor="@color/colorTextGray"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvMiles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:text="5.2 Miles"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvMiles" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- TIME -->
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TIME POSTED"
+        android:textSize="10sp"
+        android:textColor="@color/colorTextGray"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/layoutRadius"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/layoutTime"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_button_secondary"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="12dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@android:drawable/ic_menu_recent_history"
+            android:tint="@color/colorTextDark"
+            android:layout_marginEnd="6dp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Last 24 Hours"
+            android:textSize="14sp"
+            android:textColor="@color/colorTextDark"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@android:drawable/arrow_down_float"
+            android:tint="@color/colorTextDark"/>
+    </LinearLayout>
+
+    <!-- BUTTONS -->
+    <LinearLayout
+        android:id="@+id/layoutButtons"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/layoutTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:text="Reset"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:background="@drawable/bg_button_secondary"
+            android:textColor="@color/colorTextDark"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:text="Apply Filters"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_button_primary"
+            android:textColor="@color/colorWhite"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
