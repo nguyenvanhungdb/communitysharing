@@ -109,6 +109,7 @@
 
         <!-- Filter button -->
         <FrameLayout
+            android:id="@+id/btnFilter"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@drawable/bg_card_white">
@@ -120,7 +121,8 @@
                 android:src="@android:drawable/ic_menu_sort_by_size"
                 app:tint="@color/colorPrimary"
                 android:clickable="true"
-                android:focusable="true"/>
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"/>
         </FrameLayout>
     </LinearLayout>
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -34,6 +35,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private RecyclerView rvItems;
+    private Button btnFilter;
     private ItemAdapter adapter;
     private List<Item> itemList = new ArrayList<>();
     private DatabaseReference mDatabase;
@@ -54,62 +56,76 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(
-                R.layout.fragment_home, container, false);
 
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        // Firebase
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mAuth     = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
-        // Ánh xạ
-        rvItems           = view.findViewById(R.id.rvItems);
-        llFeatured        = view.findViewById(R.id.llFeatured);
-        tvFeaturedTitle   = view.findViewById(R.id.tvFeaturedTitle);
+        // Ánh xạ view
+        rvItems = view.findViewById(R.id.rvItems);
+        llFeatured = view.findViewById(R.id.llFeatured);
+        tvFeaturedTitle = view.findViewById(R.id.tvFeaturedTitle);
         tvFeaturedDistance = view.findViewById(R.id.tvFeaturedDistance);
         btnRequestFeatured = view.findViewById(R.id.btnRequestFeatured);
-        tabAll            = view.findViewById(R.id.tabAll);
-        tabFood           = view.findViewById(R.id.tabFood);
-        tabClothes        = view.findViewById(R.id.tabClothes);
-        tabTools          = view.findViewById(R.id.tabTools);
 
-        // View Map button
+        tabAll = view.findViewById(R.id.tabAll);
+        tabFood = view.findViewById(R.id.tabFood);
+        tabClothes = view.findViewById(R.id.tabClothes);
+        tabTools = view.findViewById(R.id.tabTools);
+
+        View btnFilter = view.findViewById(R.id.btnFilter);
+
+        btnFilter.setOnClickListener(v -> {
+            Fragment filterFragment = new FilterFragment();
+
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainer, filterFragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
+
+        // ===== 2. VIEW MAP =====
         TextView tvViewMap = view.findViewById(R.id.tvViewMap);
         tvViewMap.setOnClickListener(v -> {
-            // Mở MapActivity không cần item cụ thể
             Intent intent = new Intent(getContext(),
                     com.example.communitysharing.activities.MapActivity.class);
             startActivity(intent);
         });
 
-        // Trong HomeFragment.java - onCreateView
-        view.findViewById(R.id.ivNewRequest)
-                .setOnClickListener(v -> {
-                    startActivity(new Intent(getContext(),
-                            NewRequestActivity.class));
-                });
+        // ===== 3. NEW REQUEST =====
+        view.findViewById(R.id.ivNewRequest).setOnClickListener(v -> {
+            startActivity(new Intent(getContext(),
+                    NewRequestActivity.class));
+        });
 
-        // Setup RecyclerView grid 2 cột
+        // ===== 4. RECYCLER VIEW =====
         rvItems.setLayoutManager(new GridLayoutManager(getContext(), 2));
+
         adapter = new ItemAdapter(getContext(), itemList, item -> {
-            // Click item → ItemDetailActivity
             Intent intent = new Intent(getContext(),
                     ItemDetailActivity.class);
             intent.putExtra("itemId", item.getItemId());
             startActivity(intent);
         });
+
         rvItems.setAdapter(adapter);
 
-        // Featured button
+        // ===== 5. FEATURED BUTTON =====
         btnRequestFeatured.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(),
                     NewRequestActivity.class);
-            // Nếu có featured item thì prefill title
+
             if (featuredItem != null) {
-                intent.putExtra("itemTitle",
-                        featuredItem.getTitle());
+                intent.putExtra("itemTitle", featuredItem.getTitle());
             }
+
             startActivity(intent);
         });
 
+        // ===== 6. TAB + DATA =====
         setupTabs();
         loadItemsFromFirebase("all");
 

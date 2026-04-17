@@ -62,4 +62,5 @@ dependencies {
 //    implementation("com.google.android.gms:play-services-maps:18.1.0")
 //    implementation("com.google.android.gms:play-services-location:21.0.1")
     implementation("org.osmdroid:osmdroid-android:6.1.17")
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
 }
