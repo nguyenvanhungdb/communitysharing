@@ -1,19 +1,21 @@
 package com.example.communitysharing.activities;
 
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.communitysharing.R;
 import com.example.communitysharing.fragments.ChatFragment;
+import com.example.communitysharing.fragments.HistoryFragment;
 import com.example.communitysharing.fragments.HomeFragment;
+import com.example.communitysharing.fragments.ProfileFragment;
 import com.example.communitysharing.fragments.ShareFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class HomeActivity extends AppCompatActivity {
-    private BottomNavigationView bottomNav;
 
+public class HomeActivity extends AppCompatActivity {
+
+    private BottomNavigationView bottomNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,24 +24,24 @@ public class HomeActivity extends AppCompatActivity {
 
         bottomNav = findViewById(R.id.bottomNavigation);
 
-        // Mở HomeFragment mặc định
+        // Mặc định mở HomeFragment
         loadFragment(new HomeFragment());
+        bottomNav.setSelectedItemId(R.id.nav_home);
 
-        // Xử lý click bottom nav
         bottomNav.setOnNavigationItemSelectedListener(item -> {
             Fragment fragment = null;
-
             int id = item.getItemId();
+
             if (id == R.id.nav_home) {
                 fragment = new HomeFragment();
-            } else if (id == R.id.nav_map) {
-                // fragment = new MapFragment();  // làm sau
+            } else if (id == R.id.nav_activity) {
+                fragment = new HistoryFragment();
             } else if (id == R.id.nav_share) {
-                 fragment = new ShareFragment();
+                fragment = new ShareFragment();
             } else if (id == R.id.nav_chat) {
-                 fragment = new ChatFragment();
+                fragment = new ChatFragment();
             } else if (id == R.id.nav_profile) {
-                // fragment = new ProfileFragment(); // làm sau
+                fragment = new ProfileFragment();
             }
 
             if (fragment != null) {
@@ -50,8 +52,7 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    // Hàm load Fragment vào container
-    private void loadFragment(Fragment fragment) {
+    public void loadFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragmentContainer, fragment)

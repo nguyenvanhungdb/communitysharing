@@ -6,9 +6,9 @@
         android:title="HOME"/>
 
     <item
-        android:id="@+id/nav_map"
-        android:icon="@drawable/ic_map"
-        android:title="MAP"/>
+        android:id="@+id/nav_activity"
+        android:icon="@drawable/ic_activity"
+        android:title="ACTIVITY"/>
 
     <item
         android:id="@+id/nav_share"

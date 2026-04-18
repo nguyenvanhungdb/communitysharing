@@ -238,6 +238,112 @@
             android:inputType="textMultiLine"
             android:layout_marginBottom="16dp"/>
 
+        <!-- ===== PICKUP LOCATION ===== -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PICKUP LOCATION"
+            android:textSize="11sp"
+            android:textColor="@color/colorTextGray"
+            android:textStyle="bold"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="6dp"/>
+
+        <!-- 2 nút chọn cách lấy vị trí -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <!-- Lấy vị trí hiện tại -->
+            <LinearLayout
+                android:id="@+id/btnUseCurrentLocation"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="@drawable/bg_delivery_inactive"
+                android:layout_marginEnd="8dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@android:drawable/ic_menu_mylocation"
+                    android:tint="@color/colorPrimary"
+                    android:layout_marginEnd="6dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="My Location"
+                    android:textSize="13sp"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <!-- Chọn trên map -->
+            <LinearLayout
+                android:id="@+id/btnPickOnMap"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="@drawable/bg_delivery_inactive"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@android:drawable/ic_menu_mapmode"
+                    android:tint="@color/colorPrimary"
+                    android:layout_marginEnd="6dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pick on Map"
+                    android:textSize="13sp"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Hiện địa chỉ đã chọn -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_input_field"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@android:drawable/ic_menu_mapmode"
+                android:tint="@color/colorPrimary"
+                android:layout_marginEnd="8dp"/>
+
+            <TextView
+                android:id="@+id/tvPickedLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No location selected yet"
+                android:textSize="13sp"
+                android:textColor="@color/colorTextHint"
+                android:maxLines="2"
+                android:ellipsize="end"/>
+        </LinearLayout>
         <!-- ===== ADDRESS ===== -->
         <TextView
             android:layout_width="wrap_content"

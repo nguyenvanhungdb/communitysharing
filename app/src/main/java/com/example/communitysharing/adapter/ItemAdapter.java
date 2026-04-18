@@ -51,35 +51,50 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         Item item = itemList.get(position);
 
         // Set dữ liệu vào view
-        holder.tvTitle.setText(item.getTitle());
+        holder.tvTitle.setText(item.getTitle() != null ? item.getTitle() : "");
         holder.tvDistance.setText("Nearby");
-        if(item.getCategory() != null){
-            holder.tvCategory.setText(item.getCategory().toUpperCase());
+
+        // Lấy category an toàn
+        String category = item.getCategory() != null ? item.getCategory() : "";
+
+        if (!category.isEmpty()) {
+            holder.tvCategory.setText(category.toUpperCase());
+            holder.tvCategory.setVisibility(View.VISIBLE);
+
+            // Đổi màu tag theo category
+            int tagColor;
+            switch (category.toLowerCase()) {
+                case "food":
+                    tagColor = context.getResources().getColor(R.color.colorOrange);
+                    break;
+                case "tools":
+                    tagColor = context.getResources().getColor(R.color.colorPrimary);
+                    break;
+                default:
+                    tagColor = context.getResources().getColor(R.color.colorAccent);
+                    break;
+            }
+
+            // Null check background trước khi setTint
+            if (holder.tvCategory.getBackground() != null) {
+                holder.tvCategory.getBackground().setTint(tagColor);
+            }
+
+        } else {
+            // Không có category → ẩn tag đi
+            holder.tvCategory.setVisibility(View.GONE);
         }
 
-        // Đổi màu tag theo category
-        int tagColor;
-        switch (item.getCategory().toLowerCase()) {
-            case "food":
-                tagColor = context.getResources().getColor(R.color.colorOrange);
-                break;
-            case "tools":
-                tagColor = context.getResources().getColor(R.color.colorPrimary);
-                break;
-            default:
-                tagColor = context.getResources().getColor(R.color.colorAccent);
-                break;
-        }
-        holder.tvCategory.getBackground().setTint(tagColor);
+        // Click item
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) listener.onItemClick(item);
         });
 
         // Hiển thị ảnh từ Base64
-        if (item.getImageUrl() != null && !item.getImageUrl().isEmpty()) {
+        String imageUrl = item.getImageUrl();
+        if (imageUrl != null && !imageUrl.isEmpty()) {
             try {
-                byte[] decodedBytes = Base64.decode(
-                        item.getImageUrl(), Base64.DEFAULT);
+                byte[] decodedBytes = Base64.decode(imageUrl, Base64.DEFAULT);
                 Bitmap bitmap = BitmapFactory.decodeByteArray(
                         decodedBytes, 0, decodedBytes.length);
                 holder.ivItemImage.setImageBitmap(bitmap);
