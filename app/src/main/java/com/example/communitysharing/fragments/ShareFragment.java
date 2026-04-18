@@ -2,6 +2,7 @@ package com.example.communitysharing.fragments;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -52,7 +53,9 @@ import java.util.List;
 import java.util.Locale;
 
 public class ShareFragment extends Fragment {
+    private Context mContext;
 
+    private String editItemId = null;
     // Request codes
     private static final int REQUEST_CAMERA_MAIN    = 101;
     private static final int REQUEST_CAMERA_PHOTO2  = 102;
@@ -133,6 +136,7 @@ public class ShareFragment extends Fragment {
         btnPickOnMap           = view.findViewById(R.id.btnPickOnMap);
 
         setupSpinner();
+        checkEditMode();
         setupClickListeners();
 
         return view;
@@ -439,7 +443,7 @@ public class ShareFragment extends Fragment {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             resized.compress(Bitmap.CompressFormat.JPEG, 60, baos);
             byte[] bytes = baos.toByteArray();
-            return Base64.encodeToString(bytes, Base64.DEFAULT);
+            return Base64.encodeToString(bytes, Base64.NO_WRAP);
         } catch (Exception e) {
             e.printStackTrace();
             return "";
@@ -459,6 +463,82 @@ public class ShareFragment extends Fragment {
     }
 
     // ===== ĐĂNG LÊN FIREBASE =====
+//    private void postItem() {
+//        String title    = etTitle.getText().toString().trim();
+//        String desc     = etDescription.getText().toString().trim();
+//        String address  = etAddress.getText().toString().trim();
+//        String category = spinnerCategory.getSelectedItem().toString();
+//
+//        if (TextUtils.isEmpty(title)) {
+//            showError("Please enter item title");
+//            etTitle.requestFocus();
+//            return;
+//        }
+//        if (TextUtils.isEmpty(desc)) {
+//            showError("Please enter a description");
+//            etDescription.requestFocus();
+//            return;
+//        }
+//        if (TextUtils.isEmpty(address)) {
+//            showError("Please enter your address");
+//            etAddress.requestFocus();
+//            return;
+//        }
+//
+//        // Cảnh báo nếu chưa chọn vị trí trên map
+//        if (pickedLat == 0 && pickedLng == 0) {
+//            Toast.makeText(getContext(),
+//                    "Tip: Add a location so others can find your item!",
+//                    Toast.LENGTH_SHORT).show();
+//        }
+//
+//        btnPostItem.setEnabled(false);
+//        btnPostItem.setText("Posting...");
+//        tvError.setVisibility(View.GONE);
+//
+//        String uid       = mAuth.getCurrentUser().getUid();
+//        String ownerName = mAuth.getCurrentUser().getEmail();
+//
+//        String itemId = mDatabase.child("items").push().getKey();
+//
+//        Item item = new Item(uid, ownerName, title,
+//                desc, category, address, "sharing");
+//        item.setItemId(itemId);
+//        item.setImageUrl(imageBase64Main);
+//        item.setQuantity(quantity);
+//
+//        // ===== LƯU TỌA ĐỘ MAP =====
+//        item.setLatitude(pickedLat);
+//        item.setLongitude(pickedLng);
+//        item.setExactAddress(pickedAddress);
+//
+//        btnPostItem.setEnabled(false);
+//        btnPostItem.setText(editItemId != null ? "Updating..." : "Posting...");
+//        tvError.setVisibility(View.GONE);
+//
+//        if (editItemId != null) {
+//            // ===== CHẾ ĐỘ EDIT - cập nhật item cũ =====
+//            updateExistingItem(title, desc, category, address);
+//        } else {
+//            // ===== CHẾ ĐỘ TẠO MỚI =====
+//            createNewItem(uid, ownerName, title, desc, category, address);
+//        }
+//
+//        mDatabase.child("items").child(itemId).setValue(item)
+//                .addOnCompleteListener(task -> {
+//                    if (task.isSuccessful()) {
+//                        Toast.makeText(getContext(),
+//                                "Item posted successfully! 🎉",
+//                                Toast.LENGTH_SHORT).show();
+//                        resetForm();
+//                    } else {
+//                        showError("Failed to post. Please try again.");
+//                        btnPostItem.setEnabled(true);
+//                        btnPostItem.setText("Post Item ▷");
+//                    }
+//                });
+//    }
+
     private void postItem() {
         String title    = etTitle.getText().toString().trim();
         String desc     = etDescription.getText().toString().trim();
@@ -481,48 +561,29 @@ public class ShareFragment extends Fragment {
             return;
         }
 
-        // Cảnh báo nếu chưa chọn vị trí trên map
         if (pickedLat == 0 && pickedLng == 0) {
-            Toast.makeText(getContext(),
+            Toast.makeText(mContext,
                     "Tip: Add a location so others can find your item!",
                     Toast.LENGTH_SHORT).show();
         }
 
         btnPostItem.setEnabled(false);
-        btnPostItem.setText("Posting...");
+        btnPostItem.setText(editItemId != null ? "Updating..." : "Posting...");
         tvError.setVisibility(View.GONE);
 
         String uid       = mAuth.getCurrentUser().getUid();
         String ownerName = mAuth.getCurrentUser().getEmail();
 
-        String itemId = mDatabase.child("items").push().getKey();
+        // Phân nhánh rõ ràng - KHÔNG có code thừa bên dưới
+        if (editItemId != null) {
+            updateExistingItem(title, desc, category, address);
+        } else {
+            createNewItem(uid, ownerName, title, desc, category, address);
+        }
 
-        Item item = new Item(uid, ownerName, title,
-                desc, category, address, "sharing");
-        item.setItemId(itemId);
-        item.setImageUrl(imageBase64Main);
-        item.setQuantity(quantity);
-
-        // ===== LƯU TỌA ĐỘ MAP =====
-        item.setLatitude(pickedLat);
-        item.setLongitude(pickedLng);
-        item.setExactAddress(pickedAddress);
-
-        mDatabase.child("items").child(itemId).setValue(item)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(getContext(),
-                                "Item posted successfully! 🎉",
-                                Toast.LENGTH_SHORT).show();
-                        resetForm();
-                    } else {
-                        showError("Failed to post. Please try again.");
-                        btnPostItem.setEnabled(true);
-                        btnPostItem.setText("Post Item ▷");
-                    }
-                });
+        // XÓA TOÀN BỘ ĐOẠN NÀY - đây là nguyên nhân lỗi:
+        // mDatabase.child("items").child(itemId).setValue(item)...
     }
-
     private void resetForm() {
         etTitle.setText("");
         etDescription.setText("");
@@ -578,4 +639,155 @@ public class ShareFragment extends Fragment {
                     Toast.LENGTH_SHORT).show();
         }
     }
+    private void checkEditMode() {
+        Bundle args = getArguments();
+        if (args == null) return; // Không có data = tạo mới bình thường
+
+        editItemId = args.getString("editItemId");
+        if (editItemId == null) return;
+
+        // Đang edit → điền data vào form
+        String title    = args.getString("editTitle", "");
+        String desc     = args.getString("editDesc", "");
+        String address  = args.getString("editAddress", "");
+        String category = args.getString("editCategory", "");
+        String imageUrl = args.getString("editImageUrl", "");
+        pickedLat       = args.getDouble("editLat", 0);
+        pickedLng       = args.getDouble("editLng", 0);
+        pickedAddress   = address;
+
+        // Điền vào các ô input
+        etTitle.setText(title);
+        etDescription.setText(desc);
+        etAddress.setText(address);
+
+        // Set spinner category
+        String[] categories = {
+                "Furniture", "Food", "Clothes",
+                "Tools", "Electronics", "Kitchen",
+                "Garden", "Books", "Other"
+        };
+        for (int i = 0; i < categories.length; i++) {
+            if (categories[i].equalsIgnoreCase(category)) {
+                spinnerCategory.setSelection(i);
+                break;
+            }
+        }
+
+        // Hiện ảnh cũ nếu có
+        if (!imageUrl.isEmpty()) {
+            imageBase64Main = imageUrl;
+            new Thread(() -> {
+                try {
+                    byte[] bytes = Base64.decode(
+                            imageUrl.trim(), Base64.NO_WRAP);
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(
+                            bytes, 0, bytes.length);
+                    if (bitmap != null && getActivity() != null) {
+                        getActivity().runOnUiThread(() -> {
+                            ivMainPhoto.setImageBitmap(bitmap);
+                            ivMainPhoto.setColorFilter(null);
+                            ivMainPhoto.setScaleType(
+                                    ImageView.ScaleType.CENTER_CROP);
+                            ivMainPhoto.setVisibility(View.VISIBLE);
+                            llMainPhotoPlaceholder.setVisibility(View.GONE);
+                        });
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
+
+        // Hiện địa chỉ đã chọn
+        if (!address.isEmpty()) {
+            tvPickedLocation.setText(address);
+            tvPickedLocation.setTextColor(
+                    getResources().getColor(R.color.colorTextDark));
+        }
+
+        // Đổi title header và nút
+        btnPostItem.setText("Update Item ▷");
+
+        android.util.Log.d("ShareFragment",
+                "Edit mode: itemId=" + editItemId);
+    }
+
+    private void updateExistingItem(String title, String desc,
+                                    String category, String address) {
+
+        mDatabase.child("items").child(editItemId)
+                .child("title").setValue(title);
+        mDatabase.child("items").child(editItemId)
+                .child("description").setValue(desc);
+        mDatabase.child("items").child(editItemId)
+                .child("category").setValue(category);
+        mDatabase.child("items").child(editItemId)
+                .child("latitude").setValue(pickedLat);
+        mDatabase.child("items").child(editItemId)
+                .child("longitude").setValue(pickedLng);
+
+        if (!imageBase64Main.isEmpty()) {
+            mDatabase.child("items").child(editItemId)
+                    .child("imageUrl").setValue(imageBase64Main);
+        }
+
+        // Chỉ lắng nghe 1 lần, dùng address làm field cuối
+        mDatabase.child("items").child(editItemId)
+                .child("address").setValue(address)
+                .addOnCompleteListener(task -> {
+
+                    // Kiểm tra Fragment còn attached không
+                    if (!isAdded() || getContext() == null) return;
+
+                    if (task.isSuccessful()) {
+                        Toast.makeText(getContext(),
+                                "Item updated! ✓",
+                                Toast.LENGTH_SHORT).show();
+
+                        if (getParentFragmentManager()
+                                .getBackStackEntryCount() > 0) {
+                            getParentFragmentManager().popBackStack();
+                        }
+                    } else {
+                        showError("Update failed. Try again.");
+                        btnPostItem.setEnabled(true);
+                        btnPostItem.setText("Update Item ▷");
+                    }
+                });
+    }
+
+
+    // Tạo item mới (giữ nguyên code cũ)
+    private void createNewItem(String uid, String ownerName,
+                               String title, String desc,
+                               String category, String address) {
+
+        String itemId = mDatabase.child("items").push().getKey();
+
+        Item item = new Item(uid, ownerName, title,
+                desc, category, address, "sharing");
+        item.setItemId(itemId);
+        item.setImageUrl(imageBase64Main);
+        item.setQuantity(quantity);
+        item.setLatitude(pickedLat);
+        item.setLongitude(pickedLng);
+        item.setExactAddress(pickedAddress);
+
+        mDatabase.child("items").child(itemId).setValue(item)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(getContext(),
+                                "Item posted! 🎉",
+                                Toast.LENGTH_SHORT).show();
+                        resetForm();
+                    } else {
+                        showError("Failed to post. Try again.");
+                        btnPostItem.setEnabled(true);
+                        btnPostItem.setText("Post Item ▷");
+                    }
+                });
+    }
+
+
 }
