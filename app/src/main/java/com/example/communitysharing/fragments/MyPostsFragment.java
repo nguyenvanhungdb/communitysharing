@@ -83,11 +83,25 @@ public class MyPostsFragment extends Fragment {
 
                     @Override
                     public void onEdit(Item item) {
-                        // Mở ShareFragment với data có sẵn để edit
-                        // TODO: truyền itemId sang ShareFragment để edit
-                        Toast.makeText(getContext(),
-                                "Edit: " + item.getTitle(),
-                                Toast.LENGTH_SHORT).show();
+                        // Tạo bundle truyền data item sang ShareFragment
+                        Bundle bundle = new Bundle();
+                        bundle.putString("editItemId",    item.getItemId());
+                        bundle.putString("editTitle",     item.getTitle());
+                        bundle.putString("editDesc",      item.getDescription());
+                        bundle.putString("editAddress",   item.getAddress());
+                        bundle.putString("editCategory",  item.getCategory());
+                        bundle.putString("editImageUrl",  item.getImageUrl());
+                        bundle.putDouble("editLat",       item.getLatitude());
+                        bundle.putDouble("editLng",       item.getLongitude());
+
+                        ShareFragment shareFragment = new ShareFragment();
+                        shareFragment.setArguments(bundle);
+
+                        getParentFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.fragmentContainer, shareFragment)
+                                .addToBackStack(null)
+                                .commit();
                     }
 
                     @Override
