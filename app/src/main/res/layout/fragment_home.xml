@@ -379,15 +379,12 @@
                     android:focusable="true"/>
             </LinearLayout>
 
-            <!-- RecyclerView dạng Grid 2 cột -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvItems"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:paddingBottom="16dp"
-                android:nestedScrollingEnabled="false"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:paddingBottom="100dp"
                 android:clipToPadding="false"/>
 
         </LinearLayout>
