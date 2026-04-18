@@ -75,27 +75,63 @@ public class HistoryAdapter extends
         setStatus(holder, status);
 
         // Ảnh Base64
+//        String imageUrl = item.getItemImageUrl();
+//        if (imageUrl != null && !imageUrl.isEmpty()) {
+//            try {
+//                byte[] bytes = Base64.decode(imageUrl, Base64.DEFAULT);
+//                Bitmap bitmap = BitmapFactory.decodeByteArray(
+//                        bytes, 0, bytes.length);
+//                holder.ivItemImage.setImageBitmap(bitmap);
+//                holder.ivItemImage.setPadding(0, 0, 0, 0);
+//            } catch (Exception e) {
+//                holder.ivItemImage.setImageResource(
+//                        android.R.drawable.ic_menu_gallery);
+//            }
+//        } else {
+//            holder.ivItemImage.setImageResource(
+//                    android.R.drawable.ic_menu_gallery);
+//        }
+//
+//        // Click
+//        holder.itemView.setOnClickListener(v -> {
+//            if (listener != null) listener.onClick(item);
+//        });
+        // Ảnh Base64 - decode trên background thread
         String imageUrl = item.getItemImageUrl();
         if (imageUrl != null && !imageUrl.isEmpty()) {
-            try {
-                byte[] bytes = Base64.decode(imageUrl, Base64.DEFAULT);
-                Bitmap bitmap = BitmapFactory.decodeByteArray(
-                        bytes, 0, bytes.length);
-                holder.ivItemImage.setImageBitmap(bitmap);
-                holder.ivItemImage.setPadding(0, 0, 0, 0);
-            } catch (Exception e) {
-                holder.ivItemImage.setImageResource(
-                        android.R.drawable.ic_menu_gallery);
-            }
+
+            // Đặt placeholder trước
+            holder.ivItemImage.setImageResource(
+                    android.R.drawable.ic_menu_gallery);
+
+            // Decode trên background thread tránh lag
+            new Thread(() -> {
+                try {
+                    byte[] bytes = Base64.decode(imageUrl, Base64.DEFAULT);
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(
+                            bytes, 0, bytes.length);
+
+                    // Cập nhật UI trên Main thread
+                    ((android.app.Activity) context).runOnUiThread(() -> {
+                        // Kiểm tra holder còn dùng item này không
+                        // tránh trường hợp scroll nhanh bị nhầm ảnh
+                        if (holder.getAdapterPosition() == position) {
+                            holder.ivItemImage.setImageBitmap(bitmap);
+                            holder.ivItemImage.setPadding(0, 0, 0, 0);
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ((android.app.Activity) context).runOnUiThread(() ->
+                            holder.ivItemImage.setImageResource(
+                                    android.R.drawable.ic_menu_gallery));
+                }
+            }).start();
+
         } else {
             holder.ivItemImage.setImageResource(
                     android.R.drawable.ic_menu_gallery);
         }
-
-        // Click
-        holder.itemView.setOnClickListener(v -> {
-            if (listener != null) listener.onClick(item);
-        });
     }
 
     private void setStatus(HistoryViewHolder holder, String status) {

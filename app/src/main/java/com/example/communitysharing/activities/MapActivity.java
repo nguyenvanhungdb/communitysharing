@@ -62,7 +62,7 @@ public class MapActivity extends AppCompatActivity {
         Configuration.getInstance().load(this,
                 PreferenceManager.getDefaultSharedPreferences(this));
         Configuration.getInstance().setUserAgentValue(
-                getPackageName());
+                "CommunitySharing/1.0 (Android; contact@gmail.com)");
 
         setContentView(R.layout.activity_map);
 
@@ -133,7 +133,22 @@ public class MapActivity extends AppCompatActivity {
     }
 
     private void setupMap() {
-        mapView.setTileSource(TileSourceFactory.MAPNIK);
+        org.osmdroid.tileprovider.tilesource.XYTileSource tileSource =
+                new org.osmdroid.tileprovider.tilesource.XYTileSource(
+                        "CartoDB",           // Tên tile source
+                        0,                   // Zoom min
+                        19,                  // Zoom max
+                        256,                 // Tile size
+                        ".png",              // Extension
+                        new String[]{
+                                "https://a.basemaps.cartocdn.com/rastertiles/voyager/",
+                                "https://b.basemaps.cartocdn.com/rastertiles/voyager/",
+                                "https://c.basemaps.cartocdn.com/rastertiles/voyager/"
+                        },
+                        "© CartoDB © OpenStreetMap contributors"
+                );
+
+        mapView.setTileSource(tileSource);
         mapView.setMultiTouchControls(true);
         mapView.getController().setZoom(15.0);
 
