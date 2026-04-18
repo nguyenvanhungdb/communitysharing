@@ -36,7 +36,8 @@ public class MyPostsFragment extends Fragment {
     private RecyclerView rvMyPosts;
     private LinearLayout llEmpty;
     private TextView tabActive, tabArchived;
-    private FloatingActionButton fabAddPost;
+
+    
 
     private MyPostsAdapter adapter;
     private List<Item> allList      = new ArrayList<>();
@@ -64,7 +65,7 @@ public class MyPostsFragment extends Fragment {
         llEmpty     = view.findViewById(R.id.llEmpty);
         tabActive   = view.findViewById(R.id.tabActive);
         tabArchived = view.findViewById(R.id.tabArchived);
-        fabAddPost  = view.findViewById(R.id.fabAddPost);
+
 
         // Setup RecyclerView
         rvMyPosts.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -119,14 +120,7 @@ public class MyPostsFragment extends Fragment {
 
         rvMyPosts.setAdapter(adapter);
 
-        // FAB → chuyển sang ShareFragment
-        fabAddPost.setOnClickListener(v -> {
-            getParentFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragmentContainer, new ShareFragment())
-                    .addToBackStack(null)
-                    .commit();
-        });
+
 
         // Setup tabs
         setupTabs();

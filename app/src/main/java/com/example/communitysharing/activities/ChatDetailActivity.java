@@ -28,6 +28,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.Nullable;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -175,12 +178,46 @@ public class ChatDetailActivity extends AppCompatActivity {
                 });
     }
     private void sendImage(Uri uri) {
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        String userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
 
-        Message message = new Message(userId, userName, uri);
-        messageList.add(message);
-        adapter.notifyDataSetChanged();
+        String fileName = "chat_images/" + System.currentTimeMillis();
+        StorageReference fileRef = storageRef.child(fileName);
+
+        fileRef.putFile(uri)
+                .addOnSuccessListener(taskSnapshot -> {
+                    fileRef.getDownloadUrl().addOnSuccessListener(downloadUri -> {
+
+                        String messageId = mDatabase.child("messages")
+                                .child(conversationId).push().getKey();
+
+                        Message message = new Message(
+                                myUid,
+                                myName,
+                                downloadUri.toString(),
+                                true // là ảnh
+                        );
+
+                        message.setMessageId(messageId);
+
+                        // Lưu message
+                        mDatabase.child("messages")
+                                .child(conversationId)
+                                .child(messageId)
+                                .setValue(message);
+
+                        // Update chat cho mình
+                        Conversation myConv = new Conversation(
+                                conversationId, otherUserId, otherUserName, "[image]");
+                        mDatabase.child("chats").child(myUid)
+                                .child(conversationId).setValue(myConv);
+
+                        // Update chat cho người kia
+                        Conversation theirConv = new Conversation(
+                                conversationId, myUid, myName, "[image]");
+                        mDatabase.child("chats").child(otherUserId)
+                                .child(conversationId).setValue(theirConv);
+                    });
+                });
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

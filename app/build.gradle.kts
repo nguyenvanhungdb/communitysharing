@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.application)
 //    id("com.android.application")
     id("com.google.gms.google-services")
+
 }
 
 android {
@@ -65,4 +66,6 @@ dependencies {
     implementation("com.google.android.flexbox:flexbox:3.0.0")
     implementation("org.osmdroid:osmdroid-android:6.1.17")
     implementation("com.google.android.gms:play-services-location:21.0.1")
+
+
 }

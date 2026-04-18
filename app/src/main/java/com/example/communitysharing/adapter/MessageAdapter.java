@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.communitysharing.R;
 import com.example.communitysharing.models.Message;
 
@@ -20,6 +21,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import com.bumptech.glide.Glide;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
 
@@ -60,10 +63,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             holder.imgMessage.setVisibility(View.VISIBLE);
             holder.tvMessage.setVisibility(View.GONE);
 
-            Uri uri = msg.getImageUri();
-            if (uri != null) {
-                holder.imgMessage.setImageURI(uri);
-            }
+            Glide.with(context)
+                    .load(msg.getImageUrl())
+                    .into(holder.imgMessage);
         } else {
             holder.tvMessage.setVisibility(View.VISIBLE);
             holder.imgMessage.setVisibility(View.GONE);

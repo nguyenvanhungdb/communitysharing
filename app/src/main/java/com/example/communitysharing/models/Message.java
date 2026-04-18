@@ -6,6 +6,7 @@ public class Message {
     private String messageId;
     private String imageUri;
     private boolean isImage;
+    private String imageUrl;
 
     private String senderId;
     private String senderName;
@@ -27,17 +28,15 @@ public class Message {
         this.imageUri   = null;
     }
 
-    //  Constructor gửi IMAGE
-    public Message(String senderId, String senderName, Uri imageUri) {
-        this.senderId   = senderId;
-        this.senderName = senderName;
-        this.imageUri   = imageUri.toString();
-        this.timestamp  = System.currentTimeMillis();
-        this.isRead     = false;
-        this.isImage    = true;
-        this.content    = null;
-    }
+   // Constructor gửi IMAGE
 
+    public Message(String senderId, String senderName, String imageUrl, boolean isImage) {
+        this.senderId = senderId;
+        this.senderName = senderName;
+        this.imageUrl = imageUrl;
+        this.isImage = isImage;
+        this.timestamp = System.currentTimeMillis();
+    }
 
     // Getters
     public String getMessageId()  { return messageId; }
@@ -47,6 +46,10 @@ public class Message {
     public long   getTimestamp()  { return timestamp; }
     public boolean isRead()       { return isRead; }
     public boolean isImage()      { return isImage; }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
     // ⚠ convert lại thành Uri khi dùng
     public Uri getImageUri() {
