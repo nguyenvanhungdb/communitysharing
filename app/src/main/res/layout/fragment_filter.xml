@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:paddingBottom="90dp"
+    android:clipToPadding="false">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <!-- HEADER -->
 
     <ImageView
-        android:id="@+id/ivBack"
+        android:id="@+id/btnBack"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@android:drawable/ic_media_previous"
         app:tint="@color/colorPrimary"
         android:padding="8dp"
         android:clickable="true"
-        android:focusable="true"/>
+        android:focusable="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <!-- TITLE -->
 
@@ -24,7 +33,7 @@
         android:id="@+id/tvAppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="56dp"
         android:layout_marginTop="8dp"
         android:text="The Commons"
         android:textColor="@color/colorTextDark"
@@ -81,33 +90,36 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
-            android:id="@+id/tvAvailable"
-            android:layout_width="180dp"
-            android:layout_height="43dp"
-            android:background="@drawable/bg_button_primary"
+            android:id="@+id/btnAvailable"
+            android:layout_width="131dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/bg_button_secondary"
             android:gravity="center"
             android:text="Available"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorTextDark"
             android:textSize="14sp"
-            android:textStyle="bold"
+
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/tvNeeded"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.833" />
 
         <TextView
-            android:id="@+id/tvNeeded"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="Needed"
-            android:textSize="14sp"
-            android:gravity="center"
-            android:textColor="@color/colorTextDark"
+            android:id="@+id/btnNeeded"
+            android:layout_width="141dp"
+            android:layout_height="41dp"
+            android:layout_marginEnd="4dp"
             android:background="@drawable/bg_button_secondary"
-            app:layout_constraintStart_toEndOf="@id/tvAvailable"
+            android:gravity="center"
+            android:text="Needed"
+            android:textColor="@color/colorTextDark"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintVertical_bias="0.666" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- CATEGORY -->
@@ -132,7 +144,6 @@
         app:layout_constraintTop_toTopOf="@id/tvCategory"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- CHIPS (ĐÃ SẮP XẾP LẠI GỌN GÀNG, ĐÚNG GRID, KHÔNG OFFSET LỆCH) -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutChips"
         android:layout_width="0dp"
@@ -145,152 +156,175 @@
         <!-- ROW 1 -->
         <TextView
             android:id="@+id/chip1"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:text="Garden Tools"
-            android:textSize="12sp"
-            android:background="@drawable/bg_button_primary"
-            android:textColor="@color/colorWhite"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="4dp"
             android:gravity="center"
-            android:paddingHorizontal="12dp"
+            android:text="Furniture"
+            android:textSize="12sp"
+            android:background="@drawable/bg_button_secondary"
+            android:textColor="@color/colorTextDark"
+            app:layout_constraintWidth_percent="0.3"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <!-- ROW 2 -->
         <TextView
             android:id="@+id/chip2"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_marginStart="132dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_button_primary"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="4dp"
             android:gravity="center"
-            android:paddingHorizontal="12dp"
-            android:text="Kitchenware"
-            android:textColor="@color/colorWhite"
+            android:text="Food"
             android:textSize="12sp"
+            android:background="@drawable/bg_button_secondary"
+            android:textColor="@color/colorTextDark"
+            app:layout_constraintWidth_percent="0.3"
             app:layout_constraintStart_toEndOf="@id/chip1"
-            app:layout_constraintTop_toTopOf="@id/chip1" />
+            app:layout_constraintTop_toTopOf="@id/chip1"/>
 
         <TextView
             android:id="@+id/chip3"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:text="Books and Media"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="4dp"
+            android:gravity="center"
+            android:text="Clothes"
             android:textSize="12sp"
             android:background="@drawable/bg_button_secondary"
             android:textColor="@color/colorTextDark"
+            app:layout_constraintWidth_percent="0.3"
+            app:layout_constraintStart_toEndOf="@id/chip2"
+            app:layout_constraintTop_toTopOf="@id/chip1"/>
+
+        <!-- ROW 2 -->
+        <TextView
+            android:id="@+id/chip4"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="4dp"
             android:gravity="center"
-            android:paddingHorizontal="12dp"
-            android:layout_marginTop="8dp"
+            android:text="Tool"
+            android:textSize="12sp"
+            android:background="@drawable/bg_button_secondary"
+            android:textColor="@color/colorTextDark"
+            app:layout_constraintWidth_percent="0.3"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/chip1"/>
 
-        <!-- ROW 3 -->
-
-        <TextView
-            android:id="@+id/chip4"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_marginStart="120dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_button_primary"
-            android:gravity="center"
-            android:paddingHorizontal="12dp"
-            android:text="Power Tools"
-            android:textColor="@color/colorWhite"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@id/chip3"
-            app:layout_constraintTop_toTopOf="@id/chip3" />
-
         <TextView
             android:id="@+id/chip5"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:text="Camping Gear"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="4dp"
+            android:gravity="center"
+            android:text="Electronic"
             android:textSize="12sp"
             android:background="@drawable/bg_button_secondary"
             android:textColor="@color/colorTextDark"
-            android:gravity="center"
-            android:paddingHorizontal="12dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/chip3"/>
+            app:layout_constraintWidth_percent="0.3"
+            app:layout_constraintStart_toEndOf="@id/chip4"
+            app:layout_constraintTop_toTopOf="@id/chip4"/>
 
-        <!-- ROW 4 -->
         <TextView
             android:id="@+id/chip6"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_marginStart="132dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bg_button_secondary"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="4dp"
             android:gravity="center"
-            android:paddingHorizontal="12dp"
-            android:text="Electronics"
-            android:textColor="@color/colorTextDark"
+            android:text="Kitchen"
             android:textSize="12sp"
+            android:background="@drawable/bg_button_secondary"
+            android:textColor="@color/colorTextDark"
+            app:layout_constraintWidth_percent="0.3"
             app:layout_constraintStart_toEndOf="@id/chip5"
-            app:layout_constraintTop_toTopOf="@id/chip5" />
+            app:layout_constraintTop_toTopOf="@id/chip4"/>
 
+        <!-- ROW 3 -->
         <TextView
             android:id="@+id/chip7"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:text="Pet Supplies"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="4dp"
+            android:gravity="center"
+            android:text="Garden"
             android:textSize="12sp"
             android:background="@drawable/bg_button_secondary"
             android:textColor="@color/colorTextDark"
-            android:gravity="center"
-            android:paddingHorizontal="12dp"
-            android:layout_marginTop="8dp"
+            app:layout_constraintWidth_percent="0.3"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/chip5"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- SEARCH RADIUS -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layoutRadius"
-        android:layout_width="380dp"
-        android:layout_height="71dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/bg_featured_card"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutChips">
+            app:layout_constraintTop_toBottomOf="@id/chip4"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:text="SEARCH RADIUS"
-            android:textColor="@color/colorTextGray"
-            android:textSize="10sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvMiles"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:text="5.2 Miles"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <SeekBar
-            android:id="@+id/seekBar"
+            android:id="@+id/chip8"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="12dp"
+            android:layout_height="40dp"
+            android:layout_margin="4dp"
+            android:gravity="center"
+            android:text="Book"
+            android:textSize="12sp"
+            android:background="@drawable/bg_button_secondary"
+            android:textColor="@color/colorTextDark"
+            app:layout_constraintWidth_percent="0.3"
+            app:layout_constraintStart_toEndOf="@id/chip7"
+            app:layout_constraintTop_toTopOf="@id/chip7"/>
+
+        <TextView
+            android:id="@+id/chip9"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="4dp"
+            android:gravity="center"
+            android:text="Others"
+            android:textSize="12sp"
+            android:background="@drawable/bg_button_secondary"
+            android:textColor="@color/colorTextDark"
+            app:layout_constraintWidth_percent="0.3"
+            app:layout_constraintStart_toEndOf="@id/chip8"
+            app:layout_constraintTop_toTopOf="@id/chip7"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutRadius"
+            android:layout_width="327dp"
+            android:layout_height="57dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_featured_card"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvMiles" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@id/layoutChips">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:text="SEARCH RADIUS"
+                android:textColor="@color/colorTextGray"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvMiles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:text="5.2 Miles"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvMiles" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- TIME -->
     <TextView
@@ -304,40 +338,41 @@
         app:layout_constraintTop_toBottomOf="@id/layoutRadius"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <LinearLayout
-        android:id="@+id/layoutTime"
-        android:layout_width="0dp"
-        android:layout_height="44dp"
-        android:orientation="horizontal"
-        android:background="@drawable/bg_button_secondary"
-        android:gravity="center_vertical"
-        android:paddingHorizontal="12dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/tvTime"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        <LinearLayout
+            android:id="@+id/layoutTime"
+            android:layout_width="327dp"
+            android:layout_height="34dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_button_secondary"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTime">
 
-        <ImageView
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:src="@android:drawable/ic_menu_recent_history"
-            android:tint="@color/colorTextDark"
-            android:layout_marginEnd="6dp"/>
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="6dp"
+                android:src="@android:drawable/ic_menu_recent_history"
+                app:tint="@color/colorTextDark" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Last 24 Hours"
-            android:textSize="14sp"
-            android:textColor="@color/colorTextDark"
-            android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/tvTimeSelected"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Last 24 Hours"
+                android:textColor="@color/colorTextDark"
+                android:textSize="14sp" />
 
-        <ImageView
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:src="@android:drawable/arrow_down_float"
-            android:tint="@color/colorTextDark"/>
-    </LinearLayout>
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@android:drawable/arrow_down_float"
+                app:tint="@color/colorTextDark" />
+        </LinearLayout>
 
     <!-- BUTTONS -->
     <LinearLayout
@@ -351,6 +386,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
+            android:id="@+id/btnReset"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
@@ -361,6 +397,7 @@
             android:textColor="@color/colorTextDark"/>
 
         <TextView
+            android:id="@+id/btnApply"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
@@ -371,6 +408,8 @@
             android:background="@drawable/bg_button_primary"
             android:textColor="@color/colorWhite"
             android:layout_marginStart="8dp"/>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
