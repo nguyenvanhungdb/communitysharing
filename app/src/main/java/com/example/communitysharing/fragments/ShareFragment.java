@@ -162,15 +162,15 @@ public class ShareFragment extends Fragment {
         // Camera
         flMainPhoto.setOnClickListener(v -> {
             currentPhotoSlot = 1;
-            openCamera();
+            openImagePicker();
         });
         flPhoto2.setOnClickListener(v -> {
             currentPhotoSlot = 2;
-            openCamera();
+            openImagePicker();
         });
         flPhoto3.setOnClickListener(v -> {
             currentPhotoSlot = 3;
-            openCamera();
+            openImagePicker();
         });
 
         // Quantity
@@ -320,35 +320,41 @@ public class ShareFragment extends Fragment {
     }
 
     // ===== CAMERA =====
-    private void openCamera() {
-        if (ContextCompat.checkSelfPermission(getContext(),
-                Manifest.permission.CAMERA)
+    private void openImagePicker() {
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(
-                    new String[]{Manifest.permission.CAMERA},
+
+            // Nếu chưa có quyền, phải hỏi người dùng
+            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_PERMISSION);
-            return;
+            return; // Dừng hàm lại, đợi người dùng bấm "Cho phép"
         }
+        // 1. Tạo Intent cho Gallery (Thư viện)
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
+        // 2. Tạo Intent cho Camera (Chụp ảnh)
+        // Vẫn cần FileProvider để lưu ảnh chụp giống như cũ
         File photoFile = createImageFile();
-        if (photoFile == null) return;
+        if (photoFile != null) {
+            currentPhotoUri = FileProvider.getUriForFile(getContext(),
+                    getContext().getPackageName() + ".fileprovider", photoFile);
 
-        currentPhotoUri = FileProvider.getUriForFile(
-                getContext(),
-                getContext().getPackageName() + ".fileprovider",
-                photoFile);
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, currentPhotoUri);
 
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, currentPhotoUri);
-        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-                | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            // 3. Tạo Chooser (Bộ chọn)
+            // Lấy Gallery làm gốc, sau đó "nhét" thêm Camera vào làm lựa chọn đầu tiên
+            Intent chooserIntent = Intent.createChooser(galleryIntent, "Chọn nguồn ảnh");
+            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{cameraIntent});
 
-        int requestCode;
-        if      (currentPhotoSlot == 1) requestCode = REQUEST_CAMERA_MAIN;
-        else if (currentPhotoSlot == 2) requestCode = REQUEST_CAMERA_PHOTO2;
-        else                            requestCode = REQUEST_CAMERA_PHOTO3;
+            // 4. Bật lên
+            int requestCode;
+            if      (currentPhotoSlot == 1) requestCode = REQUEST_CAMERA_MAIN;
+            else if (currentPhotoSlot == 2) requestCode = REQUEST_CAMERA_PHOTO2;
+            else                            requestCode = REQUEST_CAMERA_PHOTO3;
 
-        startActivityForResult(intent, requestCode);
+            startActivityForResult(chooserIntent, requestCode);
+        }
     }
 
     private File createImageFile() {
@@ -408,27 +414,37 @@ public class ShareFragment extends Fragment {
         // ===== NHẬN KẾT QUẢ TỪ CAMERA =====
         if (resultCode != Activity.RESULT_OK) return;
 
-        String base64 = uriToBase64(currentPhotoUri);
+        Uri selectedImageUri;
 
+        // KIỂM TRA: Nếu data != null và data.getData() != null thì là chọn từ THƯ VIỆN
+        if (data != null && data.getData() != null) {
+            selectedImageUri = data.getData();
+        } else {
+            // Nếu không có data thì là vừa CHỤP ẢNH xong
+            selectedImageUri = currentPhotoUri;
+        }
+
+        // Chuyển sang Base64 bằng URI đúng
+        String base64 = uriToBase64(selectedImageUri);
+
+        // Hiển thị lên đúng Slot
         if (requestCode == REQUEST_CAMERA_MAIN) {
             imageBase64Main = base64;
-            ivMainPhoto.setImageURI(currentPhotoUri);
+            ivMainPhoto.setImageURI(selectedImageUri); // Dùng selectedImageUri thay vì currentPhotoUri
             ivMainPhoto.setVisibility(View.VISIBLE);
             llMainPhotoPlaceholder.setVisibility(View.GONE);
 
         } else if (requestCode == REQUEST_CAMERA_PHOTO2) {
             imageBase64Two = base64;
-            ivPhoto2.setImageURI(currentPhotoUri);
+            ivPhoto2.setImageURI(selectedImageUri);
             ivPhoto2.setVisibility(View.VISIBLE);
-            flPhoto2.findViewById(R.id.ivAddPhoto2)
-                    .setVisibility(View.GONE);
+            flPhoto2.findViewById(R.id.ivAddPhoto2).setVisibility(View.GONE);
 
         } else if (requestCode == REQUEST_CAMERA_PHOTO3) {
             imageBase64Three = base64;
-            ivPhoto3.setImageURI(currentPhotoUri);
+            ivPhoto3.setImageURI(selectedImageUri);
             ivPhoto3.setVisibility(View.VISIBLE);
-            flPhoto3.findViewById(R.id.ivAddPhoto3)
-                    .setVisibility(View.GONE);
+            flPhoto3.findViewById(R.id.ivAddPhoto3).setVisibility(View.GONE);
         }
     }
 
@@ -628,7 +644,7 @@ public class ShareFragment extends Fragment {
         if (requestCode == REQUEST_PERMISSION
                 && grantResults.length > 0
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            openCamera();
+            openImagePicker();
         } else if (requestCode == REQUEST_LOCATION_PERM
                 && grantResults.length > 0
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
