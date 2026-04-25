@@ -40,22 +40,22 @@
                 android:textColor="@color/colorTextDark"
                 android:layout_marginStart="4dp"/>
 
-            <ImageView
-                android:id="@+id/ivNotification"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@android:drawable/ic_dialog_info"
-                android:tint="@color/colorPrimary"
-                android:layout_marginEnd="8dp"/>
+<!--            <ImageView-->
+<!--                android:id="@+id/ivNotification"-->
+<!--                android:layout_width="28dp"-->
+<!--                android:layout_height="28dp"-->
+<!--                android:src="@android:drawable/ic_dialog_info"-->
+<!--                android:tint="@color/colorPrimary"-->
+<!--                android:layout_marginEnd="8dp"/>-->
 
-            <ImageView
-                android:id="@+id/ivAvatar"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:background="@drawable/bg_avatar_circle"
-                android:src="@android:drawable/ic_menu_myplaces"
-                android:padding="7dp"
-                android:tint="@color/colorPrimary"/>
+<!--            <ImageView-->
+<!--                android:id="@+id/ivAvatar"-->
+<!--                android:layout_width="36dp"-->
+<!--                android:layout_height="36dp"-->
+<!--                android:background="@drawable/bg_avatar_circle"-->
+<!--                android:src="@android:drawable/ic_menu_myplaces"-->
+<!--                android:padding="7dp"-->
+<!--                android:tint="@color/colorPrimary"/>-->
         </LinearLayout>
 
         <!-- Title + subtitle -->

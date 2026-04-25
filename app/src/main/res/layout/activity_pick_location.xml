@@ -105,7 +105,7 @@
         android:layout_height="36dp"
         android:layout_centerInParent="true"
         android:layout_marginBottom="36dp"
-        android:src="@android:drawable/ic_menu_mapmode"
+        android:src="@drawable/ic_item_map"
         app:tint="@color/colorPrimary"/>
 
     <!-- Card dưới cùng -->
@@ -138,7 +138,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@android:drawable/ic_menu_mapmode"
+                android:src="@drawable/ic_item_map"
                 app:tint="@color/colorPrimary"
                 android:layout_marginEnd="8dp"/>
 

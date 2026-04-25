@@ -1,5 +1,7 @@
 package com.example.communitysharing.activities;
 
+import static java.security.AccessController.getContext;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -123,17 +125,35 @@ public class ItemDetailActivity extends AppCompatActivity {
                         }
 
                         // Click Location → mở MapActivity
+//                        llLocation.setOnClickListener(v -> {
+//                            if (currentItem.getLatitude() == 0
+//                                    && currentItem.getLongitude() == 0) {
+//                                Toast.makeText(ItemDetailActivity.this,
+//                                        "No location available for this item",
+//                                        Toast.LENGTH_SHORT).show();
+//                                return;
+//                            }
+//                            Intent intent = new Intent(
+//                                    ItemDetailActivity.this,
+//                                    MapActivity.class);
+//                            intent.putExtra(MapActivity.EXTRA_ITEM_LAT,
+//                                    currentItem.getLatitude());
+//                            intent.putExtra(MapActivity.EXTRA_ITEM_LNG,
+//                                    currentItem.getLongitude());
+//                            intent.putExtra(MapActivity.EXTRA_ITEM_TITLE,
+//                                    currentItem.getTitle());
+//                            intent.putExtra(MapActivity.EXTRA_ITEM_ADDRESS,
+//                                    currentItem.getAddress());
+//                            intent.putExtra(MapActivity.EXTRA_ITEM_OWNER,
+//                                    currentItem.getOwnerName());
+//                            intent.putExtra(MapActivity.EXTRA_ITEM_IMAGE,
+//                                    currentItem.getImageUrl());
+//                            startActivity(intent);
+//                        });
+
                         llLocation.setOnClickListener(v -> {
-                            if (currentItem.getLatitude() == 0
-                                    && currentItem.getLongitude() == 0) {
-                                Toast.makeText(ItemDetailActivity.this,
-                                        "No location available for this item",
-                                        Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            Intent intent = new Intent(
-                                    ItemDetailActivity.this,
-                                    MapActivity.class);
+                            Intent intent = new Intent(ItemDetailActivity.this, MapActivity.class);
+                            intent.putExtra(MapActivity.EXTRA_SHOW_ALL, false); // ← Chế độ 1 item
                             intent.putExtra(MapActivity.EXTRA_ITEM_LAT,
                                     currentItem.getLatitude());
                             intent.putExtra(MapActivity.EXTRA_ITEM_LNG,
@@ -146,6 +166,8 @@ public class ItemDetailActivity extends AppCompatActivity {
                                     currentItem.getOwnerName());
                             intent.putExtra(MapActivity.EXTRA_ITEM_IMAGE,
                                     currentItem.getImageUrl());
+                            intent.putExtra(MapActivity.EXTRA_ITEM_ID,    // ← Thêm itemId
+                                    itemId);
                             startActivity(intent);
                         });
 
