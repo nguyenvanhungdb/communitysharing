@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.communitysharing.R;
 import com.example.communitysharing.activities.ItemDetailActivity;
+import com.example.communitysharing.activities.MapActivity;
 import com.example.communitysharing.activities.NewRequestActivity;
 import com.example.communitysharing.adapter.ItemAdapter;
 import com.example.communitysharing.models.Item;
@@ -89,9 +90,15 @@ public class HomeFragment extends Fragment {
 
         // ===== 2. VIEW MAP =====
         TextView tvViewMap = view.findViewById(R.id.tvViewMap);
+//        tvViewMap.setOnClickListener(v -> {
+//            Intent intent = new Intent(getContext(),
+//                    com.example.communitysharing.activities.MapActivity.class);
+//            startActivity(intent);
+//        });
+        // Trong HomeFragment.java - tvViewMap click
         tvViewMap.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(),
-                    com.example.communitysharing.activities.MapActivity.class);
+            Intent intent = new Intent(getContext(), MapActivity.class);
+            intent.putExtra(MapActivity.EXTRA_SHOW_ALL, true); // ← Chế độ xem tất cả
             startActivity(intent);
         });
 

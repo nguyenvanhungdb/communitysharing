@@ -33,6 +33,7 @@
             android:focusable="true"/>
 
         <TextView
+            android:id="@+id/tvMapTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -51,15 +52,17 @@
             android:focusable="true"/>
     </LinearLayout>
 
-    <!-- Card dưới cùng -->
+    <!-- Card item info dưới cùng -->
     <LinearLayout
+        android:id="@+id/llItemCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/colorWhite"
         android:padding="16dp"
         android:layout_alignParentBottom="true"
-        android:elevation="8dp">
+        android:elevation="8dp"
+        android:visibility="gone">
 
         <!-- Item info -->
         <LinearLayout
@@ -71,8 +74,8 @@
 
             <ImageView
                 android:id="@+id/ivItemImage"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:background="@drawable/bg_featured_card"
                 android:src="@android:drawable/ic_menu_gallery"
                 android:scaleType="centerCrop"
@@ -84,12 +87,24 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
+                <!-- Status badge -->
+                <TextView
+                    android:id="@+id/tvItemStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AVAILABLE NOW"
+                    android:textSize="10sp"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.05"
+                    android:layout_marginBottom="4dp"/>
+
                 <TextView
                     android:id="@+id/tvItemTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Item Title"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorTextDark"/>
 
@@ -99,11 +114,20 @@
                     android:layout_height="wrap_content"
                     android:text="Owner"
                     android:textSize="12sp"
-                    android:textColor="@color/colorTextGray"/>
+                    android:textColor="@color/colorTextGray"
+                    android:layout_marginTop="2dp"/>
             </LinearLayout>
+
+            <!-- Favorite icon -->
+            <ImageView
+                android:id="@+id/ivFavorite"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@android:drawable/btn_star_big_off"
+                app:tint="@color/colorPrimary"/>
         </LinearLayout>
 
-        <!-- Distance info -->
+        <!-- Address + Distance -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -114,9 +138,9 @@
             android:layout_marginBottom="12dp">
 
             <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@android:drawable/ic_menu_mapmode"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_item_map"
                 app:tint="@color/colorPrimary"
                 android:layout_marginEnd="8dp"/>
 
@@ -130,31 +154,52 @@
                     android:id="@+id/tvItemAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Item address"
+                    android:text="Address"
                     android:textSize="13sp"
                     android:textStyle="bold"
-                    android:textColor="@color/colorTextDark"/>
+                    android:textColor="@color/colorTextDark"
+                    android:maxLines="1"
+                    android:ellipsize="end"/>
 
                 <TextView
                     android:id="@+id/tvDistance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Calculating distance..."
+                    android:text="Calculating..."
                     android:textSize="12sp"
                     android:textColor="@color/colorTextGray"/>
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Mở OpenStreetMap browser -->
-        <Button
-            android:id="@+id/btnOpenMap"
+        <!-- Buttons -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:background="@drawable/bg_button_primary"
-            android:text="Open in Maps App"
-            android:textColor="@color/colorWhite"
-            android:textSize="15sp"
-            android:textStyle="bold"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnViewDetail"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_secondary"
+                android:text="View Detail"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/btnOpenMap"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_primary"
+                android:text="Open in Maps"
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>
