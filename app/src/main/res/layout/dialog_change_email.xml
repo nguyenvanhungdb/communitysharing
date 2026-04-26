@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <!-- New Email -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Email Address"
+        android:textSize="12sp"
+        android:textColor="@color/colorTextGray"
+        android:layout_marginBottom="4dp"/>
+
+    <EditText
+        android:id="@+id/etNewEmail"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_input_field"
+        android:hint="yourname@domain.com"
+        android:textSize="14sp"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:inputType="textEmailAddress"
+        android:layout_marginBottom="14dp"/>
+
+    <!-- Password xác nhận -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirm with Password"
+        android:textSize="12sp"
+        android:textColor="@color/colorTextGray"
+        android:layout_marginBottom="4dp"/>
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_input_field"
+        android:hint="Your current password"
+        android:textSize="14sp"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:inputType="textPassword"/>
+
+</LinearLayout>

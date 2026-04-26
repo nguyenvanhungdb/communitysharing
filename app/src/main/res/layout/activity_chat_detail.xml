@@ -108,6 +108,7 @@
 
         <!-- Plus button -->
         <ImageView
+            android:id="@+id/btnAdd"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:src="@android:drawable/ic_input_add"

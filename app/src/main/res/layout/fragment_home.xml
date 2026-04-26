@@ -46,6 +46,20 @@
             app:tint="@color/colorPrimary"
             android:clickable="true"
             android:focusable="true"/>
+
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="0dp"/>
+
+        <ImageView
+            android:id="@+id/ivNewRequest"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@android:drawable/ic_input_add"
+            app:tint="@color/colorPrimary"
+            android:layout_marginEnd="8dp"
+            android:clickable="true"
+            android:focusable="true"/>
     </LinearLayout>
 
     <!-- Search Bar -->
@@ -95,6 +109,7 @@
 
         <!-- Filter button -->
         <FrameLayout
+            android:id="@+id/btnFilter"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@drawable/bg_card_white">
@@ -106,7 +121,8 @@
                 android:src="@android:drawable/ic_menu_sort_by_size"
                 app:tint="@color/colorPrimary"
                 android:clickable="true"
-                android:focusable="true"/>
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"/>
         </FrameLayout>
     </LinearLayout>
 
@@ -202,7 +218,72 @@
             android:orientation="vertical">
 
             <!-- Featured Share Card -->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:background="@drawable/bg_featured_card"-->
+<!--                android:padding="20dp"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:layout_marginEnd="16dp"-->
+<!--                android:layout_marginBottom="20dp">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="FEATURED SHARE"-->
+<!--                    android:textSize="11sp"-->
+<!--                    android:textColor="@color/colorPrimary"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:letterSpacing="0.1"-->
+<!--                    android:layout_marginBottom="6dp"/>-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tvFeaturedTitle"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Fresh Garden Produce Bundle"-->
+<!--                    android:textSize="22sp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:textColor="@color/colorTextDark"-->
+<!--                    android:layout_marginBottom="8dp"/>-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:layout_marginBottom="14dp">-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="14dp"-->
+<!--                        android:layout_height="14dp"-->
+<!--                        android:src="@android:drawable/ic_menu_mapmode"-->
+<!--                        app:tint="@color/colorTextGray"/>-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tvFeaturedDistance"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text=" 0.4 miles away"-->
+<!--                        android:textSize="13sp"-->
+<!--                        android:textColor="@color/colorTextGray"/>-->
+<!--                </LinearLayout>-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/btnRequestFeatured"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:background="@drawable/bg_button_primary"-->
+<!--                    android:text="Request Item"-->
+<!--                    android:textColor="@color/colorWhite"-->
+<!--                    android:textSize="13sp"-->
+<!--                    android:paddingStart="20dp"-->
+<!--                    android:paddingEnd="20dp"/>-->
+<!--            </LinearLayout>-->
+            <!-- Featured Share Card - sửa lại có ảnh + button -->
             <LinearLayout
+                android:id="@+id/llFeatured"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -210,7 +291,8 @@
                 android:padding="20dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="20dp">
+                android:layout_marginBottom="20dp"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -249,7 +331,7 @@
                         android:id="@+id/tvFeaturedDistance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" 0.4 miles away"
+                        android:text=" Nearby"
                         android:textSize="13sp"
                         android:textColor="@color/colorTextGray"/>
                 </LinearLayout>
@@ -297,15 +379,12 @@
                     android:focusable="true"/>
             </LinearLayout>
 
-            <!-- RecyclerView dạng Grid 2 cột -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvItems"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:paddingBottom="16dp"
-                android:nestedScrollingEnabled="false"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:paddingBottom="100dp"
                 android:clipToPadding="false"/>
 
         </LinearLayout>
