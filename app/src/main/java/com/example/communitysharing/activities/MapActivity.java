@@ -568,7 +568,34 @@ public class MapActivity extends AppCompatActivity {
     }
 
     // Thêm marker cho từng item
+//    private void addItemMarker(Item item, Location myLocation) {
+//        GeoPoint point = new GeoPoint(
+//                item.getLatitude(), item.getLongitude());
+//
+//        Marker marker = new Marker(mapView);
+//        marker.setPosition(point);
+//        marker.setTitle(item.getTitle());
+//        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+//        marker.setIcon(ContextCompat.getDrawable(this,
+//                android.R.drawable.ic_menu_mapmode));
+//
+//        // Click marker → hiện card item
+//        marker.setOnMarkerClickListener((m, map) -> {
+//            selectedItem = item;
+//            showItemCard(item, myLocation);
+//            return true;
+//        });
+//
+//        mapView.getOverlays().add(marker);
+//    }
+
     private void addItemMarker(Item item, Location myLocation) {
+
+        // Log xem marker có được tạo không
+        android.util.Log.d("MapActivity",
+                "Adding marker: " + item.getTitle()
+                        + " at " + item.getLatitude() + "," + item.getLongitude());
+
         GeoPoint point = new GeoPoint(
                 item.getLatitude(), item.getLongitude());
 
@@ -576,10 +603,41 @@ public class MapActivity extends AppCompatActivity {
         marker.setPosition(point);
         marker.setTitle(item.getTitle());
         marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        marker.setIcon(ContextCompat.getDrawable(this,
-                android.R.drawable.ic_menu_mapmode));
 
-        // Click marker → hiện card item
+        // Nếu có ảnh → decode Base64 làm icon marker
+        String imageUrl = item.getImageUrl();
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            new Thread(() -> {
+                try {
+                    // Thử NO_WRAP trước
+                    byte[] bytes = Base64.decode(imageUrl.trim(), Base64.NO_WRAP);
+                    Bitmap original = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+                    // Nếu null thử DEFAULT
+                    if (original == null) {
+                        bytes = Base64.decode(imageUrl.trim(), Base64.DEFAULT);
+                        original = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    }
+
+                    if (original != null) {
+                        Bitmap markerBitmap = createCircularMarkerBitmap(original);
+                        runOnUiThread(() -> {
+                            marker.setIcon(new android.graphics.drawable
+                                    .BitmapDrawable(getResources(), markerBitmap));
+                            mapView.invalidate();
+                        });
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        } else {
+            // Không có ảnh → dùng icon mặc định
+            marker.setIcon(ContextCompat.getDrawable(this,
+                    android.R.drawable.ic_menu_mapmode));
+        }
+
+        // Click marker → hiện card
         marker.setOnMarkerClickListener((m, map) -> {
             selectedItem = item;
             showItemCard(item, myLocation);
@@ -587,6 +645,40 @@ public class MapActivity extends AppCompatActivity {
         });
 
         mapView.getOverlays().add(marker);
+    }
+
+    // Tạo bitmap hình tròn có viền để làm icon marker
+    private Bitmap createCircularMarkerBitmap(Bitmap source) {
+        int size = 120; // px - kích thước marker
+
+        // Scale ảnh gốc về size
+        Bitmap scaled = Bitmap.createScaledBitmap(source, size, size, true);
+
+        // Tạo bitmap mới với kích thước lớn hơn để có viền + đuôi
+        int totalHeight = size + 30; // 30px cho đuôi tam giác
+        Bitmap result = Bitmap.createBitmap(size, totalHeight,
+                Bitmap.Config.ARGB_8888);
+        android.graphics.Canvas canvas =
+                new android.graphics.Canvas(result);
+
+        android.graphics.Paint paint = new android.graphics.Paint();
+        paint.setAntiAlias(true);
+
+        // Vẽ hình tròn trắng làm nền (viền)
+        paint.setColor(android.graphics.Color.WHITE);
+        canvas.drawCircle(size / 2f, size / 2f, size / 2f, paint);
+
+        // Clip hình tròn cho ảnh
+        android.graphics.Path circlePath = new android.graphics.Path();
+        circlePath.addCircle(size / 2f, size / 2f,
+                (size / 2f) - 6, // 6px viền trắng
+                android.graphics.Path.Direction.CW);
+        canvas.clipPath(circlePath);
+
+        // Vẽ ảnh vào trong hình tròn
+        canvas.drawBitmap(scaled, 0, 0, paint);
+
+        return result;
     }
 
     // Hiện card item khi click marker
@@ -616,27 +708,60 @@ public class MapActivity extends AppCompatActivity {
         }
 
         // Load ảnh
+        // Thay đoạn load ảnh trong showItemCard()
         String imageUrl = item.getImageUrl();
+
+        android.util.Log.d("MapActivity",
+                "imageUrl length=" + (imageUrl != null ? imageUrl.length() : "NULL"));
+
         ivItemImage.setImageResource(android.R.drawable.ic_menu_gallery);
         if (imageUrl != null && !imageUrl.isEmpty()) {
             new Thread(() -> {
                 try {
-                    byte[] bytes = Base64.decode(
-                            imageUrl.trim(), Base64.NO_WRAP);
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(
-                            bytes, 0, bytes.length);
-                    if (bitmap != null) {
-                        runOnUiThread(() -> {
-                            ivItemImage.setImageBitmap(bitmap);
-                            ivItemImage.setScaleType(
-                                    ImageView.ScaleType.CENTER_CROP);
-                        });
+                    // Thử NO_WRAP trước
+                    byte[] bytes = Base64.decode(imageUrl.trim(), Base64.NO_WRAP);
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+                    // Nếu null thử DEFAULT
+                    if (bitmap == null) {
+                        bytes = Base64.decode(imageUrl.trim(), Base64.DEFAULT);
+                        bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                     }
+
+                    final Bitmap finalBitmap = bitmap;
+                    runOnUiThread(() -> {
+                        if (finalBitmap != null) {
+                            ivItemImage.setColorFilter(null);
+                            ivItemImage.setImageBitmap(finalBitmap);
+                            ivItemImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        }
+                    });
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }).start();
         }
+//        String imageUrl = item.getImageUrl();
+//        ivItemImage.setImageResource(android.R.drawable.ic_menu_gallery);
+//        if (imageUrl != null && !imageUrl.isEmpty()) {
+//            new Thread(() -> {
+//                try {
+//                    byte[] bytes = Base64.decode(
+//                            imageUrl.trim(), Base64.NO_WRAP);
+//                    Bitmap bitmap = BitmapFactory.decodeByteArray(
+//                            bytes, 0, bytes.length);
+//                    if (bitmap != null) {
+//                        runOnUiThread(() -> {
+//                            ivItemImage.setImageBitmap(bitmap);
+//                            ivItemImage.setScaleType(
+//                                    ImageView.ScaleType.CENTER_CROP);
+//                        });
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }).start();
+//        }
 
         // Nút View Detail → ItemDetailActivity
         btnViewDetail.setOnClickListener(v -> {
@@ -685,17 +810,22 @@ public class MapActivity extends AppCompatActivity {
         if (imageBase64 != null && !imageBase64.isEmpty()) {
             new Thread(() -> {
                 try {
-                    byte[] bytes = Base64.decode(
-                            imageBase64.trim(), Base64.NO_WRAP);
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(
-                            bytes, 0, bytes.length);
-                    if (bitmap != null) {
-                        runOnUiThread(() -> {
-                            ivItemImage.setImageBitmap(bitmap);
-                            ivItemImage.setScaleType(
-                                    ImageView.ScaleType.CENTER_CROP);
-                        });
+                    byte[] bytes = Base64.decode(imageBase64.trim(), Base64.NO_WRAP);
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+                    if (bitmap == null) {
+                        bytes = Base64.decode(imageBase64.trim(), Base64.DEFAULT);
+                        bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                     }
+
+                    final Bitmap finalBitmap = bitmap;
+                    runOnUiThread(() -> {
+                        if (finalBitmap != null) {
+                            ivItemImage.setColorFilter(null);
+                            ivItemImage.setImageBitmap(finalBitmap);
+                            ivItemImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        }
+                    });
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
