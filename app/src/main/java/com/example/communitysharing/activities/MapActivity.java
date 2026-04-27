@@ -711,8 +711,10 @@ public class MapActivity extends AppCompatActivity {
         // Thay đoạn load ảnh trong showItemCard()
         String imageUrl = item.getImageUrl();
 
-        android.util.Log.d("MapActivity",
-                "imageUrl length=" + (imageUrl != null ? imageUrl.length() : "NULL"));
+        android.util.Log.d("MapImg",
+                "imageUrl null=" + (imageUrl == null)
+                        + " | empty=" + (imageUrl != null && imageUrl.isEmpty())
+                        + " | length=" + (imageUrl != null ? imageUrl.length() : 0));
 
         ivItemImage.setImageResource(android.R.drawable.ic_menu_gallery);
         if (imageUrl != null && !imageUrl.isEmpty()) {
@@ -778,6 +780,99 @@ public class MapActivity extends AppCompatActivity {
     }
 
     // ===== CHẾ ĐỘ XEM 1 ITEM =====
+//    private void setupSingleItemMode(Location myLocation) {
+//        itemLat     = getIntent().getDoubleExtra(EXTRA_ITEM_LAT, 0);
+//        itemLng     = getIntent().getDoubleExtra(EXTRA_ITEM_LNG, 0);
+//        itemTitle   = getIntent().getStringExtra(EXTRA_ITEM_TITLE);
+//        itemAddress = getIntent().getStringExtra(EXTRA_ITEM_ADDRESS);
+//        ownerName   = getIntent().getStringExtra(EXTRA_ITEM_OWNER);
+//        imageBase64 = getIntent().getStringExtra(EXTRA_ITEM_IMAGE);
+//        itemId      = getIntent().getStringExtra(EXTRA_ITEM_ID);
+//
+//        tvMapTitle.setText("Item Location");
+//
+//        // Hiện card item
+//        llItemCard.setVisibility(View.VISIBLE);
+//        tvItemTitle.setText(itemTitle != null ? itemTitle : "");
+//        tvOwnerName.setText(ownerName != null ? ownerName : "");
+//        tvItemAddress.setText(itemAddress != null ? itemAddress : "");
+//        tvItemStatus.setText("AVAILABLE NOW");
+//
+//        // Marker item
+//        GeoPoint itemPoint = new GeoPoint(itemLat, itemLng);
+//        Marker marker = new Marker(mapView);
+//        marker.setPosition(itemPoint);
+//        marker.setTitle(itemTitle != null ? itemTitle : "Item");
+//        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+//        marker.setIcon(ContextCompat.getDrawable(this,
+//                android.R.drawable.ic_menu_mapmode));
+//        mapView.getOverlays().add(marker);
+//
+//        // Load ảnh
+//        if (imageBase64 != null && !imageBase64.isEmpty()) {
+//            new Thread(() -> {
+//                try {
+//                    byte[] bytes = Base64.decode(imageBase64.trim(), Base64.NO_WRAP);
+//                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//
+//                    if (bitmap == null) {
+//                        bytes = Base64.decode(imageBase64.trim(), Base64.DEFAULT);
+//                        bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//                    }
+//
+//                    final Bitmap finalBitmap = bitmap;
+//                    runOnUiThread(() -> {
+//                        if (finalBitmap != null) {
+//                            ivItemImage.setColorFilter(null);
+//                            ivItemImage.setImageBitmap(finalBitmap);
+//                            ivItemImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//                        }
+//                    });
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }).start();
+//        }
+//
+//        // Tính khoảng cách
+//        if (myLocation != null) {
+//            float[] results = new float[1];
+//            Location.distanceBetween(
+//                    myLocation.getLatitude(), myLocation.getLongitude(),
+//                    itemLat, itemLng, results);
+//            float dist = results[0];
+//            if (dist < 1000) {
+//                tvDistance.setText(String.format("%.0f m away", dist));
+//            } else {
+//                tvDistance.setText(
+//                        String.format("%.1f km away", dist / 1000f));
+//            }
+//        }
+//
+//        // Center map
+//        if (myLocation != null) {
+//            double midLat = (myLocation.getLatitude() + itemLat) / 2;
+//            double midLng = (myLocation.getLongitude() + itemLng) / 2;
+//            mapView.getController().setCenter(
+//                    new GeoPoint(midLat, midLng));
+//        } else {
+//            mapView.getController().setCenter(itemPoint);
+//        }
+//
+//        // Nút View Detail
+//        btnViewDetail.setOnClickListener(v -> {
+//            if (itemId != null) {
+//                Intent intent = new Intent(this,
+//                        ItemDetailActivity.class);
+//                intent.putExtra("itemId", itemId);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        // Nút Open in Maps
+//        btnOpenMap.setOnClickListener(v ->
+//                openInMapsApp(itemLat, itemLng, itemTitle));
+//    }
     private void setupSingleItemMode(Location myLocation) {
         itemLat     = getIntent().getDoubleExtra(EXTRA_ITEM_LAT, 0);
         itemLng     = getIntent().getDoubleExtra(EXTRA_ITEM_LNG, 0);
@@ -789,33 +884,72 @@ public class MapActivity extends AppCompatActivity {
 
         tvMapTitle.setText("Item Location");
 
-        // Hiện card item
+        // Hiện card
         llItemCard.setVisibility(View.VISIBLE);
         tvItemTitle.setText(itemTitle != null ? itemTitle : "");
         tvOwnerName.setText(ownerName != null ? ownerName : "");
         tvItemAddress.setText(itemAddress != null ? itemAddress : "");
         tvItemStatus.setText("AVAILABLE NOW");
 
-        // Marker item
+        // Tạo marker
         GeoPoint itemPoint = new GeoPoint(itemLat, itemLng);
         Marker marker = new Marker(mapView);
         marker.setPosition(itemPoint);
         marker.setTitle(itemTitle != null ? itemTitle : "Item");
         marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+
+        // Set icon mặc định trước
         marker.setIcon(ContextCompat.getDrawable(this,
                 android.R.drawable.ic_menu_mapmode));
+
         mapView.getOverlays().add(marker);
 
-        // Load ảnh
+        // ===== Load ảnh cho MARKER =====
         if (imageBase64 != null && !imageBase64.isEmpty()) {
             new Thread(() -> {
                 try {
-                    byte[] bytes = Base64.decode(imageBase64.trim(), Base64.NO_WRAP);
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    byte[] bytes = Base64.decode(
+                            imageBase64.trim(), Base64.NO_WRAP);
+                    Bitmap original = BitmapFactory.decodeByteArray(
+                            bytes, 0, bytes.length);
+
+                    if (original == null) {
+                        bytes = Base64.decode(
+                                imageBase64.trim(), Base64.DEFAULT);
+                        original = BitmapFactory.decodeByteArray(
+                                bytes, 0, bytes.length);
+                    }
+
+                    if (original != null) {
+                        Bitmap markerBitmap =
+                                createCircularMarkerBitmap(original);
+                        runOnUiThread(() -> {
+                            marker.setIcon(
+                                    new android.graphics.drawable.BitmapDrawable(
+                                            getResources(), markerBitmap));
+                            mapView.invalidate();
+                        });
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
+
+        // ===== Load ảnh cho CARD =====
+        if (imageBase64 != null && !imageBase64.isEmpty()) {
+            new Thread(() -> {
+                try {
+                    byte[] bytes = Base64.decode(
+                            imageBase64.trim(), Base64.NO_WRAP);
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(
+                            bytes, 0, bytes.length);
 
                     if (bitmap == null) {
-                        bytes = Base64.decode(imageBase64.trim(), Base64.DEFAULT);
-                        bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                        bytes = Base64.decode(
+                                imageBase64.trim(), Base64.DEFAULT);
+                        bitmap = BitmapFactory.decodeByteArray(
+                                bytes, 0, bytes.length);
                     }
 
                     final Bitmap finalBitmap = bitmap;
@@ -823,7 +957,9 @@ public class MapActivity extends AppCompatActivity {
                         if (finalBitmap != null) {
                             ivItemImage.setColorFilter(null);
                             ivItemImage.setImageBitmap(finalBitmap);
-                            ivItemImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            ivItemImage.setScaleType(
+                                    ImageView.ScaleType.CENTER_CROP);
+                            ivItemImage.setPadding(0, 0, 0, 0);
                         }
                     });
                 } catch (Exception e) {
@@ -860,8 +996,7 @@ public class MapActivity extends AppCompatActivity {
         // Nút View Detail
         btnViewDetail.setOnClickListener(v -> {
             if (itemId != null) {
-                Intent intent = new Intent(this,
-                        ItemDetailActivity.class);
+                Intent intent = new Intent(this, ItemDetailActivity.class);
                 intent.putExtra("itemId", itemId);
                 startActivity(intent);
             }
