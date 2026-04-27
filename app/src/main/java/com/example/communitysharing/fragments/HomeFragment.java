@@ -67,8 +67,8 @@ public class HomeFragment extends Fragment {
         // Ánh xạ view
         rvItems = view.findViewById(R.id.rvItems);
         llFeatured = view.findViewById(R.id.llFeatured);
-        tvFeaturedTitle = view.findViewById(R.id.tvFeaturedTitle);
-        tvFeaturedDistance = view.findViewById(R.id.tvFeaturedDistance);
+//        tvFeaturedTitle = view.findViewById(R.id.tvFeaturedTitle);
+//        tvFeaturedDistance = view.findViewById(R.id.tvFeaturedDistance);
         btnRequestFeatured = view.findViewById(R.id.btnRequestFeatured);
 
         tabAll = view.findViewById(R.id.tabAll);
@@ -293,10 +293,10 @@ public class HomeFragment extends Fragment {
         if (!itemList.isEmpty()) {
             featuredItem = itemList.get(0);
 
-            tvFeaturedTitle.setText(
-                    featuredItem.getTitle() != null
-                            ? featuredItem.getTitle() : "");
-            tvFeaturedDistance.setText(" Nearby");
+//            tvFeaturedTitle.setText(
+//                    featuredItem.getTitle() != null
+//                            ? featuredItem.getTitle() : "");
+//            tvFeaturedDistance.setText(" Nearby");
             llFeatured.setVisibility(View.VISIBLE);
 
             // Grid hiện các item còn lại
