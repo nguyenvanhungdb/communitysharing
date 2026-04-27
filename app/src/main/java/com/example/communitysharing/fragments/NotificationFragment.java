@@ -132,32 +132,34 @@ public class NotificationFragment extends Fragment {
 @Override
 public void onAccept(Notification notif) {
 
-    // 1. Đổi status item → "borrowed" → item biến mất khỏi Home
+    // 1. Update item
     mDatabase.child("items")
             .child(notif.getItemId())
             .child("status")
             .setValue("borrowed");
 
-    // 2. Gửi thông báo cho người yêu cầu
+    // 2. Gửi notif cho người kia
     sendNotification(
             notif.getFromUserId(),
             "pickup_approved",
-            "Pickup Approved",
-            notif.getItemName()
-                    + " has been approved! Coordinate pickup in chat.",
+            "Approved",
+            notif.getItemName() + " has been approved!",
             myUid,
             notif.getItemId(),
             notif.getItemName()
     );
 
-    // 3. Ghi history cho cả 2 bên
+    // 3. Ghi history
     writeHistory(notif);
 
-    // 4. Đánh dấu notification đã đọc
-    markAsRead(notif.getNotificationId());
+    // 4. XÓA notif → realtime tự mất
+    mDatabase.child("notifications")
+            .child(myUid)
+            .child(notif.getNotificationId())
+            .removeValue();
 
     Toast.makeText(getContext(),
-            "Accepted! Item is now borrowed.",
+            "Accepted!",
             Toast.LENGTH_SHORT).show();
 }
 
@@ -197,30 +199,47 @@ public void onAccept(Notification notif) {
 
             @Override
             public void onDecline(Notification notif) {
-                // Gửi thông báo từ chối
+
                 sendNotification(
                         notif.getFromUserId(),
                         "request_declined",
-                        "Request Declined",
-                        "Your request for " + notif.getItemName()
-                                + " was declined.",
-                        myUid, notif.getItemId(), notif.getItemName()
+                        "Declined",
+                        notif.getItemName() + " was declined",
+                        myUid,
+                        notif.getItemId(),
+                        notif.getItemName()
                 );
-                markAsRead(notif.getNotificationId());
+
+                // XÓA luôn → realtime biến mất
+                mDatabase.child("notifications")
+                        .child(myUid)
+                        .child(notif.getNotificationId())
+                        .removeValue();
+
                 Toast.makeText(getContext(),
-                        "Request declined", Toast.LENGTH_SHORT).show();
+                        "Declined!",
+                        Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onReplyNow(Notification notif) {
-                // Mở ChatDetail
-                String convId = getChatId(myUid, notif.getFromUserId());
-                Intent intent = new Intent(getContext(),
-                        ChatDetailActivity.class);
+
+                String otherUserId = notif.getFromUserId();
+
+                if (otherUserId == null || otherUserId.isEmpty()) {
+                    Toast.makeText(getContext(), "User lỗi!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                String convId = getChatId(myUid, otherUserId);
+
+                Intent intent = new Intent(getContext(), ChatDetailActivity.class);
                 intent.putExtra("conversationId", convId);
-                intent.putExtra("otherUserId", notif.getFromUserId());
+                intent.putExtra("otherUserId", otherUserId);
                 intent.putExtra("otherUserName", notif.getFromUserName());
+
                 startActivity(intent);
+
                 markAsRead(notif.getNotificationId());
             }
 
@@ -301,20 +320,34 @@ public void onAccept(Notification notif) {
     }
 
     private void loadNotifications() {
-        // Lắng nghe realtime notifications/{myUid}
+
         mDatabase.child("notifications").child(myUid)
                 .orderByChild("timestamp")
                 .addValueEventListener(new ValueEventListener() {
+
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                         allList.clear();
+
                         for (DataSnapshot snap : snapshot.getChildren()) {
-                            Notification notif =
-                                    snap.getValue(Notification.class);
+
+                            Notification notif = snap.getValue(Notification.class);
+
                             if (notif != null) {
-                                allList.add(0, notif); // Mới nhất lên đầu
+
+                                // 🔥 QUAN TRỌNG
+                                notif.setNotificationId(snap.getKey());
+
+                                // 🔥 FIX NULL DATA
+                                if (notif.getType() == null) notif.setType("");
+                                if (notif.getTitle() == null) notif.setTitle("");
+                                if (notif.getMessage() == null) notif.setMessage("");
+
+                                allList.add(0, notif);
                             }
                         }
+
                         filterList();
                     }
 
@@ -328,19 +361,27 @@ public void onAccept(Notification notif) {
         filteredList.clear();
 
         for (Notification notif : allList) {
+
+            // 🔥 chống null
+            String type = notif.getType() != null ? notif.getType() : "";
+
             switch (currentTab) {
+
                 case "all":
                     filteredList.add(notif);
                     break;
+
                 case "requests":
-                    if (notif.getType().equals("borrow_request")
-                            || notif.getType().equals("pickup_approved")
-                            || notif.getType().equals("request_declined")) {
+                    if (type.equals("borrow_request")
+                            || type.equals("pickup_approved")
+                            || type.equals("request_declined")) {
+
                         filteredList.add(notif);
                     }
                     break;
+
                 case "messages":
-                    if (notif.getType().equals("new_message")) {
+                    if (type.equals("new_message")) {
                         filteredList.add(notif);
                     }
                     break;
@@ -349,7 +390,7 @@ public void onAccept(Notification notif) {
 
         adapter.notifyDataSetChanged();
 
-        // Hiện/ẩn empty state
+        // Empty state
         if (filteredList.isEmpty()) {
             rvNotifications.setVisibility(View.GONE);
             llEmpty.setVisibility(View.VISIBLE);
@@ -398,6 +439,8 @@ public void onAccept(Notification notif) {
 
     // Tạo conversation ID giống ChatFragment
     private String getChatId(String uid1, String uid2) {
+        if (uid1 == null || uid2 == null) return null;
+
         if (uid1.compareTo(uid2) < 0) return uid1 + "_" + uid2;
         return uid2 + "_" + uid1;
     }

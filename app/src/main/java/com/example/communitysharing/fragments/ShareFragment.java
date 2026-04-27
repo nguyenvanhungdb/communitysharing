@@ -2,6 +2,7 @@ package com.example.communitysharing.fragments;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -321,40 +322,57 @@ public class ShareFragment extends Fragment {
 
     // ===== CAMERA =====
     private void openImagePicker() {
+        String[] options = {"Chụp ảnh", "Chọn từ thư viện"};
+
+        new AlertDialog.Builder(getContext())
+                .setTitle("Chọn nguồn ảnh")
+                .setItems(options, (dialog, which) -> {
+                    if (which == 0) {
+                        openCamera();
+                    } else {
+                        openGallery();
+                    }
+                })
+                .show();
+    }
+    private void openCamera() {
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            // Nếu chưa có quyền, phải hỏi người dùng
-            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    REQUEST_PERMISSION);
-            return; // Dừng hàm lại, đợi người dùng bấm "Cho phép"
+            requestPermissions(new String[]{
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+            }, REQUEST_PERMISSION);
+            return;
         }
-        // 1. Tạo Intent cho Gallery (Thư viện)
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
-        // 2. Tạo Intent cho Camera (Chụp ảnh)
-        // Vẫn cần FileProvider để lưu ảnh chụp giống như cũ
         File photoFile = createImageFile();
-        if (photoFile != null) {
-            currentPhotoUri = FileProvider.getUriForFile(getContext(),
-                    getContext().getPackageName() + ".fileprovider", photoFile);
+        if (photoFile == null) return;
 
-            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, currentPhotoUri);
+        currentPhotoUri = FileProvider.getUriForFile(
+                getContext(),
+                getContext().getPackageName() + ".fileprovider",
+                photoFile
+        );
 
-            // 3. Tạo Chooser (Bộ chọn)
-            // Lấy Gallery làm gốc, sau đó "nhét" thêm Camera vào làm lựa chọn đầu tiên
-            Intent chooserIntent = Intent.createChooser(galleryIntent, "Chọn nguồn ảnh");
-            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{cameraIntent});
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, currentPhotoUri);
 
-            // 4. Bật lên
-            int requestCode;
-            if      (currentPhotoSlot == 1) requestCode = REQUEST_CAMERA_MAIN;
-            else if (currentPhotoSlot == 2) requestCode = REQUEST_CAMERA_PHOTO2;
-            else                            requestCode = REQUEST_CAMERA_PHOTO3;
+        int requestCode = (currentPhotoSlot == 1) ? REQUEST_CAMERA_MAIN :
+                (currentPhotoSlot == 2) ? REQUEST_CAMERA_PHOTO2 :
+                        REQUEST_CAMERA_PHOTO3;
 
-            startActivityForResult(chooserIntent, requestCode);
-        }
+        startActivityForResult(intent, requestCode);
+    }
+    private void openGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        int requestCode = (currentPhotoSlot == 1) ? REQUEST_CAMERA_MAIN :
+                (currentPhotoSlot == 2) ? REQUEST_CAMERA_PHOTO2 :
+                        REQUEST_CAMERA_PHOTO3;
+
+        startActivityForResult(intent, requestCode);
     }
 
     private File createImageFile() {

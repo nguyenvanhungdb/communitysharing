@@ -37,20 +37,46 @@
             android:textColor="@color/colorTextDark"
             android:layout_marginStart="10dp"/>
 
-        <!-- Bell icon -->
-        <ImageView
-            android:id="@+id/ivNotification"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:src="@drawable/ic_bell"
-            app:tint="@color/colorPrimary"
-            android:clickable="true"
-            android:focusable="true"/>
+        <FrameLayout
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="4dp">
+
+            <!-- Icon chuông -->
+            <ImageView
+                android:id="@+id/ivNotification"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_bell"
+                app:tint="@color/colorPrimary"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <!-- Badge -->
+            <TextView
+                android:id="@+id/tvBadge"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_gravity="end|top"
+
+                android:background="@drawable/bg_badge_red"
+                android:gravity="center"
+
+                android:text="1"
+                android:textColor="@android:color/white"
+                android:textSize="7sp"
+                android:textStyle="bold"
+                android:translationX="1dp"
+                android:translationY="-1dp"
+                android:visibility="visible" />
+        </FrameLayout>
 
         <Space
             android:layout_width="10dp"
             android:layout_height="0dp"/>
 
+        <!-- Add button -->
         <ImageView
             android:id="@+id/ivNewRequest"
             android:layout_width="28dp"
@@ -60,6 +86,7 @@
             android:layout_marginEnd="8dp"
             android:clickable="true"
             android:focusable="true"/>
+
     </LinearLayout>
 
     <!-- Search Bar -->

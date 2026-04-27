@@ -119,12 +119,31 @@ public class NewRequestActivity extends AppCompatActivity {
         });
 
         // Add photo
-        llAddPhoto.setOnClickListener(v -> openCamera());
+        llAddPhoto.setOnClickListener(v -> openImagePicker());
 
         // Post Request
         btnPostRequest.setOnClickListener(v -> postRequest());
     }
+    private void openImagePicker() {
+        String[] options = {"Chụp ảnh", "Chọn từ thư viện"};
 
+        new android.app.AlertDialog.Builder(this)
+                .setTitle("Chọn nguồn ảnh")
+                .setItems(options, (dialog, which) -> {
+                    if (which == 0) {
+                        openCamera();
+                    } else {
+                        openGallery();
+                    }
+                })
+                .show();
+    }
+    private void openGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        startActivityForResult(intent, REQUEST_CAMERA);
+    }
     // Đổi UI urgency active/inactive
     private void setUrgencyActive(LinearLayout active) {
         // Reset tất cả về inactive
@@ -211,8 +230,24 @@ public class NewRequestActivity extends AppCompatActivity {
                                     int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_CAMERA
-                && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_CAMERA && resultCode == RESULT_OK) {
+
+            Uri imageUri;
+
+            if (data != null && data.getData() != null) {
+                //  chọn từ thư viện
+                imageUri = data.getData();
+            } else {
+                //  chụp camera
+                imageUri = currentPhotoUri;
+            }
+
+            imageBase64 = uriToBase64(imageUri);
+
+            ivReferencePhoto.setImageURI(imageUri);
+            ivReferencePhoto.setVisibility(View.VISIBLE);
+            llPhotoPlaceholder.setVisibility(View.GONE);
+        } {
             // Convert ảnh → Base64
             imageBase64 = uriToBase64(currentPhotoUri);
 

@@ -31,7 +31,7 @@ public class Notification {
 
     // Getters
     public String getNotificationId() { return notificationId; }
-    public String getType()           { return type; }
+    public String getType()           { return type != null ? type : "";  }
     public String getTitle()          { return title; }
     public String getMessage()        { return message; }
     public String getFromUserId()     { return fromUserId; }

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.communitysharing.R;
+import com.example.communitysharing.activities.HomeActivity;
 import com.example.communitysharing.activities.ItemDetailActivity;
 import com.example.communitysharing.activities.MapActivity;
 import com.example.communitysharing.activities.NewRequestActivity;
@@ -87,7 +88,15 @@ public class HomeFragment extends Fragment {
                     .addToBackStack(null)
                     .commit();
         });
+// ===== 1. NOTIFICATION BUTTON =====
+        ImageView ivNotification = view.findViewById(R.id.ivNotification);
 
+        ivNotification.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                ((HomeActivity) getActivity())
+                        .loadFragment(new NotificationFragment());
+            }
+        });
         // ===== 2. VIEW MAP =====
         TextView tvViewMap = view.findViewById(R.id.tvViewMap);
 //        tvViewMap.setOnClickListener(v -> {
@@ -136,6 +145,49 @@ public class HomeFragment extends Fragment {
         setupTabs();
         loadItemsFromFirebase("all");
 
+        // ===== NOTIFICATION BADGE REALTIME =====
+
+        TextView tvBadge = view.findViewById(R.id.tvBadge);
+
+        String myUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        DatabaseReference notifRef = FirebaseDatabase.getInstance()
+                .getReference("notifications")
+                .child(myUid);
+
+        notifRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                int unreadCount = 0;
+
+                for (DataSnapshot snap : snapshot.getChildren()) {
+                    Boolean isRead = snap.child("read").getValue(Boolean.class);
+
+                    if (isRead == null || !isRead) {
+                        unreadCount++;
+                    }
+                }
+
+                // 👇 CHÍNH LÀ ĐOẠN BẠN HỎI - đặt ở đây
+                if (unreadCount > 0) {
+
+                    tvBadge.setVisibility(View.VISIBLE);
+
+                    if (unreadCount > 9) {
+                        tvBadge.setText("9+");
+                    } else {
+                        tvBadge.setText(String.valueOf(unreadCount));
+                    }
+
+                } else {
+                    tvBadge.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
         return view;
     }
 
