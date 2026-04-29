@@ -12,7 +12,6 @@ public class Notification {
     private long timestamp;
     private boolean isRead;
 
-    // Constructor rỗng BẮT BUỘC cho Firebase
     public Notification() {}
 
     public Notification(String type, String title, String message,

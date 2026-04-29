@@ -14,7 +14,6 @@ public class Message {
     private long timestamp;
     private boolean isRead;
 
-    // Constructor rỗng BẮT BUỘC cho Firebase
     public Message() {}
 
     // Constructor gửi TEXT
@@ -51,7 +50,6 @@ public class Message {
         return imageUrl;
     }
 
-    // ⚠ convert lại thành Uri khi dùng
     public Uri getImageUri() {
         if (imageUri != null) {
             return Uri.parse(imageUri);

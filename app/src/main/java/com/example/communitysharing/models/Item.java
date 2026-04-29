@@ -2,8 +2,6 @@ package com.example.communitysharing.models;
 
 public class Item {
 
-    // Tên biến phải viết thường chữ đầu
-    // và khớp CHÍNH XÁC với key trên Firebase
     private String itemId;
     private String ownerId;
     private String ownerName;

@@ -72,8 +72,6 @@ public class PickLocationActivity extends AppCompatActivity {
                 PreferenceManager.getDefaultSharedPreferences(this));
         Configuration.getInstance().setUserAgentValue(
                 "CommunitySharing/1.0 (Android; contact@gmail.com)");
-//        Configuration.getInstance().setConnectTimeout(5000);
-//        Configuration.getInstance().setReadTimeout(5000);
 
         setContentView(R.layout.activity_pick_location);
 
