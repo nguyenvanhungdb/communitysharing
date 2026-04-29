@@ -11,7 +11,6 @@ public class HistoryItem {
     private String type;        // "shared","received"
     private long timestamp;
 
-    // Constructor rỗng BẮT BUỘC cho Firebase
     public HistoryItem() {}
 
     public HistoryItem(String itemId, String itemTitle,

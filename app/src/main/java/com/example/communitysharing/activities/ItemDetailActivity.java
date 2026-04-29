@@ -1,6 +1,5 @@
 package com.example.communitysharing.activities;
 
-import static java.security.AccessController.getContext;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -123,33 +122,6 @@ public class ItemDetailActivity extends AppCompatActivity {
                                         android.R.drawable.ic_menu_gallery);
                             }
                         }
-
-                        // Click Location → mở MapActivity
-//                        llLocation.setOnClickListener(v -> {
-//                            if (currentItem.getLatitude() == 0
-//                                    && currentItem.getLongitude() == 0) {
-//                                Toast.makeText(ItemDetailActivity.this,
-//                                        "No location available for this item",
-//                                        Toast.LENGTH_SHORT).show();
-//                                return;
-//                            }
-//                            Intent intent = new Intent(
-//                                    ItemDetailActivity.this,
-//                                    MapActivity.class);
-//                            intent.putExtra(MapActivity.EXTRA_ITEM_LAT,
-//                                    currentItem.getLatitude());
-//                            intent.putExtra(MapActivity.EXTRA_ITEM_LNG,
-//                                    currentItem.getLongitude());
-//                            intent.putExtra(MapActivity.EXTRA_ITEM_TITLE,
-//                                    currentItem.getTitle());
-//                            intent.putExtra(MapActivity.EXTRA_ITEM_ADDRESS,
-//                                    currentItem.getAddress());
-//                            intent.putExtra(MapActivity.EXTRA_ITEM_OWNER,
-//                                    currentItem.getOwnerName());
-//                            intent.putExtra(MapActivity.EXTRA_ITEM_IMAGE,
-//                                    currentItem.getImageUrl());
-//                            startActivity(intent);
-//                        });
 
                         llLocation.setOnClickListener(v -> {
                             Intent intent = new Intent(ItemDetailActivity.this, MapActivity.class);

@@ -496,82 +496,6 @@ public class ShareFragment extends Fragment {
                 Math.round(h * ratio), true);
     }
 
-    // ===== ĐĂNG LÊN FIREBASE =====
-//    private void postItem() {
-//        String title    = etTitle.getText().toString().trim();
-//        String desc     = etDescription.getText().toString().trim();
-//        String address  = etAddress.getText().toString().trim();
-//        String category = spinnerCategory.getSelectedItem().toString();
-//
-//        if (TextUtils.isEmpty(title)) {
-//            showError("Please enter item title");
-//            etTitle.requestFocus();
-//            return;
-//        }
-//        if (TextUtils.isEmpty(desc)) {
-//            showError("Please enter a description");
-//            etDescription.requestFocus();
-//            return;
-//        }
-//        if (TextUtils.isEmpty(address)) {
-//            showError("Please enter your address");
-//            etAddress.requestFocus();
-//            return;
-//        }
-//
-//        // Cảnh báo nếu chưa chọn vị trí trên map
-//        if (pickedLat == 0 && pickedLng == 0) {
-//            Toast.makeText(getContext(),
-//                    "Tip: Add a location so others can find your item!",
-//                    Toast.LENGTH_SHORT).show();
-//        }
-//
-//        btnPostItem.setEnabled(false);
-//        btnPostItem.setText("Posting...");
-//        tvError.setVisibility(View.GONE);
-//
-//        String uid       = mAuth.getCurrentUser().getUid();
-//        String ownerName = mAuth.getCurrentUser().getEmail();
-//
-//        String itemId = mDatabase.child("items").push().getKey();
-//
-//        Item item = new Item(uid, ownerName, title,
-//                desc, category, address, "sharing");
-//        item.setItemId(itemId);
-//        item.setImageUrl(imageBase64Main);
-//        item.setQuantity(quantity);
-//
-//        // ===== LƯU TỌA ĐỘ MAP =====
-//        item.setLatitude(pickedLat);
-//        item.setLongitude(pickedLng);
-//        item.setExactAddress(pickedAddress);
-//
-//        btnPostItem.setEnabled(false);
-//        btnPostItem.setText(editItemId != null ? "Updating..." : "Posting...");
-//        tvError.setVisibility(View.GONE);
-//
-//        if (editItemId != null) {
-//            // ===== CHẾ ĐỘ EDIT - cập nhật item cũ =====
-//            updateExistingItem(title, desc, category, address);
-//        } else {
-//            // ===== CHẾ ĐỘ TẠO MỚI =====
-//            createNewItem(uid, ownerName, title, desc, category, address);
-//        }
-//
-//        mDatabase.child("items").child(itemId).setValue(item)
-//                .addOnCompleteListener(task -> {
-//                    if (task.isSuccessful()) {
-//                        Toast.makeText(getContext(),
-//                                "Item posted successfully! 🎉",
-//                                Toast.LENGTH_SHORT).show();
-//                        resetForm();
-//                    } else {
-//                        showError("Failed to post. Please try again.");
-//                        btnPostItem.setEnabled(true);
-//                        btnPostItem.setText("Post Item ▷");
-//                    }
-//                });
-//    }
 
     private void postItem() {
         String title    = etTitle.getText().toString().trim();
@@ -615,8 +539,6 @@ public class ShareFragment extends Fragment {
             createNewItem(uid, ownerName, title, desc, category, address);
         }
 
-        // XÓA TOÀN BỘ ĐOẠN NÀY - đây là nguyên nhân lỗi:
-        // mDatabase.child("items").child(itemId).setValue(item)...
     }
     private void resetForm() {
         etTitle.setText("");

@@ -8,7 +8,6 @@ public class Conversation {
     private long lastMessageTime;
     private int unreadCount;
 
-    // Constructor rỗng BẮT BUỘC cho Firebase
     public Conversation() {}
 
     public Conversation(String conversationId, String otherUserId,
