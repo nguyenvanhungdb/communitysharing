@@ -52,13 +52,13 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
         // Set dữ liệu vào view
         holder.tvTitle.setText(item.getTitle() != null ? item.getTitle() : "");
-        holder.tvDistance.setText("Nearby");
+        holder.tvDistance.setText(context.getString(R.string.common_nearby));
 
         // Lấy category an toàn
         String category = item.getCategory() != null ? item.getCategory() : "";
 
         if (!category.isEmpty()) {
-            holder.tvCategory.setText(category.toUpperCase());
+            holder.tvCategory.setText(getCategoryLabel(category).toUpperCase());
             holder.tvCategory.setVisibility(View.VISIBLE);
 
             // Đổi màu tag theo category
@@ -119,6 +119,32 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         itemList.clear();
         itemList.addAll(newList);
         notifyDataSetChanged();
+    }
+
+    private String getCategoryLabel(String category) {
+        switch (category.toLowerCase()) {
+            case "furniture":
+                return context.getString(R.string.category_furniture);
+            case "food":
+                return context.getString(R.string.category_food);
+            case "clothes":
+                return context.getString(R.string.category_clothes);
+            case "tool":
+            case "tools":
+                return context.getString(R.string.category_tools);
+            case "electronic":
+            case "electronics":
+                return context.getString(R.string.category_electronics);
+            case "kitchen":
+                return context.getString(R.string.category_kitchen);
+            case "garden":
+                return context.getString(R.string.category_garden);
+            case "book":
+            case "books":
+                return context.getString(R.string.category_books);
+            default:
+                return context.getString(R.string.category_other);
+        }
     }
 
 

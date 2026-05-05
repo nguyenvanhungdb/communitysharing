@@ -30,7 +30,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Details"
+            android:text="@string/common_details"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/colorTextDark"/>
@@ -128,7 +128,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="KITCHEN AND DINING"
+                        android:text="@string/category_kitchen_dining"
                         android:textSize="11sp"
                         android:textColor="@color/colorTextGray"
                         android:textStyle="bold"
@@ -139,7 +139,7 @@
                         android:id="@+id/tvStatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Available Now"
+                        android:text="@string/common_available_now"
                         android:textSize="12sp"
                         android:textColor="@color/colorWhite"
                         android:textStyle="bold"
@@ -155,7 +155,7 @@
                     android:id="@+id/tvTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Item Title"
+                    android:text="@string/common_item_title"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorTextDark"
@@ -193,7 +193,7 @@
                             android:id="@+id/tvOwnerName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Owner Name"
+                            android:text="@string/common_owner_name"
                             android:textSize="15sp"
                             android:textStyle="bold"
                             android:textColor="@color/colorTextDark"/>
@@ -214,7 +214,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text=" 4.9 (124 shares)"
+                                android:text="@string/detail_rating_placeholder"
                                 android:textSize="12sp"
                                 android:textColor="@color/colorTextGray"/>
                         </LinearLayout>
@@ -225,7 +225,7 @@
                         android:id="@+id/tvViewProfile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="VIEW PROFILE"
+                        android:text="@string/detail_view_profile"
                         android:textSize="11sp"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold"
@@ -238,7 +238,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="About this item"
+                    android:text="@string/detail_about_item"
                     android:textSize="17sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorTextDark"
@@ -248,7 +248,7 @@
                     android:id="@+id/tvDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Description here"
+                    android:text="@string/common_description_placeholder"
                     android:textSize="14sp"
                     android:textColor="@color/colorTextGray"
                     android:lineSpacingMultiplier="1.5"
@@ -281,7 +281,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Verified Member"
+                            android:text="@string/detail_verified_member"
                             android:textSize="12sp"
                             android:textStyle="bold"
                             android:textColor="@color/colorTextDark"/>
@@ -289,7 +289,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Identity confirmed by The Commons"
+                            android:text="@string/detail_identity_confirmed"
                             android:textSize="11sp"
                             android:textColor="@color/colorTextGray"
                             android:layout_marginTop="2dp"/>
@@ -314,7 +314,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Damage Protection"
+                            android:text="@string/detail_damage_protection"
                             android:textSize="12sp"
                             android:textStyle="bold"
                             android:textColor="@color/colorTextDark"/>
@@ -322,7 +322,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Covered up to $500 for peace of mind"
+                            android:text="@string/detail_damage_body"
                             android:textSize="11sp"
                             android:textColor="@color/colorTextGray"
                             android:layout_marginTop="2dp"/>
@@ -390,7 +390,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Pickup Location"
+                            android:text="@string/detail_pickup_location"
                             android:textSize="13sp"
                             android:textStyle="bold"
                             android:textColor="@color/colorTextDark"
@@ -400,7 +400,7 @@
                             android:id="@+id/tvLocation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Loading location..."
+                            android:text="@string/common_loading_location"
                             android:textSize="12sp"
                             android:textColor="@color/colorTextGray"
                             android:maxLines="2"/>
@@ -408,7 +408,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tap to view on map →"
+                            android:text="@string/map_tap_to_view"
                             android:textSize="11sp"
                             android:textColor="@color/colorPrimary"
                             android:textStyle="bold"
@@ -439,7 +439,7 @@
             android:layout_height="52dp"
             android:layout_weight="1"
             android:background="@drawable/bg_button_secondary"
-            android:text="Chat"
+            android:text="@string/common_chat"
             android:textColor="@color/colorPrimary"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -452,7 +452,7 @@
             android:layout_height="52dp"
             android:layout_weight="2"
             android:background="@drawable/bg_button_primary"
-            android:text="Request Item"
+            android:text="@string/detail_request_item"
             android:textColor="@color/colorWhite"
             android:textSize="15sp"
             android:textStyle="bold"/>

@@ -131,12 +131,12 @@ public class ProfileFragment extends Fragment {
 
                         // Tên
                         String name = user.getFullName() != null
-                                ? user.getFullName() : "User";
+                                ? user.getFullName() : getString(R.string.common_user_name);
                         tvFullName.setText(name);
 
                         // Địa chỉ
                         String addr = user.getAddress() != null
-                                ? user.getAddress() : "No location set";
+                                ? user.getAddress() : getString(R.string.profile_no_location_set);
                         tvAddress.setText(" " + addr);
 
                         // Avatar Base64
@@ -220,10 +220,11 @@ public class ProfileFragment extends Fragment {
         String status = item.getStatus() != null
                 ? item.getStatus() : "available";
         tvFeaturedSubtitle.setText(
-                "Status: " + status);
+                getString(R.string.profile_status_format, status));
         tvFeaturedBadge.setText(
                 status.equals("available")
-                        ? "ACTIVE SHARE" : status.toUpperCase());
+                        ? getString(R.string.profile_active_share)
+                        : status.toUpperCase());
 
         // Ảnh
         String imageUrl = item.getImageUrl();
@@ -303,9 +304,9 @@ public class ProfileFragment extends Fragment {
 
         btnLogout.setOnClickListener(v -> {
             new AlertDialog.Builder(getContext())
-                    .setTitle("Logout")
-                    .setMessage("Are you sure you want to logout?")
-                    .setPositiveButton("Logout", (dialog, which) -> {
+                    .setTitle(getString(R.string.dialog_logout_title))
+                    .setMessage(getString(R.string.dialog_logout_message))
+                    .setPositiveButton(getString(R.string.settings_logout), (dialog, which) -> {
                         mAuth.signOut();
                         Intent intent = new Intent(getContext(),
                                 LoginActivity.class);
@@ -314,7 +315,7 @@ public class ProfileFragment extends Fragment {
                                         | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     })
-                    .setNegativeButton("Cancel", null)
+                    .setNegativeButton(getString(R.string.common_cancel), null)
                     .show();
         });
     }

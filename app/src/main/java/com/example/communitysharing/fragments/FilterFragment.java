@@ -69,17 +69,17 @@ public class FilterFragment extends Fragment {
         layoutTime.setOnClickListener(v -> {
             PopupMenu popup = new PopupMenu(getContext(), layoutTime);
 
-            popup.getMenu().add("Last 24 Hours");
-            popup.getMenu().add("Last 3 Days");
-            popup.getMenu().add("Last 7 Days");
+            popup.getMenu().add(getString(R.string.filter_last_24_hours));
+            popup.getMenu().add(getString(R.string.filter_last_3_days));
+            popup.getMenu().add(getString(R.string.filter_last_7_days));
 
             popup.setOnMenuItemClickListener(item -> {
                 String selected = item.getTitle().toString();
                 tvTime.setText(selected);
 
-                if (selected.equals("Last 24 Hours")) selectedDays = 1;
-                else if (selected.equals("Last 3 Days")) selectedDays = 3;
-                else if (selected.equals("Last 7 Days")) selectedDays = 7;
+                if (selected.equals(getString(R.string.filter_last_24_hours))) selectedDays = 1;
+                else if (selected.equals(getString(R.string.filter_last_3_days))) selectedDays = 3;
+                else if (selected.equals(getString(R.string.filter_last_7_days))) selectedDays = 7;
 
                 return true;
             });
@@ -144,7 +144,7 @@ public class FilterFragment extends Fragment {
 
                 if (radius == 0) radius = 1;
 
-                tvMiles.setText(radius + " Miles");
+                tvMiles.setText(getString(R.string.filter_radius_miles, radius));
             }
 
             @Override public void onStartTrackingTouch(SeekBar seekBar) {}

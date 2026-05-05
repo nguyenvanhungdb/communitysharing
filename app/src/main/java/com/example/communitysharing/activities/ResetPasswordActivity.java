@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.communitysharing.R;
+import com.example.communitysharing.utils.LocaleManager;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ResetPasswordActivity extends AppCompatActivity {
@@ -24,6 +25,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LocaleManager.applySavedLocale(this);
         setContentView(R.layout.activity_reset_password);
 
         // Khởi tạo Firebase Auth
@@ -47,12 +49,12 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
         // Validate
         if (TextUtils.isEmpty(email)) {
-            showError("Please enter your email address");
+            showError(getString(R.string.reset_email_required));
             etEmail.requestFocus();
             return;
         }
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            showError("Please enter a valid email address");
+            showError(getString(R.string.reset_valid_email_required));
             etEmail.requestFocus();
             return;
         }
@@ -61,23 +63,23 @@ public class ResetPasswordActivity extends AppCompatActivity {
         tvError.setVisibility(View.GONE);
         tvSuccess.setVisibility(View.GONE);
         btnSendReset.setEnabled(false);
-        btnSendReset.setText("Sending...");
+        btnSendReset.setText(getString(R.string.reset_sending));
         mAuth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         // Gửi thành công
-                        showSuccess("Reset link sent! Check your inbox for " + email);
-                        btnSendReset.setText("Resend Link");
+                        showSuccess(getString(R.string.reset_success, email));
+                        btnSendReset.setText(getString(R.string.reset_resend_link));
                         btnSendReset.setEnabled(true);
                         etEmail.setEnabled(false); // Khoá ô email sau khi gửi
                     } else {
                         // Thất bại (email không tồn tại, v.v.)
                         String msg = task.getException() != null
                                 ? task.getException().getMessage()
-                                : "Failed to send reset email. Try again.";
+                                : getString(R.string.reset_failed);
                         showError(msg);
                         btnSendReset.setEnabled(true);
-                        btnSendReset.setText("Send Reset Link ▷");
+                        btnSendReset.setText(getString(R.string.reset_send_link));
                     }
                 });
     }

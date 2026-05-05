@@ -20,6 +20,7 @@ import com.example.communitysharing.R;
 import com.example.communitysharing.adapter.MessageAdapter;
 import com.example.communitysharing.models.Conversation;
 import com.example.communitysharing.models.Message;
+import com.example.communitysharing.utils.LocaleManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -61,6 +62,7 @@ public class ChatDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LocaleManager.applySavedLocale(this);
         setContentView(R.layout.activity_chat_detail);
 
         // Lấy data từ Intent

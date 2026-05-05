@@ -66,7 +66,9 @@ public class MyPostsAdapter extends
 
         // Type badge: SHARING / REQUESTING
         String type = item.getType() != null ? item.getType() : "sharing";
-        holder.tvTypeBadge.setText(type.toUpperCase());
+        holder.tvTypeBadge.setText(type.equals("sharing")
+                ? context.getString(R.string.my_posts_type_sharing)
+                : context.getString(R.string.my_posts_type_requesting));
         if (type.equals("sharing")) {
             holder.tvTypeBadge.getBackground().setTint(
                     context.getResources().getColor(R.color.colorPrimary));
@@ -121,28 +123,28 @@ public class MyPostsAdapter extends
     private void setStatus(MyPostViewHolder holder, String status) {
         switch (status) {
             case "available":
-                holder.tvStatus.setText("● LIVE & VISIBLE");
+                holder.tvStatus.setText(context.getString(R.string.my_posts_status_live));
                 holder.tvStatus.setTextColor(
                         context.getResources().getColor(R.color.colorPrimary));
                 holder.viewStatusDot.getBackground().setTint(
                         context.getResources().getColor(R.color.colorPrimary));
                 break;
             case "borrowed":
-                holder.tvStatus.setText("● IN PROGRESS");
+                holder.tvStatus.setText(context.getString(R.string.my_posts_status_progress));
                 holder.tvStatus.setTextColor(
                         context.getResources().getColor(R.color.colorOrange));
                 holder.viewStatusDot.getBackground().setTint(
                         context.getResources().getColor(R.color.colorOrange));
                 break;
             case "completed":
-                holder.tvStatus.setText("● COMPLETED");
+                holder.tvStatus.setText(context.getString(R.string.my_posts_status_completed));
                 holder.tvStatus.setTextColor(
                         context.getResources().getColor(R.color.colorTextHint));
                 holder.viewStatusDot.getBackground().setTint(
                         context.getResources().getColor(R.color.colorTextHint));
                 break;
             default:
-                holder.tvStatus.setText("● REQUESTED");
+                holder.tvStatus.setText(context.getString(R.string.my_posts_status_requested));
                 holder.tvStatus.setTextColor(
                         context.getResources().getColor(R.color.colorOrange));
                 break;

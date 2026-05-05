@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Email Address"
+        android:text="@string/label_new_email"
         android:textSize="12sp"
         android:textColor="@color/colorTextGray"
         android:layout_marginBottom="4dp"/>
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@drawable/bg_input_field"
-        android:hint="yourname@domain.com"
+        android:hint="@string/register_email_hint"
         android:textSize="14sp"
         android:paddingStart="14dp"
         android:paddingEnd="14dp"
@@ -30,7 +30,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Confirm with Password"
+        android:text="@string/label_confirm_password"
         android:textSize="12sp"
         android:textColor="@color/colorTextGray"
         android:layout_marginBottom="4dp"/>
@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@drawable/bg_input_field"
-        android:hint="Your current password"
+        android:hint="@string/hint_current_password"
         android:textSize="14sp"
         android:paddingStart="14dp"
         android:paddingEnd="14dp"

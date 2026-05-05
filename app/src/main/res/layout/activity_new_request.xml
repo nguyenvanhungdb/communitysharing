@@ -34,7 +34,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="New Request"
+                android:text="@string/request_new_title"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/colorTextDark"
@@ -62,7 +62,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="What do you need?"
+            android:text="@string/request_question"
             android:textSize="28sp"
             android:textStyle="bold"
             android:textColor="@color/colorTextDark"
@@ -71,7 +71,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Your community is here to help. Share what you're looking for and someone might have it to spare."
+            android:text="@string/request_subtitle"
             android:textSize="14sp"
             android:textColor="@color/colorTextGray"
             android:lineSpacingMultiplier="1.4"
@@ -81,7 +81,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ITEM TITLE"
+            android:text="@string/share_item_title_label"
             android:textSize="11sp"
             android:textColor="@color/colorTextGray"
             android:textStyle="bold"
@@ -103,7 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
-                android:hint="e.g., Electric Drill or Garden Soil"
+                android:hint="@string/request_title_hint"
                 android:textSize="15sp"
                 android:textColor="@color/colorTextDark"
                 android:textColorHint="@color/colorTextHint"
@@ -115,7 +115,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DESCRIPTION"
+            android:text="@string/common_description"
             android:textSize="11sp"
             android:textColor="@color/colorTextGray"
             android:textStyle="bold"
@@ -127,7 +127,7 @@
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:background="@drawable/bg_input_field"
-            android:hint="Tell the community a bit more about why you need this or for how long..."
+            android:hint="@string/request_description_hint"
             android:textSize="14sp"
             android:textColor="@color/colorTextDark"
             android:textColorHint="@color/colorTextHint"
@@ -140,7 +140,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="URGENCY LEVEL"
+            android:text="@string/request_urgency"
             android:textSize="11sp"
             android:textColor="@color/colorTextGray"
             android:textStyle="bold"
@@ -176,7 +176,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Low"
+                    android:text="@string/request_low"
                     android:textSize="13sp"
                     android:textColor="@color/colorTextGray"/>
             </LinearLayout>
@@ -205,7 +205,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Medium"
+                    android:text="@string/request_medium"
                     android:textSize="13sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"/>
@@ -233,7 +233,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="High"
+                    android:text="@string/request_high"
                     android:textSize="13sp"
                     android:textColor="@color/colorTextGray"/>
             </LinearLayout>
@@ -243,7 +243,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ADD A REFERENCE PHOTO"
+            android:text="@string/request_add_photo"
             android:textSize="11sp"
             android:textColor="@color/colorTextGray"
             android:textStyle="bold"
@@ -279,7 +279,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add a reference photo"
+                    android:text="@string/request_add_reference_photo"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"/>
@@ -287,7 +287,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Optional but helpful"
+                    android:text="@string/request_optional_helpful"
                     android:textSize="12sp"
                     android:textColor="@color/colorTextGray"
                     android:layout_marginTop="2dp"/>
@@ -305,7 +305,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Optional but helpful"
+            android:text="@string/request_optional_helpful"
             android:textSize="12sp"
             android:textColor="@color/colorTextHint"
             android:layout_marginBottom="24dp"/>
@@ -327,7 +327,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:background="@drawable/bg_button_primary"
-            android:text="Post Request"
+            android:text="@string/request_post"
             android:textColor="@color/colorWhite"
             android:textSize="16sp"
             android:textStyle="bold"

@@ -34,7 +34,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="The Commons"
+                android:text="@string/app_name"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/colorTextDark"
@@ -45,7 +45,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Share/Donate"
+            android:text="@string/share_title"
             android:textSize="26sp"
             android:textStyle="bold"
             android:textColor="@color/colorTextDark"
@@ -54,7 +54,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Share something with your community"
+            android:text="@string/share_subtitle"
             android:textSize="14sp"
             android:textColor="@color/colorTextGray"
             android:layout_marginBottom="20dp"/>
@@ -63,7 +63,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="UPLOAD ITEM PHOTOS"
+            android:text="@string/share_upload_photos"
             android:textSize="11sp"
             android:textColor="@color/colorTextGray"
             android:textStyle="bold"
@@ -111,7 +111,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Add Main Photo"
+                        android:text="@string/share_add_main_photo"
                         android:textSize="12sp"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold"
@@ -183,7 +183,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ITEM TITLE"
+            android:text="@string/share_item_title_label"
             android:textSize="11sp"
             android:textColor="@color/colorTextGray"
             android:textStyle="bold"
@@ -205,7 +205,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
-                android:hint="e.g. Solid Oak Coffee Table"
+                android:hint="@string/share_title_hint"
                 android:textSize="15sp"
                 android:textColor="@color/colorTextDark"
                 android:textColorHint="@color/colorTextHint"
@@ -217,7 +217,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DESCRIPTION"
+            android:text="@string/common_description"
             android:textSize="11sp"
             android:textColor="@color/colorTextGray"
             android:textStyle="bold"
@@ -229,7 +229,7 @@
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:background="@drawable/bg_input_field"
-            android:hint="Tell the community about its condition, dimensions, and history..."
+            android:hint="@string/share_description_hint"
             android:textSize="14sp"
             android:textColor="@color/colorTextDark"
             android:textColorHint="@color/colorTextHint"
@@ -242,7 +242,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PICKUP LOCATION"
+            android:text="@string/share_pickup_location"
             android:textSize="11sp"
             android:textColor="@color/colorTextGray"
             android:textStyle="bold"
@@ -279,7 +279,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="My Location"
+                    android:text="@string/share_my_location"
                     android:textSize="13sp"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold"/>
@@ -307,7 +307,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pick on Map"
+                    android:text="@string/share_pick_on_map"
                     android:textSize="13sp"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold"/>
@@ -338,7 +338,7 @@
                 android:id="@+id/tvPickedLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="No location selected yet"
+                android:text="@string/common_no_location_selected"
                 android:textSize="13sp"
                 android:textColor="@color/colorTextHint"
                 android:maxLines="2"
@@ -348,7 +348,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ADDRESS"
+            android:text="@string/register_address"
             android:textSize="11sp"
             android:textColor="@color/colorTextGray"
             android:textStyle="bold"
@@ -376,7 +376,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
-                android:hint="Your address"
+                android:hint="@string/register_address_hint"
                 android:textSize="15sp"
                 android:textColor="@color/colorTextDark"
                 android:textColorHint="@color/colorTextHint"
@@ -403,7 +403,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="CATEGORY"
+                    android:text="@string/share_category"
                     android:textSize="11sp"
                     android:textColor="@color/colorTextGray"
                     android:textStyle="bold"
@@ -429,7 +429,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="QUANTITY"
+                    android:text="@string/share_quantity"
                     android:textSize="11sp"
                     android:textColor="@color/colorTextGray"
                     android:textStyle="bold"
@@ -485,7 +485,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="HOW WILL THEY GET IT?"
+            android:text="@string/share_delivery_question"
             android:textSize="11sp"
             android:textColor="@color/colorTextGray"
             android:textStyle="bold"
@@ -521,7 +521,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pickup"
+                    android:text="@string/share_pickup"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"/>
@@ -549,7 +549,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Delivery"
+                    android:text="@string/share_delivery"
                     android:textSize="14sp"
                     android:textColor="@color/colorTextGray"/>
             </LinearLayout>
@@ -572,7 +572,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:background="@drawable/bg_button_primary"
-            android:text="Post Item ▷"
+            android:text="@string/share_post_item"
             android:textColor="@color/colorWhite"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -581,7 +581,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="By posting, you agree to The Commons community guidelines."
+            android:text="@string/share_guidelines"
             android:textSize="11sp"
             android:textColor="@color/colorTextGray"
             android:gravity="center"

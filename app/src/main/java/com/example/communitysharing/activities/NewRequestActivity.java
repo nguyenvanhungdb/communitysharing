@@ -28,6 +28,7 @@ import androidx.core.content.FileProvider;
 
 import com.example.communitysharing.R;
 import com.example.communitysharing.models.Request;
+import com.example.communitysharing.utils.LocaleManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -67,6 +68,7 @@ public class NewRequestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LocaleManager.applySavedLocale(this);
         setContentView(R.layout.activity_new_request);
 
         mAuth     = FirebaseAuth.getInstance();
@@ -125,10 +127,11 @@ public class NewRequestActivity extends AppCompatActivity {
         btnPostRequest.setOnClickListener(v -> postRequest());
     }
     private void openImagePicker() {
-        String[] options = {"Chụp ảnh", "Chọn từ thư viện"};
+        String[] options = getResources().getStringArray(
+                R.array.photo_source_options);
 
         new android.app.AlertDialog.Builder(this)
-                .setTitle("Chọn nguồn ảnh")
+                .setTitle(getString(R.string.dialog_select_photo_source))
                 .setItems(options, (dialog, which) -> {
                     if (which == 0) {
                         openCamera();
@@ -248,7 +251,8 @@ public class NewRequestActivity extends AppCompatActivity {
             ivReferencePhoto.setVisibility(View.VISIBLE);
             llPhotoPlaceholder.setVisibility(View.GONE);
         } {
-            // Convert ảnh → Base64
+            // Conv
+            // ert ảnh → Base64
             imageBase64 = uriToBase64(currentPhotoUri);
 
             // Hiện preview
@@ -297,19 +301,19 @@ public class NewRequestActivity extends AppCompatActivity {
 
         // Validate
         if (TextUtils.isEmpty(title)) {
-            showError("Please enter item title");
+            showError(getString(R.string.request_title_required));
             etItemTitle.requestFocus();
             return;
         }
         if (TextUtils.isEmpty(desc)) {
-            showError("Please describe what you need");
+            showError(getString(R.string.request_description_required));
             etDescription.requestFocus();
             return;
         }
 
         // Disable nút
         btnPostRequest.setEnabled(false);
-        btnPostRequest.setText("Posting...");
+        btnPostRequest.setText(getString(R.string.request_posting));
         tvError.setVisibility(View.GONE);
 
         String uid   = mAuth.getCurrentUser().getUid();
@@ -331,13 +335,13 @@ public class NewRequestActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(this,
-                                "Request posted! 🙌",
+                                getString(R.string.request_posted),
                                 Toast.LENGTH_SHORT).show();
                         finish(); // Quay lại màn trước
                     } else {
-                        showError("Failed to post. Try again.");
+                        showError(getString(R.string.request_post_failed));
                         btnPostRequest.setEnabled(true);
-                        btnPostRequest.setText("Post Request");
+                        btnPostRequest.setText(getString(R.string.request_post));
                     }
                 });
     }

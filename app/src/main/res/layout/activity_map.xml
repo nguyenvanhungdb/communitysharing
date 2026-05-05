@@ -38,7 +38,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Item Location"
+            android:text="@string/map_item_location"
             android:textSize="17sp"
             android:textStyle="bold"
             android:textColor="@color/colorTextDark"/>
@@ -93,7 +93,7 @@
                     android:id="@+id/tvItemStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="AVAILABLE NOW"
+                    android:text="@string/common_available_now"
                     android:textSize="10sp"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold"
@@ -104,7 +104,7 @@
                     android:id="@+id/tvItemTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Item Title"
+                    android:text="@string/common_item_title"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorTextDark"/>
@@ -113,7 +113,7 @@
                     android:id="@+id/tvOwnerName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Owner"
+                    android:text="@string/common_owner"
                     android:textSize="12sp"
                     android:textColor="@color/colorTextGray"
                     android:layout_marginTop="2dp"/>
@@ -155,7 +155,7 @@
                     android:id="@+id/tvItemAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Address"
+                    android:text="@string/common_address"
                     android:textSize="13sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorTextDark"
@@ -166,7 +166,7 @@
                     android:id="@+id/tvDistance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Calculating..."
+                    android:text="@string/common_calculating"
                     android:textSize="12sp"
                     android:textColor="@color/colorTextGray"/>
             </LinearLayout>
@@ -184,7 +184,7 @@
                 android:layout_height="52dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_button_secondary"
-                android:text="View Detail"
+                android:text="@string/common_view_detail"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -196,7 +196,7 @@
                 android:layout_height="52dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_button_primary"
-                android:text="Open in Maps"
+                android:text="@string/common_open_in_maps"
                 android:textColor="@color/colorWhite"
                 android:textSize="14sp"
                 android:textStyle="bold"/>

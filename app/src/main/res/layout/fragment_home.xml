@@ -31,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="The Commons"
+            android:text="@string/app_name"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/colorTextDark"
@@ -124,7 +124,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@null"
-                android:hint="Search community items..."
+                android:hint="@string/home_search_hint"
                 android:textSize="14sp"
                 android:textColorHint="@color/colorTextHint"
                 android:textColor="@color/colorTextDark"
@@ -172,7 +172,7 @@
                 android:id="@+id/tabAll"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
-                android:text="All Items"
+                android:text="@string/category_all_items"
                 android:textSize="13sp"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"
@@ -188,7 +188,7 @@
                 android:id="@+id/tabFood"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
-                android:text="Food"
+                android:text="@string/category_food"
                 android:textSize="13sp"
                 android:textColor="@color/colorTextGray"
                 android:background="@drawable/bg_tab_inactive"
@@ -203,7 +203,7 @@
                 android:id="@+id/tabClothes"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
-                android:text="Clothes"
+                android:text="@string/category_clothes"
                 android:textSize="13sp"
                 android:textColor="@color/colorTextGray"
                 android:background="@drawable/bg_tab_inactive"
@@ -218,7 +218,7 @@
                 android:id="@+id/tabTools"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
-                android:text="Tools"
+                android:text="@string/category_tools"
                 android:textSize="13sp"
                 android:textColor="@color/colorTextGray"
                 android:background="@drawable/bg_tab_inactive"
@@ -302,7 +302,7 @@
 <!--                    android:layout_width="wrap_content"-->
 <!--                    android:layout_height="40dp"-->
 <!--                    android:background="@drawable/bg_button_primary"-->
-<!--                    android:text="Request Item"-->
+<!--                    android:text="@string/detail_request_item"-->
 <!--                    android:textColor="@color/colorWhite"-->
 <!--                    android:textSize="13sp"-->
 <!--                    android:paddingStart="20dp"-->
@@ -368,7 +368,7 @@
 <!--                    android:layout_width="wrap_content"-->
 <!--                    android:layout_height="40dp"-->
 <!--                    android:background="@drawable/bg_button_primary"-->
-<!--                    android:text="Request Item"-->
+<!--                    android:text="@string/detail_request_item"-->
 <!--                    android:textColor="@color/colorWhite"-->
 <!--                    android:textSize="13sp"-->
 <!--                    android:paddingStart="20dp"-->
@@ -403,7 +403,7 @@
 <!--                    android:layout_width="match_parent"-->
 <!--                    android:layout_height="52dp"-->
 <!--                    android:background="@drawable/bg_button_primary"-->
-<!--                    android:text="Request Item"-->
+<!--                    android:text="@string/detail_request_item"-->
 <!--                    android:textColor="@color/colorWhite"-->
 <!--                    android:textSize="15sp"-->
 <!--                    android:textStyle="bold"/>-->
@@ -435,7 +435,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="NEED SOMETHING?"
+                        android:text="@string/home_need_something"
                         android:textSize="10sp"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold"
@@ -445,7 +445,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ask the community"
+                        android:text="@string/home_ask_community"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:textColor="@color/colorTextDark"/>
@@ -457,7 +457,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:background="@drawable/bg_button_primary"
-                    android:text="+ Request"
+                    android:text="@string/home_request_short"
                     android:textColor="@color/colorWhite"
                     android:textSize="13sp"
                     android:textStyle="bold"
@@ -480,7 +480,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Nearby Today"
+                    android:text="@string/common_nearby_today"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorTextDark"/>
@@ -489,7 +489,7 @@
                     android:id="@+id/tvViewMap"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="View Map"
+                    android:text="@string/common_view_map"
                     android:textSize="13sp"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold"

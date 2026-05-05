@@ -20,6 +20,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.communitysharing.R;
+import com.example.communitysharing.utils.LocaleManager;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
@@ -67,6 +68,7 @@ public class PickLocationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LocaleManager.applySavedLocale(this);
 
         Configuration.getInstance().load(this,
                 PreferenceManager.getDefaultSharedPreferences(this));
@@ -96,7 +98,7 @@ public class PickLocationActivity extends AppCompatActivity {
         btnConfirmLocation.setOnClickListener(v -> {
             if (selectedLat == 0 && selectedLng == 0) {
                 Toast.makeText(this,
-                        "Please select a location",
+                        getString(R.string.location_please_select),
                         Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -171,7 +173,7 @@ public class PickLocationActivity extends AppCompatActivity {
         GeoPoint haNoi = new GeoPoint(21.0285, 105.8542);
         centerMarker = new Marker(mapView);
         centerMarker.setPosition(haNoi);
-        centerMarker.setTitle("Selected Location");
+        centerMarker.setTitle(getString(R.string.location_selected_marker));
         centerMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         centerMarker.setIcon(ContextCompat.getDrawable(this,
                 android.R.drawable.ic_menu_mylocation));
@@ -253,7 +255,8 @@ public class PickLocationActivity extends AppCompatActivity {
                     br.close();
 
                     JSONObject json = new JSONObject(response.toString());
-                    String address = json.optString("display_name", "Unknown location");
+                    String address = json.optString("display_name",
+                            getString(R.string.location_unknown));
                     selectedAddress = address;
 
                     runOnUiThread(() -> tvSelectedAddress.setText(address));
@@ -317,7 +320,7 @@ public class PickLocationActivity extends AppCompatActivity {
     // 🔧 Search dùng HttpURLConnection
     private void searchLocation(String query) {
         if (query.isEmpty()) {
-            Toast.makeText(this, "Enter location", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.location_enter), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -349,7 +352,8 @@ public class PickLocationActivity extends AppCompatActivity {
                         JSONObject result = results.getJSONObject(0);
                         double lat = result.getDouble("lat");
                         double lon = result.getDouble("lon");
-                        String address = result.optString("display_name", "Unknown");
+                        String address = result.optString("display_name",
+                                getString(R.string.location_unknown));
 
                         GeoPoint point = new GeoPoint(lat, lon);
                         selectedLat = lat;
@@ -368,7 +372,7 @@ public class PickLocationActivity extends AppCompatActivity {
                         });
                     } else {
                         runOnUiThread(() -> Toast.makeText(this,
-                                "Location not found", Toast.LENGTH_SHORT).show());
+                                getString(R.string.location_not_found), Toast.LENGTH_SHORT).show());
                     }
                 }
 
@@ -376,7 +380,8 @@ public class PickLocationActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
                 runOnUiThread(() -> Toast.makeText(this,
-                        "Search error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                        getString(R.string.location_search_error, e.getMessage()),
+                        Toast.LENGTH_SHORT).show());
             }
         }).start();
     }

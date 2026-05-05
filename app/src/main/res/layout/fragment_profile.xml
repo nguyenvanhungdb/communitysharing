@@ -30,7 +30,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="The Commons"
+            android:text="@string/app_name"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/colorTextDark"
@@ -109,7 +109,7 @@
                     android:id="@+id/tvFullName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Loading..."
+                    android:text="@string/common_loading"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorTextDark"
@@ -133,7 +133,7 @@
                         android:id="@+id/tvAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" Your location"
+                        android:text="@string/profile_your_location"
                         android:textSize="14sp"
                         android:textColor="@color/colorTextGray"/>
                 </LinearLayout>
@@ -152,7 +152,7 @@
                     android:id="@+id/tabShared"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
-                    android:text="Shared"
+                    android:text="@string/history_shared"
                     android:textSize="14sp"
                     android:textColor="@color/colorWhite"
                     android:textStyle="bold"
@@ -168,7 +168,7 @@
                     android:id="@+id/tabRequested"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
-                    android:text="Requested"
+                    android:text="@string/profile_requested"
                     android:textSize="14sp"
                     android:textColor="@color/colorTextGray"
                     android:background="@drawable/bg_tab_inactive"
@@ -216,7 +216,7 @@
                         android:id="@+id/tvFeaturedBadge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ACTIVE SHARE"
+                        android:text="@string/profile_active_share"
                         android:textSize="10sp"
                         android:textColor="@color/colorWhite"
                         android:textStyle="bold"
@@ -231,7 +231,7 @@
                         android:id="@+id/tvFeaturedTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Item Title"
+                        android:text="@string/common_item_title"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/colorWhite"/>
@@ -240,7 +240,7 @@
                         android:id="@+id/tvFeaturedSubtitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Shared with community"
+                        android:text="@string/profile_shared_with_community"
                         android:textSize="12sp"
                         android:textColor="#CCFFFFFF"/>
                 </LinearLayout>
@@ -297,7 +297,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="My Posts"
+                    android:text="@string/my_posts_title"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorTextDark"/>
@@ -340,7 +340,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="History"
+                    android:text="@string/history_title"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorTextDark"/>
@@ -383,7 +383,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Settings"
+                    android:text="@string/settings_title"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorTextDark"/>
@@ -427,7 +427,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Logout"
+                    android:text="@string/settings_logout"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorRed"/>

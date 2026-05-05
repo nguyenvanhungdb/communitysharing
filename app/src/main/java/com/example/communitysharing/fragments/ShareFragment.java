@@ -144,11 +144,8 @@ public class ShareFragment extends Fragment {
     }
 
     private void setupSpinner() {
-        String[] categories = {
-                "Furniture", "Food", "Clothes",
-                "Tools", "Electronics", "Kitchen",
-                "Garden", "Books", "Other"
-        };
+        String[] categories = getResources().getStringArray(
+                R.array.category_names);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 getContext(),
                 android.R.layout.simple_spinner_item,
@@ -229,7 +226,7 @@ public class ShareFragment extends Fragment {
         }
 
         // Đổi UI nút thành loading
-        tvPickedLocation.setText("Getting your location...");
+        tvPickedLocation.setText(getString(R.string.common_getting_your_location));
         tvPickedLocation.setTextColor(
                 getResources().getColor(R.color.colorTextGray));
 
@@ -237,9 +234,9 @@ public class ShareFragment extends Fragment {
                 .addOnSuccessListener(location -> {
                     if (location == null) {
                         Toast.makeText(getContext(),
-                                "Cannot get location. Try again or pick on map.",
+                                getString(R.string.share_location_failed),
                                 Toast.LENGTH_SHORT).show();
-                        tvPickedLocation.setText("No location selected yet");
+                        tvPickedLocation.setText(getString(R.string.common_no_location_selected));
                         return;
                     }
 
@@ -251,7 +248,7 @@ public class ShareFragment extends Fragment {
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(getContext(),
-                            "Location error: " + e.getMessage(),
+                            getString(R.string.share_location_error, e.getMessage()),
                             Toast.LENGTH_SHORT).show();
                 });
     }
@@ -317,15 +314,16 @@ public class ShareFragment extends Fragment {
                 getResources().getDrawable(R.drawable.bg_delivery_inactive));
 
         Toast.makeText(getContext(),
-                "Location set! ✓", Toast.LENGTH_SHORT).show();
+                getString(R.string.share_location_set), Toast.LENGTH_SHORT).show();
     }
 
     // ===== CAMERA =====
     private void openImagePicker() {
-        String[] options = {"Chụp ảnh", "Chọn từ thư viện"};
+        String[] options = getResources().getStringArray(
+                R.array.photo_source_options);
 
         new AlertDialog.Builder(getContext())
-                .setTitle("Chọn nguồn ảnh")
+                .setTitle(getString(R.string.dialog_select_photo_source))
                 .setItems(options, (dialog, which) -> {
                     if (which == 0) {
                         openCamera();
@@ -425,7 +423,7 @@ public class ShareFragment extends Fragment {
                     getResources().getDrawable(R.drawable.bg_delivery_inactive));
 
             Toast.makeText(getContext(),
-                    "Location selected! ✓", Toast.LENGTH_SHORT).show();
+                    getString(R.string.share_location_selected), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -577,32 +575,34 @@ public class ShareFragment extends Fragment {
         String title    = etTitle.getText().toString().trim();
         String desc     = etDescription.getText().toString().trim();
         String address  = etAddress.getText().toString().trim();
-        String category = spinnerCategory.getSelectedItem().toString();
+        String category = getSelectedCategoryCode();
 
         if (TextUtils.isEmpty(title)) {
-            showError("Please enter item title");
+            showError(getString(R.string.share_title_required));
             etTitle.requestFocus();
             return;
         }
         if (TextUtils.isEmpty(desc)) {
-            showError("Please enter a description");
+            showError(getString(R.string.share_description_required));
             etDescription.requestFocus();
             return;
         }
         if (TextUtils.isEmpty(address)) {
-            showError("Please enter your address");
+            showError(getString(R.string.share_address_required));
             etAddress.requestFocus();
             return;
         }
 
         if (pickedLat == 0 && pickedLng == 0) {
-            Toast.makeText(mContext,
-                    "Tip: Add a location so others can find your item!",
+            Toast.makeText(getContext(),
+                    getString(R.string.share_add_location_tip),
                     Toast.LENGTH_SHORT).show();
         }
 
         btnPostItem.setEnabled(false);
-        btnPostItem.setText(editItemId != null ? "Updating..." : "Posting...");
+        btnPostItem.setText(editItemId != null
+                ? getString(R.string.share_updating)
+                : getString(R.string.share_posting));
         tvError.setVisibility(View.GONE);
 
         String uid       = mAuth.getCurrentUser().getUid();
@@ -623,7 +623,7 @@ public class ShareFragment extends Fragment {
         etDescription.setText("");
         etAddress.setText("");
         tvQuantity.setText("1");
-        tvPickedLocation.setText("No location selected yet");
+        tvPickedLocation.setText(getString(R.string.common_no_location_selected));
         tvPickedLocation.setTextColor(
                 getResources().getColor(R.color.colorTextHint));
 
@@ -647,7 +647,7 @@ public class ShareFragment extends Fragment {
                 getResources().getDrawable(R.drawable.bg_delivery_inactive));
 
         btnPostItem.setEnabled(true);
-        btnPostItem.setText("Post Item ▷");
+        btnPostItem.setText(getString(R.string.share_post_item));
     }
 
     private void showError(String message) {
@@ -669,7 +669,7 @@ public class ShareFragment extends Fragment {
             getCurrentLocation();
         } else {
             Toast.makeText(getContext(),
-                    "Permission required",
+                    getString(R.string.common_permission_required),
                     Toast.LENGTH_SHORT).show();
         }
     }
@@ -696,13 +696,10 @@ public class ShareFragment extends Fragment {
         etAddress.setText(address);
 
         // Set spinner category
-        String[] categories = {
-                "Furniture", "Food", "Clothes",
-                "Tools", "Electronics", "Kitchen",
-                "Garden", "Books", "Other"
-        };
-        for (int i = 0; i < categories.length; i++) {
-            if (categories[i].equalsIgnoreCase(category)) {
+        String[] categoryCodes = getResources().getStringArray(
+                R.array.category_codes);
+        for (int i = 0; i < categoryCodes.length; i++) {
+            if (categoryCodes[i].equalsIgnoreCase(category)) {
                 spinnerCategory.setSelection(i);
                 break;
             }
@@ -741,7 +738,7 @@ public class ShareFragment extends Fragment {
         }
 
         // Đổi title header và nút
-        btnPostItem.setText("Update Item ▷");
+        btnPostItem.setText(getString(R.string.share_update_item));
 
         android.util.Log.d("ShareFragment",
                 "Edit mode: itemId=" + editItemId);
@@ -776,7 +773,7 @@ public class ShareFragment extends Fragment {
 
                     if (task.isSuccessful()) {
                         Toast.makeText(getContext(),
-                                "Item updated! ✓",
+                                getString(R.string.share_item_updated),
                                 Toast.LENGTH_SHORT).show();
 
                         if (getParentFragmentManager()
@@ -784,9 +781,9 @@ public class ShareFragment extends Fragment {
                             getParentFragmentManager().popBackStack();
                         }
                     } else {
-                        showError("Update failed. Try again.");
+                        showError(getString(R.string.share_update_failed));
                         btnPostItem.setEnabled(true);
-                        btnPostItem.setText("Update Item ▷");
+                        btnPostItem.setText(getString(R.string.share_update_item));
                     }
                 });
     }
@@ -812,15 +809,25 @@ public class ShareFragment extends Fragment {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(getContext(),
-                                "Item posted! 🎉",
+                                getString(R.string.share_item_posted),
                                 Toast.LENGTH_SHORT).show();
                         resetForm();
                     } else {
-                        showError("Failed to post. Try again.");
+                        showError(getString(R.string.share_post_failed));
                         btnPostItem.setEnabled(true);
-                        btnPostItem.setText("Post Item ▷");
+                        btnPostItem.setText(getString(R.string.share_post_item));
                     }
                 });
+    }
+
+    private String getSelectedCategoryCode() {
+        String[] categoryCodes = getResources().getStringArray(
+                R.array.category_codes);
+        int position = spinnerCategory.getSelectedItemPosition();
+        if (position >= 0 && position < categoryCodes.length) {
+            return categoryCodes[position];
+        }
+        return "other";
     }
 
 

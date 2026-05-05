@@ -46,7 +46,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Notification Title"
+                android:text="@string/notification_title_placeholder"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="@color/colorTextDark"/>
@@ -55,7 +55,7 @@
                 android:id="@+id/tvTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2m ago"
+                android:text="@string/notification_time_placeholder"
                 android:textSize="11sp"
                 android:textColor="@color/colorTextHint"
                 android:layout_marginStart="8dp"/>
@@ -66,7 +66,7 @@
             android:id="@+id/tvMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Notification message content here"
+            android:text="@string/notification_message_placeholder"
             android:textSize="13sp"
             android:textColor="@color/colorTextGray"
             android:lineSpacingMultiplier="1.3"
@@ -87,7 +87,7 @@
                 android:layout_height="38dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_button_primary"
-                android:text="Accept"
+                android:text="@string/notification_accept"
                 android:textColor="@color/colorWhite"
                 android:textSize="13sp"
                 android:textStyle="bold"
@@ -99,7 +99,7 @@
                 android:layout_height="38dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_button_secondary"
-                android:text="Decline"
+                android:text="@string/notification_decline"
                 android:textColor="@color/colorPrimary"
                 android:textSize="13sp"/>
 
@@ -120,7 +120,7 @@
                 android:layout_height="38dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_button_primary"
-                android:text="Coordinate Pickup"
+                android:text="@string/notification_coordinate_pickup"
                 android:textColor="@color/colorWhite"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -132,7 +132,7 @@
                 android:layout_height="38dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_button_secondary"
-                android:text="View Listing"
+                android:text="@string/notification_view_listing"
                 android:textColor="@color/colorPrimary"
                 android:textSize="12sp"/>
         </LinearLayout>
@@ -142,7 +142,7 @@
             android:id="@+id/tvReplyNow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="REPLY NOW →"
+            android:text="@string/notification_reply_now"
             android:textSize="12sp"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"

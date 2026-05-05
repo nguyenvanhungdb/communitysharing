@@ -17,7 +17,7 @@
             android:id="@+id/tvMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Message content"
+            android:text="@string/item_message_content"
             android:textSize="15sp"
             android:textColor="@color/colorWhite"
             android:background="@drawable/bg_bubble_sent"

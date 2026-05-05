@@ -142,8 +142,8 @@ public void onAccept(Notification notif) {
     sendNotification(
             notif.getFromUserId(),
             "pickup_approved",
-            "Approved",
-            notif.getItemName() + " has been approved!",
+            getString(R.string.notification_approved_title),
+            getString(R.string.notification_approved_message),
             myUid,
             notif.getItemId(),
             notif.getItemName()
@@ -159,7 +159,7 @@ public void onAccept(Notification notif) {
             .removeValue();
 
     Toast.makeText(getContext(),
-            "Accepted!",
+            getString(R.string.notification_accepted_toast),
             Toast.LENGTH_SHORT).show();
 }
 
@@ -203,8 +203,8 @@ public void onAccept(Notification notif) {
                 sendNotification(
                         notif.getFromUserId(),
                         "request_declined",
-                        "Declined",
-                        notif.getItemName() + " was declined",
+                        getString(R.string.notification_declined_title),
+                        getString(R.string.notification_declined_message),
                         myUid,
                         notif.getItemId(),
                         notif.getItemName()
@@ -217,7 +217,7 @@ public void onAccept(Notification notif) {
                         .removeValue();
 
                 Toast.makeText(getContext(),
-                        "Declined!",
+                        getString(R.string.notification_declined_toast),
                         Toast.LENGTH_SHORT).show();
             }
 
@@ -227,7 +227,9 @@ public void onAccept(Notification notif) {
                 String otherUserId = notif.getFromUserId();
 
                 if (otherUserId == null || otherUserId.isEmpty()) {
-                    Toast.makeText(getContext(), "User lỗi!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),
+                            getString(R.string.notification_user_error),
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
 

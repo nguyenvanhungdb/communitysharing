@@ -319,6 +319,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.communitysharing.R;
+import com.example.communitysharing.utils.LocaleManager;
 import com.example.communitysharing.models.Item;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -383,6 +384,7 @@ public class MapActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LocaleManager.applySavedLocale(this);
 
         Configuration.getInstance().load(this,
                 PreferenceManager.getDefaultSharedPreferences(this));
@@ -428,7 +430,7 @@ public class MapActivity extends AppCompatActivity {
                         myLocationOverlay.getMyLocation());
                 mapView.getController().setZoom(15.0);
             } else {
-                Toast.makeText(this, "Getting location...",
+                Toast.makeText(this, getString(R.string.common_getting_location),
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -501,7 +503,7 @@ public class MapActivity extends AppCompatActivity {
 
     // ===== CHẾ ĐỘ XEM TẤT CẢ ITEMS =====
     private void setupShowAllMode(Location myLocation) {
-        tvMapTitle.setText("Nearby Items");
+        tvMapTitle.setText(getString(R.string.map_nearby_items));
         llItemCard.setVisibility(View.GONE);
 
         // Center về vị trí mình hoặc Hà Nội
@@ -698,7 +700,7 @@ public class MapActivity extends AppCompatActivity {
         tvItemTitle.setText(item.getTitle());
         tvOwnerName.setText(item.getOwnerName());
         tvItemAddress.setText(item.getAddress());
-        tvItemStatus.setText("AVAILABLE NOW");
+        tvItemStatus.setText(getString(R.string.common_available_now));
 
         // Tính khoảng cách
         if (myLocation != null) {
@@ -714,7 +716,7 @@ public class MapActivity extends AppCompatActivity {
                         String.format("%.1f km away", dist / 1000f));
             }
         } else {
-            tvDistance.setText("Distance unknown");
+            tvDistance.setText(getString(R.string.common_distance_unknown));
         }
 
         // Load ảnh
@@ -892,20 +894,20 @@ public class MapActivity extends AppCompatActivity {
         imageBase64 = getIntent().getStringExtra(EXTRA_ITEM_IMAGE);
         itemId      = getIntent().getStringExtra(EXTRA_ITEM_ID);
 
-        tvMapTitle.setText("Item Location");
+        tvMapTitle.setText(getString(R.string.map_item_location));
 
         // Hiện card
         llItemCard.setVisibility(View.VISIBLE);
         tvItemTitle.setText(itemTitle != null ? itemTitle : "");
         tvOwnerName.setText(ownerName != null ? ownerName : "");
         tvItemAddress.setText(itemAddress != null ? itemAddress : "");
-        tvItemStatus.setText("AVAILABLE NOW");
+        tvItemStatus.setText(getString(R.string.common_available_now));
 
         // Tạo marker
         GeoPoint itemPoint = new GeoPoint(itemLat, itemLng);
         Marker marker = new Marker(mapView);
         marker.setPosition(itemPoint);
-        marker.setTitle(itemTitle != null ? itemTitle : "Item");
+        marker.setTitle(itemTitle != null ? itemTitle : getString(R.string.common_item));
         marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
 
         // Set icon mặc định trước
@@ -1020,7 +1022,7 @@ public class MapActivity extends AppCompatActivity {
     private void openInMapsApp(double lat, double lng, String title) {
         Uri gmmUri = Uri.parse("geo:" + lat + "," + lng
                 + "?q=" + lat + "," + lng
-                + "(" + Uri.encode(title != null ? title : "Item") + ")");
+                + "(" + Uri.encode(title != null ? title : getString(R.string.common_item)) + ")");
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmUri);
 
         if (mapIntent.resolveActivity(getPackageManager()) != null) {
