@@ -1,0 +1,396 @@
+<resources>
+    <string name="app_name">The Commons</string>
+
+    <string name="nav_home">Trang chủ</string>
+    <string name="nav_activity">Hoạt động</string>
+    <string name="nav_share">Chia sẻ</string>
+    <string name="nav_chat">Chat</string>
+    <string name="nav_profile">Hồ sơ</string>
+
+    <string name="settings_title">Cài đặt</string>
+    <string name="settings_subtitle">Quản lý trải nghiệm sử dụng The Commons</string>
+    <string name="settings_account">TÀI KHOẢN</string>
+    <string name="settings_change_password">Đổi mật khẩu</string>
+    <string name="settings_change_password_subtitle">Cập nhật thông tin bảo mật</string>
+    <string name="settings_email_address">Địa chỉ email</string>
+    <string name="settings_loading">đang tải...</string>
+    <string name="settings_preferences">TÙY CHỌN</string>
+    <string name="settings_language">Ngôn ngữ</string>
+    <string name="settings_dark_mode">Chế độ tối</string>
+    <string name="settings_dark_mode_subtitle">Giảm độ chói khi dùng buổi tối</string>
+    <string name="settings_notifications">THÔNG BÁO</string>
+    <string name="settings_push_notifications">Thông báo đẩy</string>
+    <string name="settings_push_notifications_subtitle">Hoạt động, tin nhắn và cập nhật</string>
+    <string name="settings_email_digests">Tóm tắt qua email</string>
+    <string name="settings_email_digests_subtitle">Tổng hợp và xu hướng hằng tuần</string>
+    <string name="settings_trust_title">Niềm tin là nền tảng của chúng tôi.</string>
+    <string name="settings_trust_body">Dữ liệu của bạn không bao giờ bị bán cho bên thứ ba. Chúng tôi giữ The Commons sạch sẽ và riêng tư cho các thành viên.</string>
+    <string name="settings_logout">Đăng xuất</string>
+
+    <string name="dialog_select_language">Chọn ngôn ngữ</string>
+    <string name="dialog_change_password">Đổi mật khẩu</string>
+    <string name="dialog_change_email">Đổi email</string>
+    <string name="dialog_update">Cập nhật</string>
+    <string name="dialog_cancel">Hủy</string>
+    <string name="dialog_logout_title">Đăng xuất</string>
+    <string name="dialog_logout_message">Bạn có chắc chắn muốn đăng xuất?</string>
+
+    <string name="language_changed">Đã đổi ngôn ngữ sang %1$s</string>
+    <string name="error_fill_all_fields">Vui lòng nhập đầy đủ thông tin</string>
+    <string name="error_password_min_length">Mật khẩu phải có ít nhất 6 ký tự</string>
+    <string name="error_passwords_do_not_match">Mật khẩu xác nhận không khớp</string>
+    <string name="password_updated_success">Đã cập nhật mật khẩu!</string>
+    <string name="password_updated_failed">Không thể cập nhật mật khẩu</string>
+    <string name="current_password_incorrect">Mật khẩu hiện tại không đúng</string>
+    <string name="email_updated_success">Đã cập nhật email!</string>
+    <string name="email_updated_failed">Không thể cập nhật email</string>
+    <string name="password_incorrect">Mật khẩu không đúng</string>
+
+    <string name="label_new_email">Địa chỉ email mới</string>
+    <string name="label_confirm_password">Xác nhận bằng mật khẩu</string>
+    <string name="hint_current_password">Mật khẩu hiện tại của bạn</string>
+    <string name="label_current_password">Mật khẩu hiện tại</string>
+    <string name="label_new_password">Mật khẩu mới</string>
+    <string name="label_confirm_new_password">Xác nhận mật khẩu mới</string>
+    <string name="hint_enter_current_password">Nhập mật khẩu hiện tại</string>
+    <string name="hint_min_password">Tối thiểu 6 ký tự</string>
+    <string name="hint_reenter_new_password">Nhập lại mật khẩu mới</string>
+
+    <string-array name="settings_language_names">
+        <item>English (United States)</item>
+        <item>Tiếng Việt</item>
+    </string-array>
+
+    <string-array name="settings_language_codes">
+        <item>en</item>
+        <item>vi</item>
+    </string-array>
+
+    <string name="common_user_name">Tên người dùng</string>
+    <string name="common_owner_name">Tên chủ sở hữu</string>
+    <string name="common_owner">Chủ sở hữu</string>
+    <string name="common_address">Địa chỉ</string>
+    <string name="common_loading">Đang tải...</string>
+    <string name="common_loading_location">Đang tải vị trí...</string>
+    <string name="common_unknown">Không rõ</string>
+    <string name="common_no_address">Chưa có địa chỉ</string>
+    <string name="common_item">Món đồ</string>
+    <string name="common_item_title">Tên món đồ</string>
+    <string name="common_description">MÔ TẢ</string>
+    <string name="common_description_placeholder">Mô tả ở đây</string>
+    <string name="common_active_now">ĐANG HOẠT ĐỘNG</string>
+    <string name="common_available">Có sẵn</string>
+    <string name="common_available_now">Đang có sẵn</string>
+    <string name="common_requested">Đã yêu cầu</string>
+    <string name="common_borrowed">Đang mượn</string>
+    <string name="common_completed">Đã hoàn tất</string>
+    <string name="common_not_available">Không khả dụng</string>
+    <string name="common_details">Chi tiết</string>
+    <string name="common_chat">Chat</string>
+    <string name="common_nearby">Gần đây</string>
+    <string name="common_nearby_today">Gần bạn hôm nay</string>
+    <string name="common_view_map">Xem bản đồ</string>
+    <string name="common_view_detail">Xem chi tiết</string>
+    <string name="common_open_in_maps">Mở trong Maps</string>
+    <string name="common_calculating">Đang tính...</string>
+    <string name="common_distance_unknown">Chưa rõ khoảng cách</string>
+    <string name="common_location_unavailable">Không có vị trí</string>
+    <string name="common_getting_location">Đang lấy vị trí...</string>
+    <string name="common_getting_your_location">Đang lấy vị trí của bạn...</string>
+    <string name="common_no_location_selected">Chưa chọn vị trí</string>
+    <string name="common_permission_required">Cần cấp quyền</string>
+    <string name="common_permission_required_title">Cần cấp quyền</string>
+    <string name="common_cancel">Hủy</string>
+
+    <string name="category_furniture">Nội thất</string>
+    <string name="category_food">Đồ ăn</string>
+    <string name="category_clothes">Quần áo</string>
+    <string name="category_tools">Dụng cụ</string>
+    <string name="category_tool">Dụng cụ</string>
+    <string name="category_electronics">Đồ điện tử</string>
+    <string name="category_electronic">Đồ điện tử</string>
+    <string name="category_kitchen">Nhà bếp</string>
+    <string name="category_garden">Làm vườn</string>
+    <string name="category_books">Sách</string>
+    <string name="category_book">Sách</string>
+    <string name="category_other">Khác</string>
+    <string name="category_others">Khác</string>
+    <string name="category_all_items">Tất cả</string>
+    <string name="category_kitchen_dining">NHÀ BẾP &amp; ĂN UỐNG</string>
+
+    <string-array name="category_names">
+        <item>Nội thất</item>
+        <item>Đồ ăn</item>
+        <item>Quần áo</item>
+        <item>Dụng cụ</item>
+        <item>Đồ điện tử</item>
+        <item>Nhà bếp</item>
+        <item>Làm vườn</item>
+        <item>Sách</item>
+        <item>Khác</item>
+    </string-array>
+
+    <string-array name="category_codes">
+        <item>furniture</item>
+        <item>food</item>
+        <item>clothes</item>
+        <item>tools</item>
+        <item>electronics</item>
+        <item>kitchen</item>
+        <item>garden</item>
+        <item>books</item>
+        <item>other</item>
+    </string-array>
+
+    <string-array name="photo_source_options">
+        <item>Chụp ảnh</item>
+        <item>Chọn từ thư viện</item>
+    </string-array>
+
+    <string name="dialog_select_photo_source">Chọn nguồn ảnh</string>
+
+    <string name="login_tagline">Không gian chia sẻ dành cho cộng đồng.</string>
+    <string name="login_email_or_phone">EMAIL HOẶC SỐ ĐIỆN THOẠI</string>
+    <string name="login_enter_credentials">Nhập thông tin đăng nhập</string>
+    <string name="login_password">MẬT KHẨU</string>
+    <string name="login_forgot_password">QUÊN MẬT KHẨU?</string>
+    <string name="login_button">Đăng nhập</string>
+    <string name="login_signup">Đăng ký</string>
+    <string name="login_encrypted">MÃ HÓA ĐẦU CUỐI</string>
+    <string name="login_terms">Bằng cách tiếp tục, bạn đồng ý với Điều khoản dịch vụ và Chính sách quyền riêng tư.</string>
+    <string name="login_enter_email_error">Vui lòng nhập email</string>
+    <string name="login_enter_password_error">Vui lòng nhập mật khẩu</string>
+    <string name="login_logging_in">Đang đăng nhập...</string>
+    <string name="login_failed">Đăng nhập thất bại. Vui lòng thử lại.</string>
+
+    <string name="register_subtitle">Tạo tài khoản để bắt đầu</string>
+    <string name="register_full_name">HỌ VÀ TÊN</string>
+    <string name="register_full_name_hint">Họ và tên của bạn</string>
+    <string name="register_email_address">ĐỊA CHỈ EMAIL</string>
+    <string name="register_email_hint">tenban@domain.com</string>
+    <string name="register_phone_number">SỐ ĐIỆN THOẠI</string>
+    <string name="register_phone_hint">+84 xxx xxx xxx</string>
+    <string name="register_address">ĐỊA CHỈ</string>
+    <string name="register_address_hint">Khu vực / địa chỉ của bạn</string>
+    <string name="register_password">MẬT KHẨU</string>
+    <string name="register_confirm_password">XÁC NHẬN MẬT KHẨU</string>
+    <string name="register_reenter_password_hint">Nhập lại mật khẩu</string>
+    <string name="register_create_account">Tạo tài khoản</string>
+    <string name="register_has_account">Đã có tài khoản?</string>
+    <string name="register_full_name_required">Vui lòng nhập họ và tên</string>
+    <string name="register_email_required">Vui lòng nhập email</string>
+    <string name="register_valid_email_required">Vui lòng nhập email hợp lệ</string>
+    <string name="register_phone_required">Vui lòng nhập số điện thoại</string>
+    <string name="register_address_required">Vui lòng nhập địa chỉ</string>
+    <string name="register_password_required">Vui lòng nhập mật khẩu</string>
+    <string name="register_creating_account">Đang tạo tài khoản...</string>
+    <string name="register_welcome">Chào mừng đến với The Commons, %1$s!</string>
+    <string name="register_save_failed">Không thể lưu dữ liệu người dùng. Thử lại.</string>
+    <string name="register_failed">Đăng ký thất bại</string>
+
+    <string name="reset_back_to_login">Quay lại đăng nhập</string>
+    <string name="reset_title">Đặt lại mật khẩu</string>
+    <string name="reset_instructions">Nhập email gắn với tài khoản của bạn, chúng tôi sẽ gửi liên kết bảo mật để tạo mật khẩu mới.</string>
+    <string name="reset_send_link">Gửi liên kết đặt lại</string>
+    <string name="reset_sending">Đang gửi...</string>
+    <string name="reset_resend_link">Gửi lại liên kết</string>
+    <string name="reset_email_required">Vui lòng nhập địa chỉ email</string>
+    <string name="reset_valid_email_required">Vui lòng nhập email hợp lệ</string>
+    <string name="reset_success">Đã gửi liên kết đặt lại! Kiểm tra hộp thư của %1$s</string>
+    <string name="reset_failed">Không thể gửi email đặt lại. Thử lại.</string>
+    <string name="reset_still_trouble">Vẫn gặp sự cố?</string>
+    <string name="reset_contact_support">Liên hệ hỗ trợ cộng đồng</string>
+    <string name="reset_security_first">BẢO MẬT TRƯỚC TIÊN</string>
+    <string name="reset_security_note">Liên kết đặt lại có hiệu lực trong 24 giờ. Kiểm tra thư rác nếu bạn chưa nhận được trong 2 phút.</string>
+    <string name="reset_footer">© 2024 THE COMMONS • KHÔNG GIAN CHIA SẺ SỐ</string>
+
+    <string name="chat_messages">Tin nhắn</string>
+    <string name="chat_empty_title">Chưa có tin nhắn</string>
+    <string name="chat_empty_subtitle">Bắt đầu trò chuyện bằng cách yêu cầu một món đồ</string>
+    <string name="chat_type_message_hint">Nhập tin nhắn...</string>
+
+    <string name="home_search_hint">Tìm đồ trong cộng đồng...</string>
+    <string name="home_need_something">CẦN MÓN GÌ?</string>
+    <string name="home_ask_community">Hỏi cộng đồng</string>
+    <string name="home_request_short">+ Yêu cầu</string>
+
+    <string name="filter_title">Lọc tìm kiếm</string>
+    <string name="filter_subtitle">Tìm đúng món đồ cộng đồng đang chia sẻ.</string>
+    <string name="filter_status">TRẠNG THÁI</string>
+    <string name="filter_needed">Đang cần</string>
+    <string name="filter_categories">DANH MỤC</string>
+    <string name="filter_selected_count">Đã chọn 3</string>
+    <string name="filter_radius">BÁN KÍNH TÌM KIẾM</string>
+    <string name="filter_miles">5.2 dặm</string>
+    <string name="filter_time_posted">THỜI GIAN ĐĂNG</string>
+    <string name="filter_last_24_hours">24 giờ qua</string>
+    <string name="filter_last_3_days">3 ngày qua</string>
+    <string name="filter_last_7_days">7 ngày qua</string>
+    <string name="filter_reset">Đặt lại</string>
+    <string name="filter_apply">Áp dụng bộ lọc</string>
+    <string name="filter_results">Kết quả lọc</string>
+    <string name="filter_category_all">Danh mục: Tất cả</string>
+    <string name="filter_radius_miles">%1$d dặm</string>
+
+    <string name="history_title">Lịch sử</string>
+    <string name="history_subtitle">Theo dõi mọi thứ bạn đã chia sẻ với cộng đồng.</string>
+    <string name="history_shared">Đã chia sẻ</string>
+    <string name="history_received">Đã nhận</string>
+    <string name="history_empty_title">Chưa có lịch sử</string>
+    <string name="history_empty_subtitle">Bắt đầu chia sẻ đồ với cộng đồng!</string>
+
+    <string name="my_posts_title">Bài đăng của tôi</string>
+    <string name="my_posts_active">Đang hoạt động</string>
+    <string name="my_posts_archived">Đã lưu trữ</string>
+    <string name="my_posts_empty_title">Chưa có bài đăng</string>
+    <string name="my_posts_empty_subtitle">Hãy chia sẻ một món đồ với cộng đồng!</string>
+
+    <string name="notification_updates">Cập nhật</string>
+    <string name="notification_all">TẤT CẢ</string>
+    <string name="notification_requests">YÊU CẦU</string>
+    <string name="notification_messages">TIN NHẮN</string>
+    <string name="notification_empty_title">Chưa có thông báo</string>
+    <string name="notification_title_placeholder">Tiêu đề thông báo</string>
+    <string name="notification_message_placeholder">Nội dung thông báo ở đây</string>
+    <string name="notification_accept">Chấp nhận</string>
+    <string name="notification_decline">Từ chối</string>
+    <string name="notification_coordinate_pickup">Sắp xếp nhận đồ</string>
+    <string name="notification_view_listing">Xem bài đăng</string>
+    <string name="notification_reply_now">TRẢ LỜI NGAY</string>
+    <string name="notification_minutes_ago">%1$d phút trước</string>
+    <string name="notification_hours_ago">%1$d giờ trước</string>
+    <string name="notification_days_ago">%1$d ngày trước</string>
+    <string name="notification_time_placeholder">2 phút trước</string>
+    <string name="notification_approved_title">Đã chấp nhận</string>
+    <string name="notification_declined_title">Đã từ chối</string>
+    <string name="notification_approved_message">Yêu cầu của bạn đã được chấp nhận. Vui lòng sắp xếp thời gian nhận đồ.</string>
+    <string name="notification_declined_message">Yêu cầu của bạn đã bị từ chối. Bạn có thể tìm món đồ khác.</string>
+    <string name="notification_accepted_toast">Đã chấp nhận!</string>
+    <string name="notification_declined_toast">Đã từ chối!</string>
+    <string name="notification_user_error">Lỗi người dùng!</string>
+
+    <string name="profile_your_location">Vị trí của bạn</string>
+    <string name="profile_requested">Đã yêu cầu</string>
+    <string name="profile_active_share">ĐANG CHIA SẺ</string>
+    <string name="profile_shared_with_community">Đã chia sẻ với cộng đồng</string>
+    <string name="profile_status_format">Trạng thái: %1$s</string>
+    <string name="profile_no_location_set">Chưa đặt vị trí</string>
+
+    <string name="share_title">Chia sẻ / Quyên góp</string>
+    <string name="share_subtitle">Chia sẻ một món đồ với cộng đồng</string>
+    <string name="share_upload_photos">TẢI ẢNH MÓN ĐỒ</string>
+    <string name="share_add_main_photo">Thêm ảnh chính</string>
+    <string name="share_item_title_label">TÊN MÓN ĐỒ</string>
+    <string name="share_title_hint">VD: Bàn trà gỗ sồi</string>
+    <string name="share_description_hint">Mô tả tình trạng, kích thước và thông tin liên quan...</string>
+    <string name="share_pickup_location">ĐỊA ĐIỂM NHẬN ĐỒ</string>
+    <string name="share_my_location">Vị trí của tôi</string>
+    <string name="share_pick_on_map">Chọn trên bản đồ</string>
+    <string name="share_category">DANH MỤC</string>
+    <string name="share_quantity">SỐ LƯỢNG</string>
+    <string name="share_delivery_question">NGƯỜI NHẬN LẤY BẰNG CÁCH NÀO?</string>
+    <string name="share_pickup">Tự đến lấy</string>
+    <string name="share_delivery">Giao hàng</string>
+    <string name="share_post_item">Đăng món đồ</string>
+    <string name="share_update_item">Cập nhật món đồ</string>
+    <string name="share_guidelines">Khi đăng bài, bạn đồng ý với nguyên tắc cộng đồng của The Commons.</string>
+    <string name="share_title_required">Vui lòng nhập tên món đồ</string>
+    <string name="share_description_required">Vui lòng nhập mô tả</string>
+    <string name="share_address_required">Vui lòng nhập địa chỉ</string>
+    <string name="share_add_location_tip">Gợi ý: Thêm vị trí để người khác tìm thấy món đồ của bạn!</string>
+    <string name="share_updating">Đang cập nhật...</string>
+    <string name="share_posting">Đang đăng...</string>
+    <string name="share_location_error">Lỗi vị trí: %1$s</string>
+    <string name="share_location_set">Đã đặt vị trí!</string>
+    <string name="share_location_selected">Đã chọn vị trí!</string>
+    <string name="share_location_failed">Không thể lấy vị trí. Hãy thử lại hoặc chọn trên bản đồ.</string>
+    <string name="share_item_updated">Đã cập nhật món đồ!</string>
+    <string name="share_update_failed">Cập nhật thất bại. Thử lại.</string>
+    <string name="share_item_posted">Đã đăng món đồ!</string>
+    <string name="share_post_failed">Đăng thất bại. Thử lại.</string>
+
+    <string name="request_new_title">Yêu cầu mới</string>
+    <string name="request_question">Bạn cần gì?</string>
+    <string name="request_subtitle">Cộng đồng luôn sẵn sàng hỗ trợ. Chia sẻ thứ bạn đang cần, có thể ai đó đang có dư.</string>
+    <string name="request_title_hint">VD: Máy khoan điện hoặc đất trồng cây</string>
+    <string name="request_description_hint">Cho cộng đồng biết thêm lý do bạn cần hoặc cần trong bao lâu...</string>
+    <string name="request_urgency">MỨC ĐỘ CẦN</string>
+    <string name="request_low">Thấp</string>
+    <string name="request_medium">Vừa</string>
+    <string name="request_high">Cao</string>
+    <string name="request_add_photo">THÊM ẢNH THAM KHẢO</string>
+    <string name="request_add_reference_photo">Thêm ảnh tham khảo</string>
+    <string name="request_optional_helpful">Không bắt buộc nhưng hữu ích</string>
+    <string name="request_post">Đăng yêu cầu</string>
+    <string name="request_title_required">Vui lòng nhập tên món đồ</string>
+    <string name="request_description_required">Vui lòng mô tả thứ bạn cần</string>
+    <string name="request_posting">Đang đăng...</string>
+    <string name="request_posted">Đã đăng yêu cầu!</string>
+    <string name="request_post_failed">Đăng thất bại. Thử lại.</string>
+
+    <string name="location_pick_title">Chọn vị trí món đồ</string>
+    <string name="location_search_hint">Tìm vị trí...</string>
+    <string name="location_selected_label">VỊ TRÍ ĐÃ CHỌN</string>
+    <string name="location_move_map">Di chuyển bản đồ để chọn vị trí</string>
+    <string name="location_confirm">Xác nhận vị trí này</string>
+    <string name="location_please_select">Vui lòng chọn vị trí</string>
+    <string name="location_selected_marker">Vị trí đã chọn</string>
+    <string name="location_enter">Nhập vị trí</string>
+    <string name="location_unknown">Không rõ vị trí</string>
+    <string name="location_not_found">Không tìm thấy vị trí</string>
+    <string name="location_search_error">Lỗi tìm kiếm: %1$s</string>
+
+    <string name="map_item_location">Vị trí món đồ</string>
+    <string name="map_nearby_items">Đồ gần bạn</string>
+    <string name="map_tap_to_view">Nhấn để xem trên bản đồ</string>
+
+    <string name="detail_about_item">Về món đồ này</string>
+    <string name="detail_rating_placeholder">4.9 (124 lượt chia sẻ)</string>
+    <string name="detail_view_profile">XEM HỒ SƠ</string>
+    <string name="detail_verified_member">Thành viên đã xác minh</string>
+    <string name="detail_identity_confirmed">Danh tính đã được The Commons xác nhận</string>
+    <string name="detail_damage_protection">Bảo vệ hư hỏng</string>
+    <string name="detail_damage_body">Được hỗ trợ tới $500 để bạn yên tâm</string>
+    <string name="detail_pickup_location">Địa điểm nhận đồ</string>
+    <string name="detail_request_item">Yêu cầu món đồ</string>
+    <string name="detail_item_unavailable">Món đồ này không khả dụng</string>
+    <string name="detail_load_failed">Không thể tải món đồ</string>
+    <string name="detail_sending">Đang gửi...</string>
+    <string name="detail_notification_title">Yêu cầu mượn mới</string>
+    <string name="detail_notification_message">%1$s muốn mượn %2$s của bạn. Vui lòng kiểm tra chat trước.</string>
+    <string name="detail_request_sent">Đã gửi yêu cầu! Hãy chat với chủ đồ để xác nhận.</string>
+    <string name="detail_request_sent_button">Đã gửi yêu cầu</string>
+    <string name="detail_added_favorites">Đã thêm vào yêu thích</string>
+    <string name="detail_removed_favorites">Đã bỏ khỏi yêu thích</string>
+
+    <string name="item_last_message">Tin nhắn gần nhất...</string>
+    <string name="item_message_content">Nội dung tin nhắn</string>
+    <string name="item_sharing">ĐANG CHIA SẺ</string>
+    <string name="item_description_placeholder_short">Mô tả...</string>
+    <string name="item_live_visible">ĐANG HIỂN THỊ</string>
+    <string name="item_edit">Sửa</string>
+    <string name="item_complete">Hoàn tất</string>
+    <string name="item_shared_with_name">Đã chia sẻ với Elena S.</string>
+    <string name="item_oct_date">12 thg 10, 2023</string>
+    <string name="item_name_placeholder">Tên món đồ</string>
+    <string name="item_distance_placeholder">0.8 mi</string>
+    <string name="item_food_caps">ĐỒ ĂN</string>
+    <string name="history_shared_with">Đã chia sẻ với %1$s</string>
+    <string name="history_received_from">Đã nhận từ %1$s</string>
+    <string name="history_in_progress">Đang xử lý</string>
+    <string name="history_cancelled">Đã hủy</string>
+    <string name="my_posts_type_sharing">ĐANG CHIA SẺ</string>
+    <string name="my_posts_type_requesting">ĐANG YÊU CẦU</string>
+    <string name="my_posts_status_live">● ĐANG HIỂN THỊ</string>
+    <string name="my_posts_status_progress">● ĐANG XỬ LÝ</string>
+    <string name="my_posts_status_completed">● ĐÃ HOÀN TẤT</string>
+    <string name="my_posts_status_requested">● ĐÃ YÊU CẦU</string>
+    <string name="my_posts_complete_title">Đánh dấu hoàn tất?</string>
+    <string name="my_posts_complete_message">Bạn có chắc muốn đánh dấu \"%1$s\" là đã hoàn tất?</string>
+    <string name="my_posts_complete_yes">Hoàn tất</string>
+    <string name="my_posts_marked_completed">Đã đánh dấu hoàn tất!</string>
+    <string name="my_posts_delete_title">Xóa bài đăng?</string>
+    <string name="my_posts_delete_message">Thao tác này sẽ xóa vĩnh viễn \"%1$s\". Bạn có chắc không?</string>
+    <string name="my_posts_delete">Xóa</string>
+    <string name="my_posts_deleted">Đã xóa bài đăng</string>
+</resources>

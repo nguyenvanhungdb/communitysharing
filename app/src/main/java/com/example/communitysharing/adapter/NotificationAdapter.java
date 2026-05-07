@@ -133,9 +133,13 @@ public class NotificationAdapter extends
         long hours   = diff / (60 * 60 * 1000);
         long days    = diff / (24 * 60 * 60 * 1000);
 
-        if (minutes < 60)  return minutes + "m ago";
-        if (hours   < 24)  return hours   + "h ago";
-        return days + "d ago";
+        if (minutes < 60) {
+            return context.getString(R.string.notification_minutes_ago, minutes);
+        }
+        if (hours < 24) {
+            return context.getString(R.string.notification_hours_ago, hours);
+        }
+        return context.getString(R.string.notification_days_ago, days);
     }
 
     @Override

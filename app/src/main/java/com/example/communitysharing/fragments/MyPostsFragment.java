@@ -219,10 +219,10 @@ public class MyPostsFragment extends Fragment {
     // Dialog xác nhận Complete
     private void showCompleteDialog(Item item) {
         new AlertDialog.Builder(getContext())
-                .setTitle("Mark as Complete?")
-                .setMessage("Are you sure you want to mark \""
-                        + item.getTitle() + "\" as completed?")
-                .setPositiveButton("Yes, Complete", (dialog, which) -> {
+                .setTitle(getString(R.string.my_posts_complete_title))
+                .setMessage(getString(R.string.my_posts_complete_message,
+                        item.getTitle()))
+                .setPositiveButton(getString(R.string.my_posts_complete_yes), (dialog, which) -> {
                     // Cập nhật status trên Firebase
                     mDatabase.child("items")
                             .child(item.getItemId())
@@ -230,32 +230,32 @@ public class MyPostsFragment extends Fragment {
                             .setValue("completed")
                             .addOnSuccessListener(unused -> {
                                 Toast.makeText(getContext(),
-                                        "Marked as completed!",
+                                        getString(R.string.my_posts_marked_completed),
                                         Toast.LENGTH_SHORT).show();
                             });
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(getString(R.string.common_cancel), null)
                 .show();
     }
 
     // Dialog xác nhận Delete
     private void showDeleteDialog(Item item) {
         new AlertDialog.Builder(getContext())
-                .setTitle("Delete Post?")
-                .setMessage("This will permanently delete \""
-                        + item.getTitle() + "\". Are you sure?")
-                .setPositiveButton("Delete", (dialog, which) -> {
+                .setTitle(getString(R.string.my_posts_delete_title))
+                .setMessage(getString(R.string.my_posts_delete_message,
+                        item.getTitle()))
+                .setPositiveButton(getString(R.string.my_posts_delete), (dialog, which) -> {
                     // Xóa item khỏi Firebase
                     mDatabase.child("items")
                             .child(item.getItemId())
                             .removeValue()
                             .addOnSuccessListener(unused -> {
                                 Toast.makeText(getContext(),
-                                        "Post deleted",
+                                        getString(R.string.my_posts_deleted),
                                         Toast.LENGTH_SHORT).show();
                             });
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(getString(R.string.common_cancel), null)
                 .show();
     }
 }

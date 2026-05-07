@@ -40,7 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="The Commons"
+            android:text="@string/app_name"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/colorTextDark"/>
@@ -71,7 +71,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Settings"
+                android:text="@string/settings_title"
                 android:textSize="26sp"
                 android:textStyle="bold"
                 android:textColor="@color/colorTextDark"
@@ -80,7 +80,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Manage your living room experience"
+                android:text="@string/settings_subtitle"
                 android:textSize="13sp"
                 android:textColor="@color/colorTextGray"
                 android:layout_marginBottom="20dp"/>
@@ -89,7 +89,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ACCOUNT"
+                android:text="@string/settings_account"
                 android:textSize="11sp"
                 android:textColor="@color/colorTextGray"
                 android:textStyle="bold"
@@ -131,7 +131,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Change Password"
+                            android:text="@string/settings_change_password"
                             android:textSize="15sp"
                             android:textStyle="bold"
                             android:textColor="@color/colorTextDark"/>
@@ -139,7 +139,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Update your security credentials"
+                            android:text="@string/settings_change_password_subtitle"
                             android:textSize="12sp"
                             android:textColor="@color/colorTextGray"/>
                     </LinearLayout>
@@ -186,7 +186,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Email Address"
+                            android:text="@string/settings_email_address"
                             android:textSize="15sp"
                             android:textStyle="bold"
                             android:textColor="@color/colorTextDark"/>
@@ -195,7 +195,7 @@
                             android:id="@+id/tvEmail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="loading..."
+                            android:text="@string/settings_loading"
                             android:textSize="12sp"
                             android:textColor="@color/colorTextGray"/>
                     </LinearLayout>
@@ -212,7 +212,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PREFERENCES"
+                android:text="@string/settings_preferences"
                 android:textSize="11sp"
                 android:textColor="@color/colorTextGray"
                 android:textStyle="bold"
@@ -254,7 +254,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Language"
+                            android:text="@string/settings_language"
                             android:textSize="15sp"
                             android:textStyle="bold"
                             android:textColor="@color/colorTextDark"/>
@@ -263,7 +263,7 @@
                             android:id="@+id/tvLanguage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="English (United States)"
+                            android:text="@string/settings_language"
                             android:textSize="12sp"
                             android:textColor="@color/colorTextGray"/>
                     </LinearLayout>
@@ -307,7 +307,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Dark Mode"
+                            android:text="@string/settings_dark_mode"
                             android:textSize="15sp"
                             android:textStyle="bold"
                             android:textColor="@color/colorTextDark"/>
@@ -315,7 +315,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Reduce glare for evening use"
+                            android:text="@string/settings_dark_mode_subtitle"
                             android:textSize="12sp"
                             android:textColor="@color/colorTextGray"/>
                     </LinearLayout>
@@ -334,7 +334,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="NOTIFICATIONS"
+                android:text="@string/settings_notifications"
                 android:textSize="11sp"
                 android:textColor="@color/colorTextGray"
                 android:textStyle="bold"
@@ -373,7 +373,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Push Notifications"
+                            android:text="@string/settings_push_notifications"
                             android:textSize="15sp"
                             android:textStyle="bold"
                             android:textColor="@color/colorTextDark"/>
@@ -381,7 +381,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Activity, messages and updates"
+                            android:text="@string/settings_push_notifications_subtitle"
                             android:textSize="12sp"
                             android:textColor="@color/colorTextGray"/>
                     </LinearLayout>
@@ -427,7 +427,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Email Digests"
+                            android:text="@string/settings_email_digests"
                             android:textSize="15sp"
                             android:textStyle="bold"
                             android:textColor="@color/colorTextDark"/>
@@ -435,7 +435,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Weekly summaries and trends"
+                            android:text="@string/settings_email_digests_subtitle"
                             android:textSize="12sp"
                             android:textColor="@color/colorTextGray"/>
                     </LinearLayout>
@@ -462,7 +462,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Trust is our foundation."
+                    android:text="@string/settings_trust_title"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
@@ -471,7 +471,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Your data is never sold to third parties. We keep The Commons clean and private for our members."
+                    android:text="@string/settings_trust_body"
                     android:textSize="13sp"
                     android:textColor="@color/colorTextGray"
                     android:lineSpacingMultiplier="1.4"/>
@@ -499,7 +499,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Logout"
+                    android:text="@string/settings_logout"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorWhite"/>

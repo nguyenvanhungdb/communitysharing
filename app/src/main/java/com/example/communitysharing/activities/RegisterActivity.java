@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.communitysharing.R;
 import com.example.communitysharing.models.Users;
+import com.example.communitysharing.utils.LocaleManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -39,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LocaleManager.applySavedLocale(this);
         setContentView(R.layout.activity_register);
 
         // Khởi tạo Firebase
@@ -105,42 +107,42 @@ public class RegisterActivity extends AppCompatActivity {
 
         // --- Validate từng trường ---
         if (TextUtils.isEmpty(fullName)) {
-            showError("Please enter your full name");
+            showError(getString(R.string.register_full_name_required));
             etFullName.requestFocus();
             return;
         }
         if (TextUtils.isEmpty(email)) {
-            showError("Please enter your email");
+            showError(getString(R.string.register_email_required));
             etEmail.requestFocus();
             return;
         }
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            showError("Please enter a valid email address");
+            showError(getString(R.string.register_valid_email_required));
             etEmail.requestFocus();
             return;
         }
         if (TextUtils.isEmpty(phone)) {
-            showError("Please enter your phone number");
+            showError(getString(R.string.register_phone_required));
             etPhone.requestFocus();
             return;
         }
         if (TextUtils.isEmpty(address)) {
-            showError("Please enter your address");
+            showError(getString(R.string.register_address_required));
             etAddress.requestFocus();
             return;
         }
         if (TextUtils.isEmpty(password)) {
-            showError("Please enter a password");
+            showError(getString(R.string.register_password_required));
             etPassword.requestFocus();
             return;
         }
         if (password.length() < 6) {
-            showError("Password must be at least 6 characters");
+            showError(getString(R.string.error_password_min_length));
             etPassword.requestFocus();
             return;
         }
         if (!password.equals(confirmPw)) {
-            showError("Passwords do not match");
+            showError(getString(R.string.error_passwords_do_not_match));
             etConfirmPassword.requestFocus();
             return;
         }
@@ -148,7 +150,7 @@ public class RegisterActivity extends AppCompatActivity {
         // Ẩn lỗi, disable nút để tránh bấm 2 lần
         tvError.setVisibility(View.GONE);
         btnRegister.setEnabled(false);
-        btnRegister.setText("Creating account...");
+        btnRegister.setText(getString(R.string.register_creating_account));
 
         // --- Gọi Firebase Auth tạo tài khoản ---
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -166,7 +168,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 .addOnCompleteListener(dbTask -> {
                                     if (dbTask.isSuccessful()) {
                                         Toast.makeText(RegisterActivity.this,
-                                                "Welcome to The Commons, " + fullName + "!",
+                                                getString(R.string.register_welcome, fullName),
                                                 Toast.LENGTH_SHORT).show();
 
                                         // Chuyển sang HomeActivity (màn hình chính)
@@ -178,19 +180,19 @@ public class RegisterActivity extends AppCompatActivity {
                                                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);
                                     } else {
-                                        showError("Failed to save user data. Try again.");
+                                        showError(getString(R.string.register_save_failed));
                                         btnRegister.setEnabled(true);
-                                        btnRegister.setText("Create Account");
+                                        btnRegister.setText(getString(R.string.register_create_account));
                                     }
                                 });
                     } else {
                         // Đăng ký thất bại
                         String errorMsg = task.getException() != null
                                 ? task.getException().getMessage()
-                                : "Registration failed";
+                                : getString(R.string.register_failed);
                         showError(errorMsg);
                         btnRegister.setEnabled(true);
-                        btnRegister.setText("Create Account");
+                        btnRegister.setText(getString(R.string.register_create_account));
                     }
                 });
     }

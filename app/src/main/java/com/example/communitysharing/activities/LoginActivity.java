@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.communitysharing.R;
+import com.example.communitysharing.utils.LocaleManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -29,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LocaleManager.applySavedLocale(this);
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
@@ -81,19 +83,19 @@ public class LoginActivity extends AppCompatActivity {
 
         // Validate
         if (TextUtils.isEmpty(email)) {
-            showError("Please enter your email");
+            showError(getString(R.string.login_enter_email_error));
             etEmail.requestFocus();
             return;
         }
         if (TextUtils.isEmpty(password)) {
-            showError("Please enter your password");
+            showError(getString(R.string.login_enter_password_error));
             etPassword.requestFocus();
             return;
         }
 
         // Disable nút tránh bấm 2 lần
         btnLogin.setEnabled(false);
-        btnLogin.setText("Logging in...");
+        btnLogin.setText(getString(R.string.login_logging_in));
         tvError.setVisibility(View.GONE);
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
@@ -104,10 +106,10 @@ public class LoginActivity extends AppCompatActivity {
                         // Sai email hoặc password
                         String msg = task.getException() != null
                                 ? task.getException().getMessage()
-                                : "Login failed. Please try again.";
+                                : getString(R.string.login_failed);
                         showError(msg);
                         btnLogin.setEnabled(true);
-                        btnLogin.setText("Log In");
+                        btnLogin.setText(getString(R.string.login_button));
                     }
                 });
     }

@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.communitysharing.R;
 import com.example.communitysharing.fragments.NotificationFragment;
 import com.example.communitysharing.models.Item;
+import com.example.communitysharing.utils.LocaleManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,6 +47,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LocaleManager.applySavedLocale(this);
         setContentView(R.layout.activity_item_detail);
 
         itemId    = getIntent().getStringExtra("itemId");
@@ -90,18 +92,19 @@ public class ItemDetailActivity extends AppCompatActivity {
                         String cat = currentItem.getCategory() != null
                                 ? currentItem.getCategory() : "";
                         tvCategory.setText(cat.isEmpty()
-                                ? "OTHER" : cat.toUpperCase());
+                                ? getString(R.string.category_other)
+                                : getCategoryLabel(cat).toUpperCase());
 
                         String desc = currentItem.getDescription() != null
                                 ? currentItem.getDescription() : "";
                         tvDescription.setText(desc);
 
                         String owner = currentItem.getOwnerName() != null
-                                ? currentItem.getOwnerName() : "Unknown";
+                                ? currentItem.getOwnerName() : getString(R.string.common_unknown);
                         tvOwnerName.setText(owner);
 
                         String addr = currentItem.getAddress() != null
-                                ? currentItem.getAddress() : "No address";
+                                ? currentItem.getAddress() : getString(R.string.common_no_address);
                         tvLocation.setText(addr);
 
                         String status = currentItem.getStatus() != null
@@ -156,7 +159,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                         // Item không available → ẩn request
                         if (!status.equals("available")) {
                             btnRequestItem.setEnabled(false);
-                            btnRequestItem.setText("Not Available");
+                            btnRequestItem.setText(getString(R.string.common_not_available));
                             btnRequestItem.setAlpha(0.5f);
                         }
 
@@ -183,7 +186,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                         btnRequestItem.setOnClickListener(v -> {
                             if (!status.equals("available")) {
                                 Toast.makeText(ItemDetailActivity.this,
-                                        "This item is not available",
+                                        getString(R.string.detail_item_unavailable),
                                         Toast.LENGTH_SHORT).show();
                                 return;
                             }
@@ -194,7 +197,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         Toast.makeText(ItemDetailActivity.this,
-                                "Failed to load item",
+                                getString(R.string.detail_load_failed),
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -203,7 +206,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     private void sendBorrowRequest(String myUid) {
         // Disable nút
         btnRequestItem.setEnabled(false);
-        btnRequestItem.setText("Sending...");
+        btnRequestItem.setText(getString(R.string.detail_sending));
 
         String myEmail = mAuth.getCurrentUser().getEmail();
 
@@ -212,10 +215,9 @@ public class ItemDetailActivity extends AppCompatActivity {
                 mDatabase,
                 currentItem.getOwnerId(),
                 "borrow_request",
-                "New Borrow Request",
-                myEmail + " wants to borrow your "
-                        + currentItem.getTitle()
-                        + ". Please check chat first.",
+                getString(R.string.detail_notification_title),
+                getString(R.string.detail_notification_message,
+                        myEmail, currentItem.getTitle()),
                 myUid,
                 itemId,
                 currentItem.getTitle()
@@ -226,31 +228,31 @@ public class ItemDetailActivity extends AppCompatActivity {
                 .child("status").setValue("requested");
 
         Toast.makeText(this,
-                "Request sent! Chat with owner to confirm.",
+                getString(R.string.detail_request_sent),
                 Toast.LENGTH_LONG).show();
 
-        btnRequestItem.setText("Request Sent ✓");
+        btnRequestItem.setText(getString(R.string.detail_request_sent_button));
     }
 
     private void updateStatusBadge(String status) {
         switch (status) {
             case "available":
-                tvStatus.setText("Available Now");
+                tvStatus.setText(getString(R.string.common_available_now));
                 tvStatus.getBackground().setTint(
                         getResources().getColor(R.color.colorPrimary));
                 break;
             case "requested":
-                tvStatus.setText("Requested");
+                tvStatus.setText(getString(R.string.common_requested));
                 tvStatus.getBackground().setTint(
                         getResources().getColor(R.color.colorOrange));
                 break;
             case "borrowed":
-                tvStatus.setText("Borrowed");
+                tvStatus.setText(getString(R.string.common_borrowed));
                 tvStatus.getBackground().setTint(
                         getResources().getColor(R.color.colorOrange));
                 break;
             case "completed":
-                tvStatus.setText("Completed");
+                tvStatus.setText(getString(R.string.common_completed));
                 tvStatus.getBackground().setTint(
                         getResources().getColor(R.color.colorTextHint));
                 break;
@@ -263,13 +265,39 @@ public class ItemDetailActivity extends AppCompatActivity {
                 ? android.R.drawable.btn_star_big_on
                 : android.R.drawable.btn_star_big_off);
         Toast.makeText(this,
-                isFavorite ? "Added to favorites"
-                        : "Removed from favorites",
+                isFavorite ? getString(R.string.detail_added_favorites)
+                        : getString(R.string.detail_removed_favorites),
                 Toast.LENGTH_SHORT).show();
     }
 
     private String getChatId(String uid1, String uid2) {
         if (uid1.compareTo(uid2) < 0) return uid1 + "_" + uid2;
         return uid2 + "_" + uid1;
+    }
+
+    private String getCategoryLabel(String category) {
+        switch (category.toLowerCase()) {
+            case "furniture":
+                return getString(R.string.category_furniture);
+            case "food":
+                return getString(R.string.category_food);
+            case "clothes":
+                return getString(R.string.category_clothes);
+            case "tool":
+            case "tools":
+                return getString(R.string.category_tools);
+            case "electronic":
+            case "electronics":
+                return getString(R.string.category_electronics);
+            case "kitchen":
+                return getString(R.string.category_kitchen);
+            case "garden":
+                return getString(R.string.category_garden);
+            case "book":
+            case "books":
+                return getString(R.string.category_books);
+            default:
+                return getString(R.string.category_other);
+        }
     }
 }

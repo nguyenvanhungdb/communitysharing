@@ -36,7 +36,7 @@
                 android:id="@+id/tvTypeBadge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SHARING"
+                android:text="@string/item_sharing"
                 android:textSize="10sp"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"
@@ -52,7 +52,7 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Item Title"
+                android:text="@string/common_item_title"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/colorTextDark"
@@ -65,7 +65,7 @@
                 android:id="@+id/tvDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Description..."
+                android:text="@string/item_description_placeholder_short"
                 android:textSize="12sp"
                 android:textColor="@color/colorTextGray"
                 android:maxLines="2"
@@ -93,7 +93,7 @@
             android:id="@+id/tvStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="LIVE &amp; VISIBLE"
+            android:text="@string/item_live_visible"
             android:textSize="11sp"
             android:textStyle="bold"
             android:textColor="@color/colorPrimary"
@@ -136,7 +136,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Edit"
+                android:text="@string/item_edit"
                 android:textSize="13sp"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"/>
@@ -165,7 +165,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Complete"
+                android:text="@string/item_complete"
                 android:textSize="13sp"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"/>

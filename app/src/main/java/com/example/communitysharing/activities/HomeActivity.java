@@ -10,6 +10,7 @@ import com.example.communitysharing.fragments.HistoryFragment;
 import com.example.communitysharing.fragments.HomeFragment;
 import com.example.communitysharing.fragments.ProfileFragment;
 import com.example.communitysharing.fragments.ShareFragment;
+import com.example.communitysharing.utils.LocaleManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -20,13 +21,16 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LocaleManager.applySavedLocale(this);
         setContentView(R.layout.activity_home);
 
         bottomNav = findViewById(R.id.bottomNavigation);
 
         // Mặc định mở HomeFragment
-        loadFragment(new HomeFragment());
-        bottomNav.setSelectedItemId(R.id.nav_home);
+        if (savedInstanceState == null) {
+            loadFragment(new HomeFragment());
+            bottomNav.setSelectedItemId(R.id.nav_home);
+        }
 
         bottomNav.setOnNavigationItemSelectedListener(item -> {
             Fragment fragment = null;

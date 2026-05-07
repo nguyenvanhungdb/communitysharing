@@ -163,7 +163,7 @@ public class HomeFragment extends Fragment {
                     }
                 }
 
-                // 👇 CHÍNH LÀ ĐOẠN BẠN HỎI - đặt ở đây
+                //  CHÍNH LÀ ĐOẠN BẠN HỎI - đặt ở đây
                 if (unreadCount > 0) {
 
                     tvBadge.setVisibility(View.VISIBLE);

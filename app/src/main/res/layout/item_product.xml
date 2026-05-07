@@ -45,7 +45,7 @@
             android:id="@+id/tvItemTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Item Name"
+            android:text="@string/item_name_placeholder"
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="@color/colorTextDark"
@@ -65,7 +65,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="0.8 mi"
+                android:text="@string/item_distance_placeholder"
                 android:textSize="12sp"
                 android:textColor="@color/colorTextGray"/>
 
@@ -73,7 +73,7 @@
                 android:id="@+id/tvCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="FOOD"
+                android:text="@string/item_food_caps"
                 android:textSize="10sp"
                 android:textColor="@color/colorWhite"
                 android:background="@drawable/bg_category_tag"

@@ -1,3 +1,396 @@
 <resources>
-    <string name="app_name">communitysharing</string>
+    <string name="app_name">The Commons</string>
+
+    <string name="nav_home">Home</string>
+    <string name="nav_activity">Activity</string>
+    <string name="nav_share">Share</string>
+    <string name="nav_chat">Chat</string>
+    <string name="nav_profile">Profile</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="settings_subtitle">Manage your living room experience</string>
+    <string name="settings_account">ACCOUNT</string>
+    <string name="settings_change_password">Change Password</string>
+    <string name="settings_change_password_subtitle">Update your security credentials</string>
+    <string name="settings_email_address">Email Address</string>
+    <string name="settings_loading">loading...</string>
+    <string name="settings_preferences">PREFERENCES</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_dark_mode">Dark Mode</string>
+    <string name="settings_dark_mode_subtitle">Reduce glare for evening use</string>
+    <string name="settings_notifications">NOTIFICATIONS</string>
+    <string name="settings_push_notifications">Push Notifications</string>
+    <string name="settings_push_notifications_subtitle">Activity, messages and updates</string>
+    <string name="settings_email_digests">Email Digests</string>
+    <string name="settings_email_digests_subtitle">Weekly summaries and trends</string>
+    <string name="settings_trust_title">Trust is our foundation.</string>
+    <string name="settings_trust_body">Your data is never sold to third parties. We keep The Commons clean and private for our members.</string>
+    <string name="settings_logout">Logout</string>
+
+    <string name="dialog_select_language">Select Language</string>
+    <string name="dialog_change_password">Change Password</string>
+    <string name="dialog_change_email">Change Email</string>
+    <string name="dialog_update">Update</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_logout_title">Logout</string>
+    <string name="dialog_logout_message">Are you sure you want to logout?</string>
+
+    <string name="language_changed">Language changed to %1$s</string>
+    <string name="error_fill_all_fields">Please fill all fields</string>
+    <string name="error_password_min_length">Password must be at least 6 characters</string>
+    <string name="error_passwords_do_not_match">Passwords do not match</string>
+    <string name="password_updated_success">Password updated successfully!</string>
+    <string name="password_updated_failed">Failed to update password</string>
+    <string name="current_password_incorrect">Current password is incorrect</string>
+    <string name="email_updated_success">Email updated successfully!</string>
+    <string name="email_updated_failed">Failed to update email</string>
+    <string name="password_incorrect">Password is incorrect</string>
+
+    <string name="label_new_email">New Email Address</string>
+    <string name="label_confirm_password">Confirm with Password</string>
+    <string name="hint_current_password">Your current password</string>
+    <string name="label_current_password">Current Password</string>
+    <string name="label_new_password">New Password</string>
+    <string name="label_confirm_new_password">Confirm New Password</string>
+    <string name="hint_enter_current_password">Enter current password</string>
+    <string name="hint_min_password">Min. 6 characters</string>
+    <string name="hint_reenter_new_password">Re-enter new password</string>
+
+    <string-array name="settings_language_names">
+        <item>English (United States)</item>
+        <item>Tiếng Việt</item>
+    </string-array>
+
+    <string-array name="settings_language_codes">
+        <item>en</item>
+        <item>vi</item>
+    </string-array>
+
+    <string name="common_user_name">User Name</string>
+    <string name="common_owner_name">Owner Name</string>
+    <string name="common_owner">Owner</string>
+    <string name="common_address">Address</string>
+    <string name="common_loading">Loading...</string>
+    <string name="common_loading_location">Loading location...</string>
+    <string name="common_unknown">Unknown</string>
+    <string name="common_no_address">No address</string>
+    <string name="common_item">Item</string>
+    <string name="common_item_title">Item Title</string>
+    <string name="common_description">DESCRIPTION</string>
+    <string name="common_description_placeholder">Description here</string>
+    <string name="common_active_now">ACTIVE NOW</string>
+    <string name="common_available">Available</string>
+    <string name="common_available_now">Available Now</string>
+    <string name="common_requested">Requested</string>
+    <string name="common_borrowed">Borrowed</string>
+    <string name="common_completed">Completed</string>
+    <string name="common_not_available">Not Available</string>
+    <string name="common_details">Details</string>
+    <string name="common_chat">Chat</string>
+    <string name="common_nearby">Nearby</string>
+    <string name="common_nearby_today">Nearby Today</string>
+    <string name="common_view_map">View Map</string>
+    <string name="common_view_detail">View Detail</string>
+    <string name="common_open_in_maps">Open in Maps</string>
+    <string name="common_calculating">Calculating...</string>
+    <string name="common_distance_unknown">Distance unknown</string>
+    <string name="common_location_unavailable">Location unavailable</string>
+    <string name="common_getting_location">Getting location...</string>
+    <string name="common_getting_your_location">Getting your location...</string>
+    <string name="common_no_location_selected">No location selected yet</string>
+    <string name="common_permission_required">Permission required</string>
+    <string name="common_permission_required_title">Permission required</string>
+    <string name="common_cancel">Cancel</string>
+
+    <string name="category_furniture">Furniture</string>
+    <string name="category_food">Food</string>
+    <string name="category_clothes">Clothes</string>
+    <string name="category_tools">Tools</string>
+    <string name="category_tool">Tool</string>
+    <string name="category_electronics">Electronics</string>
+    <string name="category_electronic">Electronic</string>
+    <string name="category_kitchen">Kitchen</string>
+    <string name="category_garden">Garden</string>
+    <string name="category_books">Books</string>
+    <string name="category_book">Book</string>
+    <string name="category_other">Other</string>
+    <string name="category_others">Others</string>
+    <string name="category_all_items">All Items</string>
+    <string name="category_kitchen_dining">KITCHEN AND DINING</string>
+
+    <string-array name="category_names">
+        <item>Furniture</item>
+        <item>Food</item>
+        <item>Clothes</item>
+        <item>Tools</item>
+        <item>Electronics</item>
+        <item>Kitchen</item>
+        <item>Garden</item>
+        <item>Books</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="category_codes">
+        <item>furniture</item>
+        <item>food</item>
+        <item>clothes</item>
+        <item>tools</item>
+        <item>electronics</item>
+        <item>kitchen</item>
+        <item>garden</item>
+        <item>books</item>
+        <item>other</item>
+    </string-array>
+
+    <string-array name="photo_source_options">
+        <item>Take photo</item>
+        <item>Choose from library</item>
+    </string-array>
+
+    <string name="dialog_select_photo_source">Choose photo source</string>
+
+    <string name="login_tagline">Your curated space for shared living.</string>
+    <string name="login_email_or_phone">EMAIL OR PHONE</string>
+    <string name="login_enter_credentials">Enter your credentials</string>
+    <string name="login_password">PASSWORD</string>
+    <string name="login_forgot_password">FORGOT PASSWORD?</string>
+    <string name="login_button">Log In</string>
+    <string name="login_signup">Sign Up</string>
+    <string name="login_encrypted">END-TO-END ENCRYPTED</string>
+    <string name="login_terms">By continuing, you agree to our Terms of Service and Privacy Policy.</string>
+    <string name="login_enter_email_error">Please enter your email</string>
+    <string name="login_enter_password_error">Please enter your password</string>
+    <string name="login_logging_in">Logging in...</string>
+    <string name="login_failed">Login failed. Please try again.</string>
+
+    <string name="register_subtitle">Create your account to get started</string>
+    <string name="register_full_name">FULL NAME</string>
+    <string name="register_full_name_hint">Your full name</string>
+    <string name="register_email_address">EMAIL ADDRESS</string>
+    <string name="register_email_hint">yourname@domain.com</string>
+    <string name="register_phone_number">PHONE NUMBER</string>
+    <string name="register_phone_hint">+84 xxx xxx xxx</string>
+    <string name="register_address">ADDRESS</string>
+    <string name="register_address_hint">Your neighborhood / address</string>
+    <string name="register_password">PASSWORD</string>
+    <string name="register_confirm_password">CONFIRM PASSWORD</string>
+    <string name="register_reenter_password_hint">Re-enter your password</string>
+    <string name="register_create_account">Create Account</string>
+    <string name="register_has_account">Already have an account?</string>
+    <string name="register_full_name_required">Please enter your full name</string>
+    <string name="register_email_required">Please enter your email</string>
+    <string name="register_valid_email_required">Please enter a valid email address</string>
+    <string name="register_phone_required">Please enter your phone number</string>
+    <string name="register_address_required">Please enter your address</string>
+    <string name="register_password_required">Please enter a password</string>
+    <string name="register_creating_account">Creating account...</string>
+    <string name="register_welcome">Welcome to The Commons, %1$s!</string>
+    <string name="register_save_failed">Failed to save user data. Try again.</string>
+    <string name="register_failed">Registration failed</string>
+
+    <string name="reset_back_to_login">Back to Login</string>
+    <string name="reset_title">Reset Password</string>
+    <string name="reset_instructions">Enter the email address associated with your account and we\'ll send you a secure link to create a new password.</string>
+    <string name="reset_send_link">Send Reset Link</string>
+    <string name="reset_sending">Sending...</string>
+    <string name="reset_resend_link">Resend Link</string>
+    <string name="reset_email_required">Please enter your email address</string>
+    <string name="reset_valid_email_required">Please enter a valid email address</string>
+    <string name="reset_success">Reset link sent! Check your inbox for %1$s</string>
+    <string name="reset_failed">Failed to send reset email. Try again.</string>
+    <string name="reset_still_trouble">Still having trouble?</string>
+    <string name="reset_contact_support">Contact Community Support</string>
+    <string name="reset_security_first">SECURITY FIRST</string>
+    <string name="reset_security_note">Reset links are valid for 24 hours. Check your spam folder if it doesn\'t arrive within 2 minutes.</string>
+    <string name="reset_footer">© 2024 THE COMMONS • LIVING ROOM FOR THE DIGITAL AGE</string>
+
+    <string name="chat_messages">Messages</string>
+    <string name="chat_empty_title">No messages yet</string>
+    <string name="chat_empty_subtitle">Start a conversation by requesting an item</string>
+    <string name="chat_type_message_hint">Type a message...</string>
+
+    <string name="home_search_hint">Search community items...</string>
+    <string name="home_need_something">NEED SOMETHING?</string>
+    <string name="home_ask_community">Ask the community</string>
+    <string name="home_request_short">+ Request</string>
+
+    <string name="filter_title">Refine Search</string>
+    <string name="filter_subtitle">Find exactly what the community is sharing right now.</string>
+    <string name="filter_status">AVAILABILITY STATUS</string>
+    <string name="filter_needed">Needed</string>
+    <string name="filter_categories">CATEGORIES</string>
+    <string name="filter_selected_count">3 Selected</string>
+    <string name="filter_radius">SEARCH RADIUS</string>
+    <string name="filter_miles">5.2 Miles</string>
+    <string name="filter_time_posted">TIME POSTED</string>
+    <string name="filter_last_24_hours">Last 24 Hours</string>
+    <string name="filter_last_3_days">Last 3 Days</string>
+    <string name="filter_last_7_days">Last 7 Days</string>
+    <string name="filter_reset">Reset</string>
+    <string name="filter_apply">Apply Filters</string>
+    <string name="filter_results">Filter Results</string>
+    <string name="filter_category_all">Category: All</string>
+    <string name="filter_radius_miles">%1$d Miles</string>
+
+    <string name="history_title">History</string>
+    <string name="history_subtitle">Keeping track of everything you\'ve shared with the Grove.</string>
+    <string name="history_shared">Shared</string>
+    <string name="history_received">Received</string>
+    <string name="history_empty_title">No history yet</string>
+    <string name="history_empty_subtitle">Start sharing items with your community!</string>
+
+    <string name="my_posts_title">My Posts</string>
+    <string name="my_posts_active">Active</string>
+    <string name="my_posts_archived">Archived</string>
+    <string name="my_posts_empty_title">No posts yet</string>
+    <string name="my_posts_empty_subtitle">Share something with your community!</string>
+
+    <string name="notification_updates">Updates</string>
+    <string name="notification_all">ALL</string>
+    <string name="notification_requests">REQUESTS</string>
+    <string name="notification_messages">MESSAGES</string>
+    <string name="notification_empty_title">No notifications yet</string>
+    <string name="notification_title_placeholder">Notification Title</string>
+    <string name="notification_message_placeholder">Notification message content here</string>
+    <string name="notification_accept">Accept</string>
+    <string name="notification_decline">Decline</string>
+    <string name="notification_coordinate_pickup">Coordinate Pickup</string>
+    <string name="notification_view_listing">View Listing</string>
+    <string name="notification_reply_now">REPLY NOW</string>
+    <string name="notification_minutes_ago">%1$dm ago</string>
+    <string name="notification_hours_ago">%1$dh ago</string>
+    <string name="notification_days_ago">%1$dd ago</string>
+    <string name="notification_time_placeholder">2m ago</string>
+    <string name="notification_approved_title">Approved</string>
+    <string name="notification_declined_title">Declined</string>
+    <string name="notification_approved_message">Your request was accepted. Please coordinate pickup.</string>
+    <string name="notification_declined_message">Your request was declined. You can look for another item.</string>
+    <string name="notification_accepted_toast">Accepted!</string>
+    <string name="notification_declined_toast">Declined!</string>
+    <string name="notification_user_error">User error!</string>
+
+    <string name="profile_your_location">Your location</string>
+    <string name="profile_requested">Requested</string>
+    <string name="profile_active_share">ACTIVE SHARE</string>
+    <string name="profile_shared_with_community">Shared with community</string>
+    <string name="profile_status_format">Status: %1$s</string>
+    <string name="profile_no_location_set">No location set</string>
+
+    <string name="share_title">Share/Donate</string>
+    <string name="share_subtitle">Share something with your community</string>
+    <string name="share_upload_photos">UPLOAD ITEM PHOTOS</string>
+    <string name="share_add_main_photo">Add Main Photo</string>
+    <string name="share_item_title_label">ITEM TITLE</string>
+    <string name="share_title_hint">e.g. Solid Oak Coffee Table</string>
+    <string name="share_description_hint">Tell the community about its condition, dimensions, and history...</string>
+    <string name="share_pickup_location">PICKUP LOCATION</string>
+    <string name="share_my_location">My Location</string>
+    <string name="share_pick_on_map">Pick on Map</string>
+    <string name="share_category">CATEGORY</string>
+    <string name="share_quantity">QUANTITY</string>
+    <string name="share_delivery_question">HOW WILL THEY GET IT?</string>
+    <string name="share_pickup">Pickup</string>
+    <string name="share_delivery">Delivery</string>
+    <string name="share_post_item">Post Item</string>
+    <string name="share_update_item">Update Item</string>
+    <string name="share_guidelines">By posting, you agree to The Commons community guidelines.</string>
+    <string name="share_title_required">Please enter item title</string>
+    <string name="share_description_required">Please enter a description</string>
+    <string name="share_address_required">Please enter your address</string>
+    <string name="share_add_location_tip">Tip: Add a location so others can find your item!</string>
+    <string name="share_updating">Updating...</string>
+    <string name="share_posting">Posting...</string>
+    <string name="share_location_error">Location error: %1$s</string>
+    <string name="share_location_set">Location set!</string>
+    <string name="share_location_selected">Location selected!</string>
+    <string name="share_location_failed">Cannot get location. Try again or pick on map.</string>
+    <string name="share_item_updated">Item updated!</string>
+    <string name="share_update_failed">Update failed. Try again.</string>
+    <string name="share_item_posted">Item posted!</string>
+    <string name="share_post_failed">Failed to post. Try again.</string>
+
+    <string name="request_new_title">New Request</string>
+    <string name="request_question">What do you need?</string>
+    <string name="request_subtitle">Your community is here to help. Share what you\'re looking for and someone might have it to spare.</string>
+    <string name="request_title_hint">e.g., Electric Drill or Garden Soil</string>
+    <string name="request_description_hint">Tell the community a bit more about why you need this or for how long...</string>
+    <string name="request_urgency">URGENCY LEVEL</string>
+    <string name="request_low">Low</string>
+    <string name="request_medium">Medium</string>
+    <string name="request_high">High</string>
+    <string name="request_add_photo">ADD A REFERENCE PHOTO</string>
+    <string name="request_add_reference_photo">Add a reference photo</string>
+    <string name="request_optional_helpful">Optional but helpful</string>
+    <string name="request_post">Post Request</string>
+    <string name="request_title_required">Please enter item title</string>
+    <string name="request_description_required">Please describe what you need</string>
+    <string name="request_posting">Posting...</string>
+    <string name="request_posted">Request posted!</string>
+    <string name="request_post_failed">Failed to post. Try again.</string>
+
+    <string name="location_pick_title">Pick Item Location</string>
+    <string name="location_search_hint">Search for a location...</string>
+    <string name="location_selected_label">SELECTED LOCATION</string>
+    <string name="location_move_map">Move the map to select location</string>
+    <string name="location_confirm">Confirm This Location</string>
+    <string name="location_please_select">Please select a location</string>
+    <string name="location_selected_marker">Selected Location</string>
+    <string name="location_enter">Enter location</string>
+    <string name="location_unknown">Unknown location</string>
+    <string name="location_not_found">Location not found</string>
+    <string name="location_search_error">Search error: %1$s</string>
+
+    <string name="map_item_location">Item Location</string>
+    <string name="map_nearby_items">Nearby Items</string>
+    <string name="map_tap_to_view">Tap to view on map</string>
+
+    <string name="detail_about_item">About this item</string>
+    <string name="detail_rating_placeholder">4.9 (124 shares)</string>
+    <string name="detail_view_profile">VIEW PROFILE</string>
+    <string name="detail_verified_member">Verified Member</string>
+    <string name="detail_identity_confirmed">Identity confirmed by The Commons</string>
+    <string name="detail_damage_protection">Damage Protection</string>
+    <string name="detail_damage_body">Covered up to $500 for peace of mind</string>
+    <string name="detail_pickup_location">Pickup Location</string>
+    <string name="detail_request_item">Request Item</string>
+    <string name="detail_item_unavailable">This item is not available</string>
+    <string name="detail_load_failed">Failed to load item</string>
+    <string name="detail_sending">Sending...</string>
+    <string name="detail_notification_title">New Borrow Request</string>
+    <string name="detail_notification_message">%1$s wants to borrow your %2$s. Please check chat first.</string>
+    <string name="detail_request_sent">Request sent! Chat with owner to confirm.</string>
+    <string name="detail_request_sent_button">Request Sent</string>
+    <string name="detail_added_favorites">Added to favorites</string>
+    <string name="detail_removed_favorites">Removed from favorites</string>
+
+    <string name="item_last_message">Last message...</string>
+    <string name="item_message_content">Message content</string>
+    <string name="item_sharing">SHARING</string>
+    <string name="item_description_placeholder_short">Description...</string>
+    <string name="item_live_visible">LIVE &amp; VISIBLE</string>
+    <string name="item_edit">Edit</string>
+    <string name="item_complete">Complete</string>
+    <string name="item_shared_with_name">Shared with Elena S.</string>
+    <string name="item_oct_date">Oct 12, 2023</string>
+    <string name="item_name_placeholder">Item Name</string>
+    <string name="item_distance_placeholder">0.8 mi</string>
+    <string name="item_food_caps">FOOD</string>
+    <string name="history_shared_with">Shared with %1$s</string>
+    <string name="history_received_from">Received from %1$s</string>
+    <string name="history_in_progress">In Progress</string>
+    <string name="history_cancelled">Cancelled</string>
+    <string name="my_posts_type_sharing">SHARING</string>
+    <string name="my_posts_type_requesting">REQUESTING</string>
+    <string name="my_posts_status_live">● LIVE &amp; VISIBLE</string>
+    <string name="my_posts_status_progress">● IN PROGRESS</string>
+    <string name="my_posts_status_completed">● COMPLETED</string>
+    <string name="my_posts_status_requested">● REQUESTED</string>
+    <string name="my_posts_complete_title">Mark as Complete?</string>
+    <string name="my_posts_complete_message">Are you sure you want to mark \"%1$s\" as completed?</string>
+    <string name="my_posts_complete_yes">Yes, Complete</string>
+    <string name="my_posts_marked_completed">Marked as completed!</string>
+    <string name="my_posts_delete_title">Delete Post?</string>
+    <string name="my_posts_delete_message">This will permanently delete \"%1$s\". Are you sure?</string>
+    <string name="my_posts_delete">Delete</string>
+    <string name="my_posts_deleted">Post deleted</string>
 </resources>

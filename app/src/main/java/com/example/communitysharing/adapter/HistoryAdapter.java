@@ -64,10 +64,11 @@ public class HistoryAdapter extends
 
         // Shared with
         String otherName = item.getOtherUserName() != null
-                ? item.getOtherUserName() : "Unknown";
+                ? item.getOtherUserName() : context.getString(R.string.common_unknown);
         String typeLabel = "shared".equals(item.getType())
-                ? "Shared with " : "Received from ";
-        holder.tvSharedWith.setText(typeLabel + otherName);
+                ? context.getString(R.string.history_shared_with, otherName)
+                : context.getString(R.string.history_received_from, otherName);
+        holder.tvSharedWith.setText(typeLabel);
 
         // Status
         String status = item.getStatus() != null
@@ -122,7 +123,7 @@ public class HistoryAdapter extends
     private void setStatus(HistoryViewHolder holder, String status) {
         switch (status) {
             case "completed":
-                holder.tvStatus.setText("Completed");
+                holder.tvStatus.setText(context.getString(R.string.common_completed));
                 holder.tvStatus.setTextColor(
                         context.getResources().getColor(R.color.colorPrimary));
                 holder.viewStatusDot.getBackground().setTint(
@@ -130,7 +131,7 @@ public class HistoryAdapter extends
                 break;
 
             case "in_progress":
-                holder.tvStatus.setText("In Progress");
+                holder.tvStatus.setText(context.getString(R.string.history_in_progress));
                 holder.tvStatus.setTextColor(
                         context.getResources().getColor(R.color.colorOrange));
                 holder.viewStatusDot.getBackground().setTint(
@@ -138,7 +139,7 @@ public class HistoryAdapter extends
                 break;
 
             case "cancelled":
-                holder.tvStatus.setText("Cancelled");
+                holder.tvStatus.setText(context.getString(R.string.history_cancelled));
                 holder.tvStatus.setTextColor(
                         context.getResources().getColor(R.color.colorRed));
                 holder.viewStatusDot.getBackground().setTint(
@@ -146,7 +147,7 @@ public class HistoryAdapter extends
                 break;
 
             default:
-                holder.tvStatus.setText("Completed");
+                holder.tvStatus.setText(context.getString(R.string.common_completed));
                 break;
         }
     }

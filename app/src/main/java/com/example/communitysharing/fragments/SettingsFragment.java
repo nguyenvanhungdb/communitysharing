@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.communitysharing.R;
 import com.example.communitysharing.activities.LoginActivity;
+import com.example.communitysharing.utils.LocaleManager;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,7 +34,7 @@ public class SettingsFragment extends Fragment {
 
     // Views
     private ImageView ivBack;
-    private TextView tvEmail;
+    private TextView tvEmail, tvLanguage;
     private LinearLayout llChangePassword, llEmailAddress;
     private LinearLayout llLanguage, btnLogout;
     private Switch switchDarkMode, switchPushNotif, switchEmailDigest;
@@ -58,6 +59,7 @@ public class SettingsFragment extends Fragment {
         // Ánh xạ views
         ivBack             = view.findViewById(R.id.ivBack);
         tvEmail            = view.findViewById(R.id.tvEmail);
+        tvLanguage         = view.findViewById(R.id.tvLanguage);
         llChangePassword   = view.findViewById(R.id.llChangePassword);
         llEmailAddress     = view.findViewById(R.id.llEmailAddress);
         llLanguage         = view.findViewById(R.id.llLanguage);
@@ -70,6 +72,7 @@ public class SettingsFragment extends Fragment {
         if (currentUser != null && currentUser.getEmail() != null) {
             tvEmail.setText(currentUser.getEmail());
         }
+        updateLanguageLabel();
 
         // Load trạng thái switch từ Firebase
         loadSettings();
@@ -95,6 +98,8 @@ public class SettingsFragment extends Fragment {
                                 .child("pushNotif").getValue(Boolean.class);
                         Boolean emailDigest = snapshot
                                 .child("emailDigest").getValue(Boolean.class);
+                        String languageCode = getLanguageCodeFromFirebase(
+                                snapshot.child("language").getValue());
 
                         // Set giá trị vào switch
                         // Dùng null check để tránh crash
@@ -104,6 +109,17 @@ public class SettingsFragment extends Fragment {
                                 pushNotif == null || pushNotif); // mặc định true
                         switchEmailDigest.setChecked(
                                 emailDigest != null && emailDigest);
+
+                        if (!isAdded()) return;
+
+                        if (!LocaleManager.hasSavedLanguage(requireContext())
+                                && languageCode != null) {
+                            LocaleManager.setLanguage(requireContext(), languageCode);
+                            updateLanguageLabel();
+                            if (getActivity() != null) {
+                                getActivity().recreate();
+                            }
+                        }
                     }
 
                     @Override
@@ -173,9 +189,9 @@ public class SettingsFragment extends Fragment {
                 .findViewById(R.id.etConfirmPassword);
 
         new AlertDialog.Builder(getContext())
-                .setTitle("Change Password")
+                .setTitle(getString(R.string.dialog_change_password))
                 .setView(dialogView)
-                .setPositiveButton("Update", (dialog, which) -> {
+                .setPositiveButton(getString(R.string.dialog_update), (dialog, which) -> {
                     String currentPw = etCurrentPw.getText()
                             .toString().trim();
                     String newPw     = etNewPw.getText()
@@ -186,19 +202,19 @@ public class SettingsFragment extends Fragment {
                     // Validate
                     if (currentPw.isEmpty() || newPw.isEmpty()) {
                         Toast.makeText(getContext(),
-                                "Please fill all fields",
+                                getString(R.string.error_fill_all_fields),
                                 Toast.LENGTH_SHORT).show();
                         return;
                     }
                     if (newPw.length() < 6) {
                         Toast.makeText(getContext(),
-                                "Password must be at least 6 characters",
+                                getString(R.string.error_password_min_length),
                                 Toast.LENGTH_SHORT).show();
                         return;
                     }
                     if (!newPw.equals(confirmPw)) {
                         Toast.makeText(getContext(),
-                                "Passwords do not match",
+                                getString(R.string.error_passwords_do_not_match),
                                 Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -206,7 +222,7 @@ public class SettingsFragment extends Fragment {
                     // Xác thực lại rồi đổi mật khẩu
                     changePassword(currentPw, newPw);
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(getString(R.string.dialog_cancel), null)
                 .show();
     }
 
@@ -225,17 +241,17 @@ public class SettingsFragment extends Fragment {
                                 .addOnCompleteListener(task2 -> {
                                     if (task2.isSuccessful()) {
                                         Toast.makeText(getContext(),
-                                                "Password updated successfully!",
+                                                getString(R.string.password_updated_success),
                                                 Toast.LENGTH_SHORT).show();
                                     } else {
                                         Toast.makeText(getContext(),
-                                                "Failed to update password",
+                                                getString(R.string.password_updated_failed),
                                                 Toast.LENGTH_SHORT).show();
                                     }
                                 });
                     } else {
                         Toast.makeText(getContext(),
-                                "Current password is incorrect",
+                                getString(R.string.current_password_incorrect),
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -257,9 +273,9 @@ public class SettingsFragment extends Fragment {
         }
 
         new AlertDialog.Builder(getContext())
-                .setTitle("Change Email")
+                .setTitle(getString(R.string.dialog_change_email))
                 .setView(dialogView)
-                .setPositiveButton("Update", (dialog, which) -> {
+                .setPositiveButton(getString(R.string.dialog_update), (dialog, which) -> {
                     String newEmail  = etNewEmail.getText()
                             .toString().trim();
                     String password  = etPassword.getText()
@@ -267,14 +283,14 @@ public class SettingsFragment extends Fragment {
 
                     if (newEmail.isEmpty() || password.isEmpty()) {
                         Toast.makeText(getContext(),
-                                "Please fill all fields",
+                                getString(R.string.error_fill_all_fields),
                                 Toast.LENGTH_SHORT).show();
                         return;
                     }
 
                     changeEmail(newEmail, password);
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(getString(R.string.dialog_cancel), null)
                 .show();
     }
 
@@ -298,17 +314,17 @@ public class SettingsFragment extends Fragment {
 
                                         tvEmail.setText(newEmail);
                                         Toast.makeText(getContext(),
-                                                "Email updated successfully!",
+                                                getString(R.string.email_updated_success),
                                                 Toast.LENGTH_SHORT).show();
                                     } else {
                                         Toast.makeText(getContext(),
-                                                "Failed to update email",
+                                                getString(R.string.email_updated_failed),
                                                 Toast.LENGTH_SHORT).show();
                                     }
                                 });
                     } else {
                         Toast.makeText(getContext(),
-                                "Password is incorrect",
+                                getString(R.string.password_incorrect),
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -316,29 +332,34 @@ public class SettingsFragment extends Fragment {
 
     // ===== DIALOG CHỌN NGÔN NGỮ =====
     private void showLanguageDialog() {
-        String[] languages = {
-                "English (United States)",
-                "Tiếng Việt",
-                "中文",
-                "日本語",
-                "한국어"
-        };
+        String[] languages = getResources().getStringArray(
+                R.array.settings_language_names);
+        String[] languageCodes = getResources().getStringArray(
+                R.array.settings_language_codes);
+        int selectedIndex = LocaleManager.getLanguageIndex(
+                requireContext(), languageCodes);
 
         new AlertDialog.Builder(getContext())
-                .setTitle("Select Language")
-                .setItems(languages, (dialog, which) -> {
-                    // Lưu ngôn ngữ vào Firebase
-                    saveSetting("language", which);
+                .setTitle(getString(R.string.dialog_select_language))
+                .setSingleChoiceItems(languages, selectedIndex, (dialog, which) -> {
+                    String languageCode = LocaleManager.normalizeLanguageCode(
+                            languageCodes[which]);
+                    LocaleManager.setLanguage(requireContext(), languageCode);
+                    saveSetting("language", languageCode);
+                    updateLanguageLabel();
                     Toast.makeText(getContext(),
-                            languages[which] + " selected",
+                            getString(R.string.language_changed, languages[which]),
                             Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                    if (getActivity() != null) {
+                        getActivity().recreate();
+                    }
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(getString(R.string.dialog_cancel), null)
                 .show();
     }
 
-    // Overload saveSetting cho int
-    private void saveSetting(String key, int value) {
+    private void saveSetting(String key, String value) {
         if (currentUser == null) return;
         mDatabase.child("settings")
                 .child(currentUser.getUid())
@@ -349,9 +370,9 @@ public class SettingsFragment extends Fragment {
     // ===== DIALOG LOGOUT =====
     private void showLogoutDialog() {
         new AlertDialog.Builder(getContext())
-                .setTitle("Logout")
-                .setMessage("Are you sure you want to logout?")
-                .setPositiveButton("Logout", (dialog, which) -> {
+                .setTitle(getString(R.string.dialog_logout_title))
+                .setMessage(getString(R.string.dialog_logout_message))
+                .setPositiveButton(getString(R.string.settings_logout), (dialog, which) -> {
                     mAuth.signOut();
                     Intent intent = new Intent(getContext(),
                             LoginActivity.class);
@@ -359,7 +380,35 @@ public class SettingsFragment extends Fragment {
                             | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(getString(R.string.dialog_cancel), null)
                 .show();
+    }
+
+    private void updateLanguageLabel() {
+        if (tvLanguage == null || getContext() == null) return;
+
+        String[] languages = getResources().getStringArray(
+                R.array.settings_language_names);
+        String[] languageCodes = getResources().getStringArray(
+                R.array.settings_language_codes);
+        int selectedIndex = LocaleManager.getLanguageIndex(
+                requireContext(), languageCodes);
+        tvLanguage.setText(languages[selectedIndex]);
+    }
+
+    private String getLanguageCodeFromFirebase(Object value) {
+        if (value instanceof String) {
+            return LocaleManager.normalizeLanguageCode((String) value);
+        }
+        if (value instanceof Number) {
+            int index = ((Number) value).intValue();
+            if (index == 1) {
+                return LocaleManager.LANGUAGE_VIETNAMESE;
+            }
+            if (index == 0) {
+                return LocaleManager.LANGUAGE_ENGLISH;
+            }
+        }
+        return null;
     }
 }
