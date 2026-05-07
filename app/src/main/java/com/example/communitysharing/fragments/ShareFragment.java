@@ -257,42 +257,31 @@ public class ShareFragment extends Fragment {
     private void getAddressFromLatLng(double lat, double lng) {
         new Thread(() -> {
             try {
-                Geocoder geocoder = new Geocoder(
-                        getContext(), Locale.getDefault());
-                List<Address> addresses =
-                        geocoder.getFromLocation(lat, lng, 1);
+                Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+                List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
 
                 if (addresses != null && !addresses.isEmpty()) {
                     Address addr = addresses.get(0);
-                    StringBuilder sb = new StringBuilder();
 
-                    if (addr.getThoroughfare() != null)
-                        sb.append(addr.getThoroughfare()).append(", ");
-                    if (addr.getSubLocality() != null)
-                        sb.append(addr.getSubLocality()).append(", ");
-                    if (addr.getLocality() != null)
-                        sb.append(addr.getLocality());
 
-                    pickedAddress = sb.toString().isEmpty()
-                            ? lat + ", " + lng
-                            : sb.toString();
+                    pickedAddress = addr.getAddressLine(0);
+
+                    if (pickedAddress == null) {
+                        pickedAddress = lat + ", " + lng;
+                    }
                 } else {
-                    // Không có địa chỉ → dùng tọa độ
                     pickedAddress = lat + ", " + lng;
                 }
 
-                // Cập nhật UI trên main thread
                 if (getActivity() != null) {
-                    getActivity().runOnUiThread(() ->
-                            updateLocationUI());
+                    getActivity().runOnUiThread(() -> updateLocationUI());
                 }
 
             } catch (IOException e) {
                 e.printStackTrace();
                 pickedAddress = lat + ", " + lng;
                 if (getActivity() != null) {
-                    getActivity().runOnUiThread(() ->
-                            updateLocationUI());
+                    getActivity().runOnUiThread(() -> updateLocationUI());
                 }
             }
         }).start();
